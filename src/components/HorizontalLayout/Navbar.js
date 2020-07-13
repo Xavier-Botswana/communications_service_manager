@@ -92,27 +92,27 @@ const Navbar = (props) => {
                 </li>
 
                 <li>
-                  <Link to="projects-list" className="dropdown-item">
+                  <Link to="emoney_requests" className="dropdown-item">
                     <i className="bx bx-calendar"></i>
                     <span> {props.t("E-money Requests")}</span>
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="projects-grid" className="dropdown-item">
+                  <Link to="delivery_requests" className="dropdown-item">
                     <i className="bx bx-calendar"></i>
                     <span> {props.t("Delivery Requests")}</span>
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="ecommerce-shops" className="dropdown-item">
+                  <Link to="withdrawal_requests" className="dropdown-item">
                     <i className="bx bx-calendar"></i>
                     <span> {props.t("Withdrawal Requests")}</span>
                   </Link>
                 </li>
                 <li>
-                  <Link to="projects-create" className="dropdown-item">
+                  <Link to="reward_payments" className="dropdown-item">
                     <i className="bx bx-calendar"></i>
                     <span> {props.t("Reward Payments")}</span>
                   </Link>

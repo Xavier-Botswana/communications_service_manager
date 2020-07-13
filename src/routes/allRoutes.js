@@ -111,12 +111,12 @@ const userRoutes = [
   { path: "/ecommerce-customers", component: EcommerceCustomers },
   { path: "/ecommerce-cart", component: EcommerceCart },
   { path: "/ecommerce-checkout", component: EcommerceCheckout },
-  { path: "/ecommerce-shops", component: EcommerceShops },
-  { path: "/ecommerce-add-product", component: EcommerceAddProduct },
+  { path: "/withdrawal_requests", component: EcommerceShops },
+  { path: "/reward_payments", component: EcommerceAddProduct },
 
   //Projects
-  { path: "/projects-grid", component: ProjectsGrid },
-  { path: "/emoney-request", component: ProjectsList },
+  { path: "/delivery_requests", component: ProjectsGrid },
+  { path: "/emoney_requests", component: ProjectsList },
   { path: "/projects-overview", component: ProjectsOverview },
   { path: "/projects-create", component: ProjectsCreate },
 
