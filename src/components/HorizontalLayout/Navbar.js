@@ -85,7 +85,7 @@ const Navbar = (props) => {
             >
               <ul className="navbar-nav">
                 <li>
-                  <Link to="dashboard" className="dropdown-item">
+                  <Link to="admin" className="dropdown-item">
                     <i className="bx bx-calendar"></i>
                     <span> {props.t("Dashboard")}</span>
                   </Link>

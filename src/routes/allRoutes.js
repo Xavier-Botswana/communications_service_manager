@@ -94,7 +94,7 @@ import Pages404 from "../pages/Utility/pages-404";
 import Pages500 from "../pages/Utility/pages-500";
 
 const userRoutes = [
-  { path: "/dashboard", component: Dashboard },
+  { path: "/admin", component: Dashboard },
   { path: "/dashboard-saas", component: DashboardSaas },
   { path: "/dashboard-crypto", component: DashboardCrypto },
 
@@ -116,7 +116,7 @@ const userRoutes = [
 
   //Projects
   { path: "/projects-grid", component: ProjectsGrid },
-  { path: "/projects-list", component: ProjectsList },
+  { path: "/emoney-request", component: ProjectsList },
   { path: "/projects-overview", component: ProjectsOverview },
   { path: "/projects-create", component: ProjectsCreate },
 

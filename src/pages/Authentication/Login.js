@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'
 
 import { Row, Col, CardBody, Card, Alert,Container } from "reactstrap";
 
@@ -14,19 +14,21 @@ import { loginUser,apiError } from '../../store/actions';
 
 // import images
 import profile from "../../assets/images/profile-img.png";
-import logo from "../../assets/images/logo.svg";
+import logo from "../../assets/images/logo1.png";
+
+import firebase from '../../firebase'
 
  const Login = (props) => {
 
-    // handleValidSubmit
-  function  handleValidSubmit(event, values) {
-        props.loginUser(values, props.history);
-    }
+    
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+
+    
+    
           return (
              <React.Fragment>
-                <div className="home-btn d-none d-sm-block">
-                    <Link to="/" className="text-dark"><i className="fas fa-home h2"></i></Link>
-                </div>
+          
                 <div className="account-pages my-5 pt-sm-5">
                     <Container>
                         <Row className="justify-content-center">
@@ -37,7 +39,7 @@ import logo from "../../assets/images/logo.svg";
                                             <Col className="col-7">
                                                 <div className="text-primary p-4">
                                                     <h5 className="text-primary">Welcome Back !</h5>
-                                                    <p>Sign in to continue to Skote.</p>
+                                                    <p>Sign in to AG Nutrtion.</p>
                                                 </div>
                                             </Col>
                                             <Col className="col-5 align-self-end">
@@ -45,28 +47,28 @@ import logo from "../../assets/images/logo.svg";
                                             </Col>
                                         </Row>
                                     </div>
-                                    <CardBody className="pt-0">
+                                    <CardBody className="pt-5">
                                         <div>
                                             <Link to="/">
-                                                <div className="avatar-md profile-user-wid mb-4">
-                                                    <span className="avatar-title rounded-circle bg-light">
-                                                        <img src={logo} alt="" className="rounded-circle" height="34" />
+                                            <div className="avatar-md profile-user-wid mb-6">
+                                                    <span className="">
+                                                        <img src={logo} alt="Logo" className="AG Logo" height="40" />
                                                     </span>
                                                 </div>
                                             </Link>
                                         </div>
                                         <div className="p-2">
 
-                                            <AvForm className="form-horizontal" onValidSubmit={(e,v) => { handleValidSubmit(e,v) }}>
+                                            <AvForm className="form-horizontal" onSubmit={e => e.preventDefault() && false}>
 
                                                 {props.error && props.error ? <Alert color="danger">{props.error}</Alert> : null}
 
                                                 <div className="form-group">
-                                                    <AvField name="email" label="Email" value="admin@themesbrand.com" className="form-control" placeholder="Enter email" type="email" required />
+                                                    <AvField name="email" label="Email"  className="form-control" placeholder="Enter email" type="email"value={email} onChange={e => setEmail(e.target.value)}required />
                                                 </div>
 
                                                 <div className="form-group">
-                                                    <AvField name="password" label="Password" value="123456" type="password" required placeholder="Enter Password" />
+                                                    <AvField name="password" label="Password"  type="password" required placeholder="Enter Password" value={password} onChange={e => setPassword(e.target.value)}required/>
                                                 </div>
 
                                                 <div className="custom-control custom-checkbox">
@@ -75,7 +77,7 @@ import logo from "../../assets/images/logo.svg";
                                                 </div>
 
                                                 <div className="mt-3">
-                                                    <button className="btn btn-primary btn-block waves-effect waves-light" type="submit">Log In</button>
+                                                    <button className="btn btn-primary btn-block waves-effect waves-light" type="submit" onClick={login}>Log In</button>
                                                 </div>
 
                                                 <div className="mt-4 text-center">
@@ -86,8 +88,8 @@ import logo from "../../assets/images/logo.svg";
                                     </CardBody>
                                 </Card>
                                 <div className="mt-5 text-center">
-                                    <p>Don't have an account ? <Link to="register" className="font-weight-medium text-primary"> Signup now </Link> </p>
-                                    <p>© {new Date().getFullYear()} Skote. Crafted with <i className="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                                    <p>Don't have an account ? <Link to="#" className="font-weight-medium text-primary"> Contact Your Administrator </Link> </p>
+                                    <p>© {new Date().getFullYear()} AG Nutrition Dashboard. Crafted with by Xavier Africa</p>
                                 </div>
                             </Col>
                         </Row>
@@ -95,7 +97,18 @@ import logo from "../../assets/images/logo.svg";
                 </div>
             </React.Fragment>
           );
+
+           
+        async function login() {
+            try {
+                await firebase.login(email, password)
+                props.history.replace('/admin')
+            } catch(error) {
+                alert(error.message)
+            }
         }
+        }
+       
 
 const mapStatetoProps = state => {
     const { error } = state.Login;
