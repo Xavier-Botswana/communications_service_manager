@@ -107,16 +107,16 @@ const userRoutes = [
   //Ecommerce
   { path: "/ecommerce-products", component: EcommerceProducts },
   { path: "/ecommerce-product-detail", component: EcommerceProductDetail },
-  { path: "/ecommerce-orders", component: EcommerceOrders },
+  { path: "/reward-payments", component: EcommerceOrders },
   { path: "/ecommerce-customers", component: EcommerceCustomers },
   { path: "/ecommerce-cart", component: EcommerceCart },
   { path: "/ecommerce-checkout", component: EcommerceCheckout },
-  { path: "/withdrawal_requests", component: EcommerceShops },
-  { path: "/add_users", component: EcommerceAddProduct },
+  { path: "/withdrawal-requests", component: EcommerceShops },
+  { path: "/add-users", component: EcommerceAddProduct },
 
   //Projects
-  { path: "/delivery_requests", component: ProjectsGrid },
-  { path: "/emoney_requests", component: ProjectsList },
+  { path: "/delivery-requests", component: ProjectsGrid },
+  { path: "/emoney-requests", component: ProjectsList },
   { path: "/projects-overview", component: ProjectsOverview },
   { path: "/projects-create", component: ProjectsCreate },
 
@@ -170,7 +170,7 @@ const userRoutes = [
   { path: "/pages-pricing", component: PagesPricing },
 
   // this route should be at the end of all other routes
-  { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },
+  { path: "/", exact: true, component: () => <Redirect to="/admin" /> },
 ];
 
 const authRoutes = [
