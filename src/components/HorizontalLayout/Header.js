@@ -14,19 +14,12 @@ import LanguageDropdown from "../CommonForBoth/TopbarDropdown/LanguageDropdown";
 import NotificationDropdown from "../CommonForBoth/TopbarDropdown/NotificationDropdown";
 import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu";
 
-import megamenuImg from "../../assets/images/megamenu-img.png";
-import logo from "../../assets/images/logo-sm-light.png";
-import logoLight from "../../assets/images/logo-light.png";
-import logoLightSvg from "../../assets/images/logo-light.svg";
-import logoDark from "../../assets/images/logo-dark.png";
+import megamenuImg from "../../assets/images/logo1.png";
+import logo from "../../assets/images/logo1.png";
+import logoLight from "../../assets/images/logo1.png";
+import logoLightSvg from "../../assets/images/logo1.png";
+import logoDark from "../../assets/images/logo1.png";
 
-// import images
-import github from "../../assets/images/brands/github.png";
-import bitbucket from "../../assets/images/brands/bitbucket.png";
-import dribbble from "../../assets/images/brands/dribbble.png";
-import dropbox from "../../assets/images/brands/dropbox.png";
-import mail_chimp from "../../assets/images/brands/mail_chimp.png";
-import slack from "../../assets/images/brands/slack.png";
 
 //i18n
 import { withNamespaces } from 'react-i18next';
@@ -72,19 +65,19 @@ const Header = (props) => {
               <div className="navbar-brand-box">
                 <Link to="/" className="logo logo-dark">
                   <span className="logo-sm">
-                    <img src={logo} alt="" height="22" />
+                    <img src={logo} alt="" height="40" />
                   </span>
                   <span className="logo-lg">
-                    <img src={logoDark} alt="" height="17" />
+                    <img src={logoDark} alt="" height="40" />
                   </span>
                 </Link>
 
                 <Link to="/" className="logo logo-light">
                   <span className="logo-sm">
-                    <img src={logoLightSvg} alt="" height="22" />
+                    <img src={logoLightSvg} alt="" height="40" />
                   </span>
                   <span className="logo-lg">
-                    <img src={logoLight} alt="" height="19" />
+                    <img src={logoLight} alt="" height="40" />
                   </span>
                 </Link>
               </div>

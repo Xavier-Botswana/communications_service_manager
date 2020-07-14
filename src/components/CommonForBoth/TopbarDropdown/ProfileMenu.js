@@ -9,7 +9,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 
 // users
-import user1 from '../../../assets/images/users/avatar-1.jpg';
+import user1 from '../../../assets/images/Prince.png';
 
 const ProfileMenu = (props) => {
 
@@ -45,7 +45,6 @@ const ProfileMenu = (props) => {
                     <DropdownMenu right>
                         <DropdownItem tag="a"  href="/profile"> <i className="bx bx-user font-size-16 align-middle mr-1"></i>{props.t('Profile')}  </DropdownItem>
                         <DropdownItem tag="a" href="/crypto-wallet"><i className="bx bx-wallet font-size-16 align-middle mr-1"></i>{props.t('My Wallet')}</DropdownItem>
-                        <DropdownItem tag="a" href="#"><span className="badge badge-success float-right">11</span><i className="mdi mdi-settings font-size-17 align-middle mr-1"></i>{props.t('Settings')}</DropdownItem>
                         <DropdownItem tag="a" href="auth-lock-screen"><i className="bx bx-lock-open font-size-16 align-middle mr-1"></i>{props.t('Lock screen')}</DropdownItem>
                         <div className="dropdown-divider"></div>
                         <Link to="/logout" className="dropdown-item">

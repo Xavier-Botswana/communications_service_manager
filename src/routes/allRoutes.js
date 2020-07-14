@@ -112,7 +112,7 @@ const userRoutes = [
   { path: "/ecommerce-cart", component: EcommerceCart },
   { path: "/ecommerce-checkout", component: EcommerceCheckout },
   { path: "/withdrawal_requests", component: EcommerceShops },
-  { path: "/reward_payments", component: EcommerceAddProduct },
+  { path: "/add_users", component: EcommerceAddProduct },
 
   //Projects
   { path: "/delivery_requests", component: ProjectsGrid },

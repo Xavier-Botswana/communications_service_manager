@@ -3,7 +3,7 @@ import React from 'react';
 import { Row, Col, Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 
-import avatar1 from "../../assets/images/users/avatar-1.jpg";
+import avatar1 from "../../assets/images/Prince.png";
 import profileImg from "../../assets/images/profile-img.png";
 
 const WelcomeComp = (props) => {
@@ -15,7 +15,7 @@ const WelcomeComp = (props) => {
                             <Col xs="7">
                                 <div className="text-primary p-3">
                                     <h5 className="text-primary">Welcome Back !</h5>
-                                    <p>Skote Dashboard</p>
+                                    <p>AG Nutrition Dashboard</p>
                                 </div>
                             </Col>
                             <Col xs="5" className="align-self-end">

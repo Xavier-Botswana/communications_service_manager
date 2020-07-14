@@ -47,68 +47,58 @@ const options = [
                     <Container fluid>
 
                         {/* Render Breadcrumb */}
-                        <Breadcrumbs title="Ecommerce" breadcrumbItem="Add Product" />
+                        <Breadcrumbs title="AG System Users" breadcrumbItem="Add Users" />
 
                         <Row>
                             <Col xs="12">
                                 <Card>
                                     <CardBody>
 
-                                        <CardTitle>Basic Information</CardTitle>
+                                        <CardTitle>User Information</CardTitle>
                                         <CardSubtitle className="mb-3">Fill all information below</CardSubtitle>
 
                                         <Form>
                                             <Row>
                                                 <Col sm="6">
                                                     <FormGroup>
-                                                        <Label htmlFor="productname">Product Name</Label>
+                                                        <Label htmlFor="productname">First Name</Label>
                                                         <Input id="productname" name="productname" type="text" className="form-control" />
                                                     </FormGroup>
                                                     <FormGroup>
-                                                        <Label htmlFor="manufacturername">Manufacturer Name</Label>
+                                                        <Label htmlFor="manufacturername">Last Name</Label>
                                                         <Input id="manufacturername" name="manufacturername" type="text" className="form-control" />
                                                     </FormGroup>
                                                     <FormGroup>
-                                                        <Label htmlFor="manufacturerbrand">Manufacturer Brand</Label>
+                                                        <Label htmlFor="manufacturerbrand">Email Address</Label>
                                                         <Input id="manufacturerbrand" name="manufacturerbrand" type="text" className="form-control" />
                                                     </FormGroup>
-                                                    <FormGroup>
-                                                        <Label htmlFor="price">Price</Label>
-                                                        <Input id="price" name="price" type="text" className="form-control" />
-                                                    </FormGroup>
+                                                   
                                                 </Col>
 
                                                 <Col sm="6">
                                                     <FormGroup>
                                                         <Label className="control-label">Category</Label>
                                                         <select className="form-control select2">
-                                                            <option>Select</option>
-                                                            <option value="AK">Alaska</option>
-                                                            <option value="HI">Hawaii</option>
+                                                            <option>User Type</option>
+                                                            <option value="AK">Administration Department</option>
+                                                            <option value="HI">Finance Department</option>
                                                         </select>
                                                     </FormGroup>
-                                                    <FormGroup className="select2-container">
-                                                        <Label className="control-label">Features</Label>
-                                                        <Select classNamePrefix="select2-selection" placeholder="Chose..." title="Country" options={options} isMulti />
+                                                    <FormGroup>
+                                                        <Label htmlFor="manufacturerbrand">Phone Number</Label>
+                                                        <Input id="manufacturerbrand" name="manufacturerbrand" type="text" className="form-control" />
                                                     </FormGroup>
                                                     <FormGroup>
-                                                        <Label htmlFor="productdesc">Product Description</Label>
-                                                        <textarea className="form-control" id="productdesc" rows="5"></textarea>
+                                                        <Label htmlFor="productdesc">AG ID</Label>
+                                                        <Input id="manufacturerbrand" name="manufacturerbrand" type="text" className="form-control" />
                                                     </FormGroup>
 
                                                 </Col>
                                             </Row>
 
-                                            <Button type="submit" color="primary" className="mr-1 waves-effect waves-light">Save Changes</Button>
-                                            <Button type="submit" color="secondary" className="waves-effect">Cancel</Button>
-                                        </Form>
-
-                                    </CardBody>
-                                </Card>
-
-                                <Card>
+                                            <Card>
                                     <CardBody>
-                                        <CardTitle className="mb-3">Product Images</CardTitle>
+                                        <CardTitle className="mb-3">User Profile Images</CardTitle>
                                         <Form>
                                             <Dropzone
                                                 onDrop={acceptedFiles => { handleAcceptedFiles(acceptedFiles) }
@@ -173,38 +163,16 @@ const options = [
                                     </CardBody>
                                 </Card>
 
-                                <Card>
-                                    <CardBody>
-
-                                        <CardTitle>Meta Data</CardTitle>
-                                        <CardSubtitle className="mb-3">Fill all information below</CardSubtitle>
-
-                                        <Form>
-                                            <Row>
-                                                <Col sm={6}>
-                                                    <FormGroup>
-                                                        <Label htmlFor="metatitle">Meta title</Label>
-                                                        <Input id="metatitle" name="productname" type="text" className="form-control" />
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <Label htmlFor="metakeywords">Meta Keywords</Label>
-                                                        <Input id="metakeywords" name="manufacturername" type="text" className="form-control" />
-                                                    </FormGroup>
-                                                </Col>
-
-                                                <Col sm={6}>
-                                                    <FormGroup>
-                                                        <Label htmlFor="metadescription">Meta Description</Label>
-                                                        <textarea className="form-control" id="metadescription" rows="5"></textarea>
-                                                    </FormGroup>
-                                                </Col>
-                                            </Row>
-
                                             <Button type="submit" color="primary" className="mr-1 waves-effect waves-light">Save Changes</Button>
                                             <Button type="submit" color="secondary" className="waves-effect">Cancel</Button>
+                                        
                                         </Form>
+
                                     </CardBody>
                                 </Card>
+
+                               
+
                             </Col>
                         </Row>
                     </Container>
