@@ -31,6 +31,15 @@ const App = (props) => {
     <React.Fragment>
       <Router>
         <Switch>
+          {authRoutes.map((route, idx) => (
+            <Authmiddleware
+              path={route.path}
+              layout={NonAuthLayout}
+              component={route.component}
+              key={idx}
+            />
+          ))}
+
           {userRoutes.map((route, idx) => (
             <Authmiddleware
               path={route.path}

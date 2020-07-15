@@ -7,9 +7,18 @@ import { logoutUser } from "../../store/actions";
 import firebase from "../../firebase";
 
 const Logout = (props) => {
+  async function logout() {
+    try {
+      await firebase.logout();
+      props.history.replace("/login");
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
   useEffect(() => {
     //props.logoutUser(props.history);
-    firebase.logout();
+    logout();
   });
 
   return <></>;
