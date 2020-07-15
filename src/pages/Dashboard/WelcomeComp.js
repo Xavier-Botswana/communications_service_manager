@@ -38,11 +38,11 @@ const WelcomeComp = (props) => {
                                     <Row>
                                         <Col xs="6">
                                             <h5 className="font-size-15">125</h5>
-                                            <p className="text-muted mb-0">Projects</p>
+                                            <p className="text-muted mb-0">Leads</p>
                                         </Col>
                                         <Col xs="6">
-                                            <h5 className="font-size-15">$1245</h5>
-                                            <p className="text-muted mb-0">Revenue</p>
+                                            <h5 className="font-size-15">1245</h5>
+                                            <p className="text-muted mb-0">System Users</p>
                                         </Col>
                                     </Row>
                                     <div className="mt-4">
