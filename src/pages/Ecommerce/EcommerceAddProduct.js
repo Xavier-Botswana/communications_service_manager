@@ -14,6 +14,7 @@ import {
   Button,
   Label,
 } from "reactstrap";
+import { AvForm, AvField, AvInput } from "availity-reactstrap-validation";
 import Select from "react-select";
 import Dropzone from "react-dropzone";
 
@@ -28,7 +29,11 @@ const EcommerceAddProduct = (props) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [imageURL, setImageURL] = useState("");
 
-  const onSubmitHandler = () => {};
+  const onSubmitHandler = (event) => {
+    console.log(
+      `${firstName}, ${lastName}, ${phoneNumber}, ${userType}, ${email}`
+    );
+  };
 
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
@@ -46,7 +51,7 @@ const EcommerceAddProduct = (props) => {
     }
   };
 
-  ////////////////////////////////////////////////////////
+  //////////////////////////  Profile Image  //////////////////////////////
 
   const [selectedFiles, setselectedFiles] = useState([]);
 
@@ -88,12 +93,14 @@ const EcommerceAddProduct = (props) => {
                     Fill all information below
                   </CardSubtitle>
 
-                  <Form>
+                  <AvForm className="needs-validation">
                     <Row>
                       <Col sm="6">
                         <FormGroup>
                           <Label htmlFor="productname">First Name</Label>
-                          <Input
+                          <AvField
+                            validate={{ required: { value: true } }}
+                            errorMessage="First name is required"
                             id="fname"
                             name="firstName"
                             type="text"
@@ -103,7 +110,9 @@ const EcommerceAddProduct = (props) => {
                         </FormGroup>
                         <FormGroup>
                           <Label htmlFor="manufacturername">Last Name</Label>
-                          <Input
+                          <AvField
+                            validate={{ required: { value: true } }}
+                            errorMessage="Last name is required"
                             id="lname"
                             name="lastName"
                             type="text"
@@ -115,7 +124,9 @@ const EcommerceAddProduct = (props) => {
                           <Label htmlFor="manufacturerbrand">
                             Email Address
                           </Label>
-                          <Input
+                          <AvField
+                            validate={{ required: { value: true } }}
+                            errorMessage="Email is required"
                             id="email"
                             name="email"
                             type="text"
@@ -128,7 +139,10 @@ const EcommerceAddProduct = (props) => {
                       <Col sm="6">
                         <FormGroup>
                           <Label className="control-label">User Type</Label>
-                          <select
+                          <AvField
+                            validate={{ required: { value: true } }}
+                            errorMessage="Select a user type"
+                            type="select"
                             id="utype"
                             name="userType"
                             onChange={(event) => onChangeHandler(event)}
@@ -137,13 +151,15 @@ const EcommerceAddProduct = (props) => {
                             <option value="">Selet user type...</option>
                             <option value="admin">Admin</option>
                             <option value="finance">Finance</option>
-                          </select>
+                          </AvField>
                         </FormGroup>
                         <FormGroup>
                           <Label htmlFor="manufacturerbrand">
                             Phone Number
                           </Label>
-                          <Input
+                          <AvField
+                            validate={{ required: { value: true } }}
+                            errorMessage="Phone number is required"
                             id="pnumber"
                             name="phoneNumber"
                             type="number"
@@ -160,7 +176,11 @@ const EcommerceAddProduct = (props) => {
                           User Profile Images
                         </CardTitle>
                         <Form>
-                          <Dropzone onDrop={null}>
+                          <Dropzone
+                            onDrop={(acceptedFiles) => {
+                              handleAcceptedFiles(acceptedFiles);
+                            }}
+                          >
                             {({ getRootProps, getInputProps }) => (
                               <div className="dropzone">
                                 <div
@@ -224,9 +244,9 @@ const EcommerceAddProduct = (props) => {
                       type="submit"
                       color="primary"
                       className="mr-1 waves-effect waves-light"
-                      onClick={onSubmitHandler}
+                      onClick={(event) => onSubmitHandler(event)}
                     >
-                      Save Changes
+                      Add User
                     </Button>
                     <Button
                       type="submit"
@@ -235,7 +255,7 @@ const EcommerceAddProduct = (props) => {
                     >
                       Cancel
                     </Button>
-                  </Form>
+                  </AvForm>
                 </CardBody>
               </Card>
             </Col>
