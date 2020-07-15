@@ -1,184 +1,249 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col, Form, FormGroup, Input, Card, CardBody, CardTitle, CardSubtitle, Button, Label } from "reactstrap";
-import Select from 'react-select';
-import Dropzone from 'react-dropzone';
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Input,
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Button,
+  Label,
+} from "reactstrap";
+import Select from "react-select";
+import Dropzone from "react-dropzone";
 
 //Import Breadcrumb
-import Breadcrumbs from '../../components/Common/Breadcrumb';
+import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 const EcommerceAddProduct = (props) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [userType, setUserType] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [imageURL, setImageURL] = useState("");
 
-const [selectedFiles, setselectedFiles] = useState([]);
+  const onSubmitHandler = () => {};
 
-const options = [
-            { value: 'AK', label: 'Alaska' },
-            { value: 'HI', label: 'Hawaii' },
-            { value: 'CA', label: 'California' },
-            { value: 'NV', label: 'Nevada' },
-            { value: 'OR', label: 'Oregon' },
-            { value: 'WA', label: 'Washington' },
-        ];
+  const onChangeHandler = (event) => {
+    const { name, value } = event.currentTarget;
 
-     function handleAcceptedFiles(files){
-        files.map(file => Object.assign(file, {
-            preview: URL.createObjectURL(file),
-            formattedSize: formatBytes(file.size)
-        }));
-        
-        setselectedFiles(files);
+    if (name === "firstName") {
+      setFirstName(value);
+    } else if (name === "lastName") {
+      setLastName(value);
+    } else if (name === "email") {
+      setEmail(value);
+    } else if (name === "userType") {
+      setUserType(value);
+    } else if (name === "phoneNumber") {
+      setPhoneNumber(value);
     }
+  };
 
-    function formatBytes(bytes, decimals = 2)
-    {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const dm = decimals < 0 ? 0 : decimals;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  ////////////////////////////////////////////////////////
 
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-    }
+  const [selectedFiles, setselectedFiles] = useState([]);
 
+  function handleAcceptedFiles(files) {
+    files.map((file) =>
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+        formattedSize: formatBytes(file.size),
+      })
+    );
 
-    return (
-             <React.Fragment>
-                <div className="page-content">
-                    <Container fluid>
+    setselectedFiles(files);
+  }
 
-                        {/* Render Breadcrumb */}
-                        <Breadcrumbs title="AG System Users" breadcrumbItem="Add Users" />
+  function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
-                        <Row>
-                            <Col xs="12">
-                                <Card>
-                                    <CardBody>
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  }
+  ///////////////////////////////////////////////////////
 
-                                        <CardTitle>User Information</CardTitle>
-                                        <CardSubtitle className="mb-3">Fill all information below</CardSubtitle>
+  return (
+    <React.Fragment>
+      <div className="page-content">
+        <Container fluid>
+          {/* Render Breadcrumb */}
+          <Breadcrumbs title="Add Users" breadcrumbItem="Add Users" />
 
-                                        <Form>
-                                            <Row>
-                                                <Col sm="6">
-                                                    <FormGroup>
-                                                        <Label htmlFor="productname">First Name</Label>
-                                                        <Input id="productname" name="productname" type="text" className="form-control" />
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <Label htmlFor="manufacturername">Last Name</Label>
-                                                        <Input id="manufacturername" name="manufacturername" type="text" className="form-control" />
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <Label htmlFor="manufacturerbrand">Email Address</Label>
-                                                        <Input id="manufacturerbrand" name="manufacturerbrand" type="text" className="form-control" />
-                                                    </FormGroup>
-                                                   
-                                                </Col>
+          <Row>
+            <Col xs="12">
+              <Card>
+                <CardBody>
+                  <CardTitle>User Information</CardTitle>
+                  <CardSubtitle className="mb-3">
+                    Fill all information below
+                  </CardSubtitle>
 
-                                                <Col sm="6">
-                                                    <FormGroup>
-                                                        <Label className="control-label">Category</Label>
-                                                        <select className="form-control select2">
-                                                            <option>User Type</option>
-                                                            <option value="AK">Administration Department</option>
-                                                            <option value="HI">Finance Department</option>
-                                                        </select>
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <Label htmlFor="manufacturerbrand">Phone Number</Label>
-                                                        <Input id="manufacturerbrand" name="manufacturerbrand" type="text" className="form-control" />
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <Label htmlFor="productdesc">AG ID</Label>
-                                                        <Input id="manufacturerbrand" name="manufacturerbrand" type="text" className="form-control" />
-                                                    </FormGroup>
+                  <Form>
+                    <Row>
+                      <Col sm="6">
+                        <FormGroup>
+                          <Label htmlFor="productname">First Name</Label>
+                          <Input
+                            id="fname"
+                            name="firstName"
+                            type="text"
+                            className="form-control"
+                            onChange={(event) => onChangeHandler(event)}
+                          />
+                        </FormGroup>
+                        <FormGroup>
+                          <Label htmlFor="manufacturername">Last Name</Label>
+                          <Input
+                            id="lname"
+                            name="lastName"
+                            type="text"
+                            className="form-control"
+                            onChange={(event) => onChangeHandler(event)}
+                          />
+                        </FormGroup>
+                        <FormGroup>
+                          <Label htmlFor="manufacturerbrand">
+                            Email Address
+                          </Label>
+                          <Input
+                            id="email"
+                            name="email"
+                            type="text"
+                            className="form-control"
+                            onChange={(event) => onChangeHandler(event)}
+                          />
+                        </FormGroup>
+                      </Col>
 
-                                                </Col>
-                                            </Row>
+                      <Col sm="6">
+                        <FormGroup>
+                          <Label className="control-label">User Type</Label>
+                          <select
+                            id="utype"
+                            name="userType"
+                            onChange={(event) => onChangeHandler(event)}
+                            className="form-control select2"
+                          >
+                            <option value="">Selet user type...</option>
+                            <option value="admin">Admin</option>
+                            <option value="finance">Finance</option>
+                          </select>
+                        </FormGroup>
+                        <FormGroup>
+                          <Label htmlFor="manufacturerbrand">
+                            Phone Number
+                          </Label>
+                          <Input
+                            id="pnumber"
+                            name="phoneNumber"
+                            type="number"
+                            className="form-control"
+                            onChange={(event) => onChangeHandler(event)}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
 
-                                            <Card>
-                                    <CardBody>
-                                        <CardTitle className="mb-3">User Profile Images</CardTitle>
-                                        <Form>
-                                            <Dropzone
-                                                onDrop={acceptedFiles => { handleAcceptedFiles(acceptedFiles) }
-                                                }
-                                            >
-                                                {({ getRootProps, getInputProps }) => (
-                                                    <div className="dropzone">
-                                                        <div
-                                                            className="dz-message needsclick"
-                                                            {...getRootProps()}
-                                                        >
-                                                            <input {...getInputProps()} />
-                                                            <div className="dz-message needsclick">
-                                                                <div className="mb-3">
-                                                                    <i className="display-4 text-muted bx bxs-cloud-upload"></i>
-                                                                </div>
-                                                                <h4>Drop files here or click to upload.</h4>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </Dropzone>
-                                            <div
-                                                className="dropzone-previews mt-3"
-                                                id="file-previews"
-                                            >
-                                                {selectedFiles.map((f, i) => {
-                                                    return (
-                                                        <Card
-                                                            className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
-                                                            key={i + "-file"}
-                                                        >
-                                                            <div className="p-2">
-                                                                <Row className="align-items-center">
-                                                                    <Col className="col-auto">
-                                                                        <img
-                                                                            data-dz-thumbnail=""
-                                                                            height="80"
-                                                                            className="avatar-sm rounded bg-light"
-                                                                            alt={f.name}
-                                                                            src={f.preview}
-                                                                        />
-                                                                    </Col>
-                                                                    <Col>
-                                                                        <Link
-                                                                            to="#"
-                                                                            className="text-muted font-weight-bold"
-                                                                        >
-                                                                            {f.name}
-                                                                        </Link>
-                                                                        <p className="mb-0">
-                                                                            <strong>{f.formattedSize}</strong>
-                                                                        </p>
-                                                                    </Col>
-                                                                </Row>
-                                                            </div>
-                                                        </Card>
-                                                    );
-                                                })}
-                                            </div>
-                                        </Form>
-                                    </CardBody>
+                    <Card>
+                      <CardBody>
+                        <CardTitle className="mb-3">
+                          User Profile Images
+                        </CardTitle>
+                        <Form>
+                          <Dropzone onDrop={null}>
+                            {({ getRootProps, getInputProps }) => (
+                              <div className="dropzone">
+                                <div
+                                  className="dz-message needsclick"
+                                  {...getRootProps()}
+                                >
+                                  <input {...getInputProps()} />
+                                  <div className="dz-message needsclick">
+                                    <div className="mb-3">
+                                      <i className="display-4 text-muted bx bxs-cloud-upload"></i>
+                                    </div>
+                                    <h4>Drop files here or click to upload.</h4>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </Dropzone>
+                          <div
+                            className="dropzone-previews mt-3"
+                            id="file-previews"
+                          >
+                            {selectedFiles.map((f, i) => {
+                              return (
+                                <Card
+                                  className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
+                                  key={i + "-file"}
+                                >
+                                  <div className="p-2">
+                                    <Row className="align-items-center">
+                                      <Col className="col-auto">
+                                        <img
+                                          data-dz-thumbnail=""
+                                          height="80"
+                                          className="avatar-sm rounded bg-light"
+                                          alt={f.name}
+                                          src={f.preview}
+                                        />
+                                      </Col>
+                                      <Col>
+                                        <Link
+                                          to="#"
+                                          className="text-muted font-weight-bold"
+                                        >
+                                          {f.name}
+                                        </Link>
+                                        <p className="mb-0">
+                                          <strong>{f.formattedSize}</strong>
+                                        </p>
+                                      </Col>
+                                    </Row>
+                                  </div>
                                 </Card>
+                              );
+                            })}
+                          </div>
+                        </Form>
+                      </CardBody>
+                    </Card>
 
-                                            <Button type="submit" color="primary" className="mr-1 waves-effect waves-light">Save Changes</Button>
-                                            <Button type="submit" color="secondary" className="waves-effect">Cancel</Button>
-                                        
-                                        </Form>
+                    <Button
+                      type="submit"
+                      color="primary"
+                      className="mr-1 waves-effect waves-light"
+                      onClick={onSubmitHandler}
+                    >
+                      Save Changes
+                    </Button>
+                    <Button
+                      type="submit"
+                      color="secondary"
+                      className="waves-effect"
+                    >
+                      Cancel
+                    </Button>
+                  </Form>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </React.Fragment>
+  );
+};
 
-                                    </CardBody>
-                                </Card>
-
-                               
-
-                            </Col>
-                        </Row>
-                    </Container>
-                </div>
-            </React.Fragment>
-          );
-    }
-        
 export default EcommerceAddProduct;

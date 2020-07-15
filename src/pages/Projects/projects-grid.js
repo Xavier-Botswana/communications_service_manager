@@ -151,7 +151,10 @@ const ProjectsGrid = (props) => {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumbs */}
-          <Breadcrumbs title="Delivery Orders" breadcrumbItem="Projects Grid" />
+          <Breadcrumbs
+            title="Delivery Requests"
+            breadcrumbItem="Delivery Requests"
+          />
 
           <Row>
             {/* Import Cards */}

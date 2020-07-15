@@ -40,7 +40,7 @@ const ProjectsList = (props) => {
           {/* Render Breadcrumbs */}
           <Breadcrumbs
             title="E-money Requests"
-            breadcrumbItem="Projects List"
+            breadcrumbItem="E-money Requests"
           />
 
           <Row>
