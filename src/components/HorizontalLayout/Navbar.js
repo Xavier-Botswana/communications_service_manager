@@ -30,10 +30,10 @@ const Navbar = (props) => {
   const [utility, setutility] = useState(false);
 
   useEffect(() => {
-    var matchingMenuItem = null;
-    var ul = document.getElementById("navigation");
-    var items = ul.getElementsByTagName("a");
-    for (var i = 0; i < items.length; ++i) {
+    let matchingMenuItem = null;
+    let ul = document.getElementById("navigation");
+    let items = ul.getElementsByTagName("a");
+    for (let i = 0; i < items.length; ++i) {
       if (props.location.pathname === items[i].pathname) {
         matchingMenuItem = items[i];
         break;

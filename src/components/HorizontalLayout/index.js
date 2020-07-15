@@ -18,26 +18,22 @@ class Layout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMenuOpened: false
+      isMenuOpened: false,
     };
   }
 
-
   componentDidMount() {
-
     if (this.props.isPreloader === true) {
-      document.getElementById('preloader').style.display = "block";
-      document.getElementById('status').style.display = "block";
+      document.getElementById("preloader").style.display = "block";
+      document.getElementById("status").style.display = "block";
 
       setTimeout(function () {
-
-        document.getElementById('preloader').style.display = "none";
-        document.getElementById('status').style.display = "none";
+        document.getElementById("preloader").style.display = "none";
+        document.getElementById("status").style.display = "none";
       }, 2500);
-    }
-    else {
-      document.getElementById('preloader').style.display = "none";
-      document.getElementById('status').style.display = "none";
+    } else {
+      document.getElementById("preloader").style.display = "none";
+      document.getElementById("status").style.display = "none";
     }
 
     // Scrollto 0,0
@@ -49,26 +45,24 @@ class Layout extends Component {
     document.title =
       currentage + " | Skote - Responsive Bootstrap 4 Admin Dashboard";
 
-    this.props.changeLayout('horizontal');
+    this.props.changeLayout("horizontal");
     if (this.props.topbarTheme) {
       this.props.changeTopbarTheme(this.props.topbarTheme);
     }
     if (this.props.layoutWidth) {
       this.props.changeLayoutWidth(this.props.layoutWidth);
     }
-   
   }
 
   /**
    * Opens the menu - mobile
    */
-  openMenu = e => {
+  openMenu = (e) => {
     this.setState({ isMenuOpened: !this.state.isMenuOpened });
   };
   render() {
     return (
       <React.Fragment>
-
         <div id="preloader">
           <div id="status">
             <div className="spinner-chase">
@@ -83,26 +77,30 @@ class Layout extends Component {
         </div>
 
         <div id="layout-wrapper">
-          <Header theme={this.props.topbarTheme}
+          <Header
+            theme={this.props.topbarTheme}
             isMenuOpened={this.state.isMenuOpened}
-            openLeftMenuCallBack={this.openMenu} />
+            openLeftMenuCallBack={this.openMenu}
+          />
+          {/** Conditional Navbar depending on user type */}
           <Navbar menuOpen={this.state.isMenuOpened} />
-          <div className="main-content">
-            {this.props.children}
-          </div>
+          {/** *******************************************/}
+          <div className="main-content">{this.props.children}</div>
           <Footer />
         </div>
 
-        { this.props.showRightSidebar ? <Rightbar /> : null  }
+        {this.props.showRightSidebar ? <Rightbar /> : null}
       </React.Fragment>
     );
   }
 }
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
   return {
-    ...state.Layout
+    ...state.Layout,
   };
 };
 export default connect(mapStatetoProps, {
-  changeTopbarTheme,  changeLayout, changeLayoutWidth
+  changeTopbarTheme,
+  changeLayout,
+  changeLayoutWidth,
 })(withRouter(Layout));

@@ -24,37 +24,13 @@ import fakeBackend from "./helpers/AuthType/fakeBackend";
 
 // Activating fake backend
 
-
-
 const App = (props) => {
-  function getLayout() {
-    let layoutCls = VerticalLayout;
+  const Layout = HorizontalLayout;
 
-    switch (props.layout.layoutType) {
-      case "horizontal":
-        layoutCls = HorizontalLayout;
-        break;
-      default:
-        layoutCls = VerticalLayout;
-        break;
-    }
-    return layoutCls;
-  }
-
-  const Layout = getLayout();
   return (
     <React.Fragment>
       <Router>
         <Switch>
-          {authRoutes.map((route, idx) => (
-            <Authmiddleware
-              path={route.path}
-              layout={NonAuthLayout}
-              component={route.component}
-              key={idx}
-            />
-          ))}
-
           {userRoutes.map((route, idx) => (
             <Authmiddleware
               path={route.path}
