@@ -54,27 +54,38 @@ const Dashboard = (props) => {
  //fetching The Data from the API to display the number of emoney request
  useEffect(() => {
     async function fetchData() {
-      const res = await fetch("https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing");
-      res
-        .json()
-        .then(res =>  setEmoney(res))
-        .catch(err => setErrors(err));
 
-        const deli = await fetch("https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/leadsdeliveries");
-        deli
-        .json()
-        .then(deli =>  setDeliveries(res))
-        .catch(err => setErrors(err));
-
-        const withdra = await fetch("https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal");
-        withdra
-        .json()
-        .then(withdra =>  setWithdrawal(res))
-        .catch(err => setErrors(err));
-    }
-
-    fetchData();
+      fetch('https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing')
+  .then(response => response.json())
+  .then(emoney => {
+    setEmoney(emoney);
+  })
+  .catch(error => {
+    setErrors(error);
   });
+
+  fetch('https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/individualsdeliveries')
+  .then(response => response.json())
+  .then(deliveries => {
+    setDeliveries(deliveries);
+  })
+  .catch(error => {
+    setErrors(error);
+  });
+
+  fetch('https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal')
+  .then(response => response.json())
+  .then(withdrawal => {
+    setWithdrawal(withdrawal);
+  })
+  .catch(error => {
+    setErrors(error);
+  });
+
+    }
+fetchData();
+  });
+
   return (
     <React.Fragment>
       <div className="page-content">
@@ -119,7 +130,7 @@ const Dashboard = (props) => {
                       <Media>
                         <Media body>
                           <p className="text-muted font-weight-medium">
-                            Pending Deliveries
+                          Deliveries
                           </p>
                           <h4 className="mb-0"> {deliveries.length}</h4>
                         </Media>
