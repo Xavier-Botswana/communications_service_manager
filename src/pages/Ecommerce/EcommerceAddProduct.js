@@ -21,6 +21,8 @@ import Dropzone from "react-dropzone";
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
+import firebase from "../../firebase";
+
 const EcommerceAddProduct = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -30,9 +32,23 @@ const EcommerceAddProduct = (props) => {
   const [imageURL, setImageURL] = useState("");
 
   const onSubmitHandler = (event) => {
-    console.log(
-      `${firstName}, ${lastName}, ${phoneNumber}, ${userType}, ${email}`
-    );
+    event.preventDefault();
+
+    // Firebase auth to save email and password:
+    const displayName = `${firstName} ${lastName}`;
+    const password = "password123";
+
+    const user = firebase.register(displayName, email, password);
+
+    if (user != null) {
+      console.log("user added");
+    } else {
+      console.log("error encountered");
+    }
+
+    // Firestore function to save user details:
+
+    // Alert refresh to confirm action
   };
 
   const onChangeHandler = (event) => {
