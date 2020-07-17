@@ -38,15 +38,31 @@ const EcommerceAddProduct = (props) => {
     const displayName = `${firstName} ${lastName}`;
     const password = "password123";
 
-    const user = firebase.register(displayName, email, password);
+    const result = firebase.register(displayName, email, password);
 
-    if (user != null) {
-      console.log("user added");
+    if (result != null) {
+      console.log("user added: " + result);
     } else {
       console.log("error encountered");
     }
 
     // Firestore function to save user details:
+
+    firebase.db
+      .collection("users")
+      .doc(email)
+      .set({
+        name: `${firstName} ${lastName}`,
+        phoneNumber: phoneNumber,
+        userType: userType,
+        imageURL: imageURL,
+      })
+      .then(function () {
+        console.log("Document successfully written!");
+      })
+      .catch(function (error) {
+        console.error("Error writing document: ", error);
+      });
 
     // Alert refresh to confirm action
   };
