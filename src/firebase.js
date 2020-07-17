@@ -24,15 +24,60 @@ class Firebase {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
+  addUser(email, password) {}
+
   logout() {
     return this.auth.signOut();
   }
 
-  async register(name, email, password) {
-    await this.auth.createUserWithEmailAndPassword(email, password);
-    return this.auth.currentUser.updateProfile({
-      displayName: name,
-    });
+  async register(
+    firstName,
+    lastName,
+    email,
+    password,
+    userType,
+    phoneNumber,
+    imageURL
+  ) {
+    // Firebase auth to save email and password:
+    this.auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log("Added user auth details.");
+        // Update displayName
+        this.auth.currentUser
+          .updateProfile({
+            displayName: `${firstName} ${lastName}`,
+          })
+          .then(() => {
+            console.log("Updated user auth details.");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // Firestore function to save user details:
+    this.db
+      .collection("users")
+      .doc(email)
+      .set({
+        name: `${firstName} ${lastName}`,
+        phoneNumber: phoneNumber,
+        userType: userType,
+        imageURL: imageURL,
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+
+    // Alert refresh to confirm action
   }
 }
 

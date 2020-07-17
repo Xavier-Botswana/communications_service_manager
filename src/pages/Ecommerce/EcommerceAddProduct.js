@@ -34,37 +34,15 @@ const EcommerceAddProduct = (props) => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
-    // Firebase auth to save email and password:
-    const displayName = `${firstName} ${lastName}`;
-    const password = "password123";
-
-    const result = firebase.register(displayName, email, password);
-
-    if (result != null) {
-      console.log("user added: " + result);
-    } else {
-      console.log("error encountered");
-    }
-
-    // Firestore function to save user details:
-
-    firebase.db
-      .collection("users")
-      .doc(email)
-      .set({
-        name: `${firstName} ${lastName}`,
-        phoneNumber: phoneNumber,
-        userType: userType,
-        imageURL: imageURL,
-      })
-      .then(function () {
-        console.log("Document successfully written!");
-      })
-      .catch(function (error) {
-        console.error("Error writing document: ", error);
-      });
-
-    // Alert refresh to confirm action
+    firebase.register(
+      firstName,
+      lastName,
+      email,
+      "password123",
+      userType,
+      phoneNumber,
+      imageURL
+    );
   };
 
   const onChangeHandler = (event) => {
@@ -279,13 +257,6 @@ const EcommerceAddProduct = (props) => {
                       onClick={(event) => onSubmitHandler(event)}
                     >
                       Add User
-                    </Button>
-                    <Button
-                      type="submit"
-                      color="secondary"
-                      className="waves-effect"
-                    >
-                      Cancel
                     </Button>
                   </AvForm>
                 </CardBody>
