@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -50,41 +50,37 @@ const Dashboard = (props) => {
   const [deliveries, setDeliveries] = useState([]);
   const [withdrawal, setWithdrawal] = useState([]);
 
+  //fetching The Data from the API to display the number of emoney request
+  useEffect(() => {
+    fetch(
+      "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/e_money_existing"
+    )
+      .then((response) => response.json())
+      .then((emoney) => {
+        setEmoney(emoney);
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
 
- //fetching The Data from the API to display the number of emoney request
- useEffect(() => {
-    async function fetchData() {
+    fetch("https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/leadsdeliveries")
+      .then((response) => response.json())
+      .then((deliveries) => {
+        setDeliveries(deliveries);
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
 
-      fetch('https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing')
-  .then(response => response.json())
-  .then(emoney => {
-    setEmoney(emoney);
-  })
-  .catch(error => {
-    setErrors(error);
-  });
-
-  fetch('https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/individualsdeliveries')
-  .then(response => response.json())
-  .then(deliveries => {
-    setDeliveries(deliveries);
-  })
-  .catch(error => {
-    setErrors(error);
-  });
-
-  fetch('https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal')
-  .then(response => response.json())
-  .then(withdrawal => {
-    setWithdrawal(withdrawal);
-  })
-  .catch(error => {
-    setErrors(error);
-  });
-
-    }
-fetchData();
-  });
+    fetch("https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/withdrawal")
+      .then((response) => response.json())
+      .then((withdrawal) => {
+        setWithdrawal(withdrawal);
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
+  }, []);
 
   return (
     <React.Fragment>
@@ -112,7 +108,6 @@ fetchData();
                             E Money Requests
                           </p>
                           <h4 className="mb-0">{emoney.length}</h4>
-
                         </Media>
                         <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
                           <span className="avatar-title">
@@ -130,9 +125,9 @@ fetchData();
                       <Media>
                         <Media body>
                           <p className="text-muted font-weight-medium">
-                          Deliveries
+                            Deliveries
                           </p>
-                          <h4 className="mb-0"> {deliveries.length}</h4>
+                          <h4 className="mb-0">{deliveries.length} </h4>
                         </Media>
                         <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
                           <span className="avatar-title">
