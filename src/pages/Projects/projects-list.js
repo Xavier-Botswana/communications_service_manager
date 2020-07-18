@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 import {
@@ -16,23 +16,27 @@ import {
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
-//Import Image
-import img1 from "../../assets/images/companies/img-1.png";
-import img2 from "../../assets/images/companies/img-2.png";
-import img3 from "../../assets/images/companies/img-3.png";
-import img4 from "../../assets/images/companies/img-4.png";
-import img5 from "../../assets/images/companies/img-5.png";
-import img6 from "../../assets/images/companies/img-6.png";
-import avatar1 from "../../assets/images/users/avatar-1.jpg";
-import avatar2 from "../../assets/images/users/avatar-2.jpg";
-import avatar3 from "../../assets/images/users/avatar-3.jpg";
-import avatar4 from "../../assets/images/users/avatar-4.jpg";
-import avatar5 from "../../assets/images/users/avatar-5.jpg";
-import avatar6 from "../../assets/images/users/avatar-6.jpg";
-import avatar7 from "../../assets/images/users/avatar-7.jpg";
-import avatar8 from "../../assets/images/users/avatar-8.jpg";
 
 const ProjectsList = (props) => {
+  const [hasError, setErrors] = useState(false);
+  const [emoney, setEmoney] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/e_money_existing"
+    )
+      .then((response) => response.json())
+      .then((emoney) => {
+        setEmoney(emoney);
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
+
+  }, []);
+
+
+
   return (
     <React.Fragment>
       <div className="page-content">
@@ -56,26 +60,36 @@ const ProjectsList = (props) => {
                         <th scope="col">Name</th>
                         <th scope="col">Request Date</th>
                         <th scope="col">Phone</th>
-                        <th scope="col">Sponsor Username</th>
+                        <th scope="col">Sponsor</th>
                         <th scope="col">Proof of Payment</th>
-                        <th scope="col">Rquest Type</th>
+                        <th scope="col">RQ Type</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
+
+                    
                     <tbody>
-                      <tr>
+
+                            {emoney.map((item, i) => {
+        return (
+
+                      <tr key={i}>
                         <td>11</td>
                         <td>
                           <h5 className="text-truncate font-size-14">
-                            Tumelo Moatlhodi
-                          </h5>
+
+                          {item.username}                        
+                          
+                            </h5>
                           <p className="text-muted mb-0">Elite/Premium/Basic</p>
                         </td>
                         <td>15 June, 20</td>
-                        <td>72504896</td>
+                        <td>  {item.phone}   </td>
                         <td>NSebina88</td>
                         <td>
-                          <span className="badge badge-primary">Completed</span>
+                        <a href={item.proof}  download>
+
+                          <span className="badge badge-primary">Payment Link </span></a>
                         </td>
                         <td>New/Existing User</td>
                         <td>
@@ -96,7 +110,12 @@ const ProjectsList = (props) => {
                           </button>
                         </td>
                       </tr>
+
+);
+
+                        })}
                     </tbody>
+
                   </Table>
                 </div>
               </div>
