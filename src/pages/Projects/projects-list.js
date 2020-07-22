@@ -6,11 +6,6 @@ import {
   Row,
   Col,
   Table,
-  UncontrolledTooltip,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
 } from "reactstrap";
 
 //Import Breadcrumb
@@ -43,8 +38,8 @@ const ProjectsList = (props) => {
         <Container fluid>
           {/* Render Breadcrumbs */}
           <Breadcrumbs
-            title="E-money Requests"
-            breadcrumbItem="E-money Requests"
+            title="New Requests"
+            breadcrumbItem="Existing Requests"
           />
 
           <Row>
@@ -60,9 +55,7 @@ const ProjectsList = (props) => {
                         <th scope="col">Name</th>
                         <th scope="col">Request Date</th>
                         <th scope="col">Phone</th>
-                        <th scope="col">Sponsor</th>
                         <th scope="col">Proof of Payment</th>
-                        <th scope="col">RQ Type</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
@@ -81,17 +74,14 @@ const ProjectsList = (props) => {
                           {item.username}                        
                           
                             </h5>
-                          <p className="text-muted mb-0">Elite/Premium/Basic</p>
                         </td>
                         <td>15 June, 20</td>
                         <td>  {item.phone}   </td>
-                        <td>NSebina88</td>
                         <td>
                         <a href={item.proof}  download>
 
                           <span className="badge badge-primary">Payment Link </span></a>
                         </td>
-                        <td>New/Existing User</td>
                         <td>
                           <button
                             type="button"

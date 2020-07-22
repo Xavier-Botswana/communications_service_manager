@@ -64,7 +64,7 @@ const CardShop = (props) => {
                   className="btn btn-danger waves-effect waves-light"
                 >
                   <i className="bx bx-block font-size-16 align-middle mr-2"></i>{" "}
-                  Deny
+                  Decline
                 </button>
               </div>
             </Col>
