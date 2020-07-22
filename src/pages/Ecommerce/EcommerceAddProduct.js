@@ -22,7 +22,7 @@ import Dropzone from "react-dropzone";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 import firebase from "../../firebase";
-import FirebaseLoader from "../../components/Loader /FirebaseLoader";
+import FirebaseLoader from "../../components/Loader/FirebaseLoader";
 import SuccessMessage from "../../components/Alert-Popup/SuccessMessage";
 
 const EcommerceAddProduct = (props) => {
