@@ -36,20 +36,19 @@ const EcommerceAddProduct = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isProcessSuccessful, setIsProcessSuccessful] = useState(false);
 
-  const onSubmitHandler = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    /**
-     firebase.register(
-      firstName,
-      lastName,
-      email,
-      "password123",
-      userType,
-      phoneNumber,
-      imageURL
-    );
-     */
+
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      userType === "" ||
+      phoneNumber === "" ||
+      email === ""
+    ) {
+      setIsLoading(false);
+    }
 
     // Firebase auth to save email and password:
     firebase.auth
@@ -92,8 +91,6 @@ const EcommerceAddProduct = (props) => {
       .catch((error) => {
         console.log(error);
       });
-
-    // Alert refresh to confirm action
   };
 
   const onChangeHandler = (event) => {
@@ -155,7 +152,14 @@ const EcommerceAddProduct = (props) => {
                     Fill in all information below
                   </CardSubtitle>
 
-                  <AvForm className="needs-validation">
+                  <AvForm
+                    className="needs-validation"
+                    method="post"
+                    id="user-add-form"
+                    onSubmit={(event) => {
+                      handleSubmit(event);
+                    }}
+                  >
                     <Row>
                       <Col sm="6">
                         <FormGroup>
@@ -310,14 +314,16 @@ const EcommerceAddProduct = (props) => {
                       </CardBody>
                     </Card>
 
-                    <Button
-                      type="submit"
-                      color="primary"
-                      className="mr-1 waves-effect waves-light"
-                      onClick={(event) => onSubmitHandler(event)}
-                    >
-                      Add User
-                    </Button>
+                    <FormGroup className="mb-0">
+                      <div>
+                        <Button type="submit" color="primary" className="mr-1">
+                          Submit
+                        </Button>{" "}
+                        <Button type="reset" color="secondary">
+                          Cancel
+                        </Button>
+                      </div>
+                    </FormGroup>
                   </AvForm>
                 </CardBody>
               </Card>
