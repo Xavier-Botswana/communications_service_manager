@@ -22,6 +22,8 @@ import Dropzone from "react-dropzone";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 import firebase from "../../firebase";
+import FirebaseLoader from "../../components/Loader /FirebaseLoader";
+import SuccessMessage from "../../components/Alert-Popup/SuccessMessage";
 
 const EcommerceAddProduct = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -31,10 +33,14 @@ const EcommerceAddProduct = (props) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [imageURL, setImageURL] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isProcessSuccessful, setIsProcessSuccessful] = useState(false);
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
-
-    firebase.register(
+    setIsLoading(true);
+    /**
+     firebase.register(
       firstName,
       lastName,
       email,
@@ -43,6 +49,51 @@ const EcommerceAddProduct = (props) => {
       phoneNumber,
       imageURL
     );
+     */
+
+    // Firebase auth to save email and password:
+    firebase.auth
+      .createUserWithEmailAndPassword(email, "password123")
+      .then(() => {
+        console.log("Added user auth details.");
+
+        // Update displayName
+        firebase.auth.currentUser
+          .updateProfile({
+            displayName: `${firstName} ${lastName}`,
+          })
+          .then(() => {
+            console.log("Updated user auth details.");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        // Firestore function to save user details:
+        firebase.db
+          .collection("users")
+          .doc(email)
+          .set({
+            name: `${firstName} ${lastName}`,
+            phoneNumber: phoneNumber,
+            userType: userType,
+            imageURL: imageURL,
+          })
+          .then(() => {
+            console.log("Document successfully written!");
+          })
+          .catch((error) => {
+            console.error("Error writing document: ", error);
+          });
+
+        setIsLoading(false);
+        setIsProcessSuccessful(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // Alert refresh to confirm action
   };
 
   const onChangeHandler = (event) => {
@@ -99,8 +150,9 @@ const EcommerceAddProduct = (props) => {
               <Card>
                 <CardBody>
                   <CardTitle>User Information</CardTitle>
+
                   <CardSubtitle className="mb-3">
-                    Fill all information below
+                    Fill in all information below
                   </CardSubtitle>
 
                   <AvForm className="needs-validation">
@@ -179,6 +231,14 @@ const EcommerceAddProduct = (props) => {
                         </FormGroup>
                       </Col>
                     </Row>
+
+                    {isLoading ? <FirebaseLoader /> : null}
+
+                    {isProcessSuccessful ? (
+                      <SuccessMessage
+                        message={`User ${firstName} ${lastName} successfully added as ${userType}.`}
+                      />
+                    ) : null}
 
                     <Card>
                       <CardBody>
