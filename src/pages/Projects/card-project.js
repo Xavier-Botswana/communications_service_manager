@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Col,
@@ -10,18 +10,37 @@ import {
 } from "reactstrap";
 
 const CardProject = (props) => {
+
+  const [hasError, setErrors] = useState(false);
+  const [indeliveries, setDeliveries] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/e_money_existing"
+      
+    )
+      .then((response) => response.json())
+      .then((indeliveries) => {
+        setDeliveries(indeliveries);
+      })
+      .catch((error) => {
+        setErrors(error);
+        console.log(error);
+      });
+
+  }, []);
   return (
     <React.Fragment>
-      {props.projects.map((project, key) => (
+      {indeliveries.map((indeliveries, key) => (
         <Col xl="4" sm="6" key={"_project_" + key}>
           <Card>
             <CardBody>
               <Media>
                 <li className="list-inline-item mr-3" id="dueDate">
-                  <i className="bx bx-calendar mr-1"></i> {project.date}
+                  <i className="bx bx-calendar mr-1"></i> {indeliveries.date}
                   <UncontrolledTooltip placement="top" target="dueDate">
-                    Due Date
-                  </UncontrolledTooltip>
+                  {indeliveries.date}
+                                    </UncontrolledTooltip>
                 </li>
 
                 <Media className="overflow-hidden" body>

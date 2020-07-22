@@ -152,8 +152,8 @@ const ProjectsGrid = (props) => {
         <Container fluid>
           {/* Render Breadcrumbs */}
           <Breadcrumbs
-            title="Delivery Requests"
-            breadcrumbItem="Delivery Requests"
+            title="Individual Requests"
+            breadcrumbItem="Team Requests"
           />
 
           <Row>
