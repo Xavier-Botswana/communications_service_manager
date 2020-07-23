@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 
+import Header from "../../components/HorizontalLayout/Header";
+import Footer from "../../components/HorizontalLayout/Footer";
+import Navbar from "../../components/HorizontalLayout/Navbar";
+
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
@@ -86,8 +90,10 @@ const EcommerceShops = (props) => {
 
   return (
     <React.Fragment>
+      <Header />
+      <Navbar />
       <div className="page-content">
-        <Container fluid>
+        <Container style={{ marginTop: "35px" }} fluid>
           {/* Render Breadcrumb */}
           <Breadcrumbs
             title="Withdrawal Requests"
@@ -110,6 +116,7 @@ const EcommerceShops = (props) => {
           </Row>
         </Container>
       </div>
+      <Footer />
     </React.Fragment>
   );
 };
