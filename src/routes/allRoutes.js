@@ -29,7 +29,7 @@ import Logout from "../pages/Authentication/Logout";
 import Register from "../pages/Authentication/Register";
 import ForgetPwd from "../pages/Authentication/ForgetPassword";
 
-//  // Inner Authentication
+// Inner Authentication
 import Login1 from "../pages/AuthenticationInner/Login";
 import Register1 from "../pages/AuthenticationInner/Register";
 import ForgetPwd1 from "../pages/AuthenticationInner/ForgetPassword";
@@ -83,7 +83,7 @@ import UiRangeSlider from "../pages/Ui/UiRangeSlider";
 import UiNotifications from "../pages/Ui/ui-notifications";
 import UiImageCropper from "../pages/Ui/ui-image-cropper";
 
-//Pages
+// Pages
 import PagesStarter from "../pages/Utility/pages-starter";
 import PagesMaintenance from "../pages/Utility/pages-maintenance";
 import PagesComingsoon from "../pages/Utility/pages-comingsoon";
@@ -94,33 +94,37 @@ import Pages404 from "../pages/Utility/pages-404";
 import Pages500 from "../pages/Utility/pages-500";
 
 const userRoutes = [
+  /********************* ROUTES IN USE **********************/
   { path: "/admin", component: Dashboard },
+  { path: "/emoney-requests", component: ProjectsList },
+  { path: "/delivery-requests", component: ProjectsGrid },
+  { path: "/withdrawal-requests", component: EcommerceShops },
+  { path: "/add-users", component: EcommerceAddProduct },
+  { path: "/reward-payments", component: EcommerceOrders },
+  /** ***************************************************** */
+
   { path: "/dashboard-saas", component: DashboardSaas },
   { path: "/dashboard-crypto", component: DashboardCrypto },
 
-  // //calendar
+  // Calendar
   { path: "/calendar", component: Calendar },
 
-  // //profile
+  // Profile
   { path: "/profile", component: UserProfile },
 
-  //Ecommerce
+  // Ecommerce
   { path: "/ecommerce-products", component: EcommerceProducts },
   { path: "/ecommerce-product-detail", component: EcommerceProductDetail },
-  { path: "/reward-payments", component: EcommerceOrders },
+
   { path: "/ecommerce-customers", component: EcommerceCustomers },
   { path: "/ecommerce-cart", component: EcommerceCart },
   { path: "/ecommerce-checkout", component: EcommerceCheckout },
-  { path: "/withdrawal-requests", component: EcommerceShops },
-  { path: "/add-users", component: EcommerceAddProduct },
 
-  //Projects
-  { path: "/delivery-requests", component: ProjectsGrid },
-  { path: "/emoney-requests", component: ProjectsList },
+  // Projects
   { path: "/projects-overview", component: ProjectsOverview },
   { path: "/projects-create", component: ProjectsCreate },
 
-  //Charts
+  // Charts
   { path: "/apex-charts", component: ChartApex },
   { path: "/chartist-charts", component: ChartistChart },
   { path: "/chartjs-charts", component: ChartjsChart },

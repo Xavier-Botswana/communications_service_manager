@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useContext } from "react";
 
 import { Row, Col, CardBody, Card, Alert, Container } from "reactstrap";
 
 // Redux
 import { connect } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, Redirect } from "react-router-dom";
 
 // availity-reactstrap-validation
 import { AvForm, AvField } from "availity-reactstrap-validation";
 
 // actions
 import { loginUser, apiError } from "../../store/actions";
+
+import { AuthContext } from "../../AuthProvider";
 
 // import images
 import profile from "../../assets/images/profile-img.png";
@@ -29,6 +31,12 @@ const Login = (props) => {
     } catch (error) {
       alert(error.message);
     }
+  }
+
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
+    return <Redirect to="/" />;
   }
 
   return (
@@ -161,6 +169,4 @@ const mapStatetoProps = (state) => {
   return { error };
 };
 
-export default withRouter(
-  connect(mapStatetoProps, { loginUser, apiError })(Login)
-);
+export default withRouter(Login);

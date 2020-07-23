@@ -21,14 +21,13 @@ import "./assets/scss/theme.scss";
 import { initFirebaseBackend } from "./helpers/firebase_helper";
 
 import fakeBackend from "./helpers/AuthType/fakeBackend";
-
-// Activating fake backend
+import AuthProvider from "./AuthProvider";
 
 const App = (props) => {
   const Layout = HorizontalLayout;
 
   return (
-    <React.Fragment>
+    <AuthProvider>
       <Router>
         <Switch>
           {authRoutes.map((route, idx) => (
@@ -50,7 +49,7 @@ const App = (props) => {
           ))}
         </Switch>
       </Router>
-    </React.Fragment>
+    </AuthProvider>
   );
 };
 
