@@ -56,7 +56,9 @@ const Dashboard = (props) => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/e_money_existing"
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing",{
+        mode:"cors"
+      }
     )
       .then((response)=> {
         if(response.ok){
@@ -75,7 +77,9 @@ const Dashboard = (props) => {
       });
 
       fetch(
-        "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/leadsdeliveries"
+        "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/leadsdeliveries",{
+        mode:"cors"
+        }
       )
         .then((response)=> {
           if(response.ok){
@@ -94,7 +98,10 @@ const Dashboard = (props) => {
         });
 
         fetch(
-          "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/withdrawal"
+          "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal",{
+            mode:"cors"
+           
+          }
         )
           .then((response)=> {
             if(response.ok){

@@ -16,7 +16,7 @@ const EcommerceShops = (props) => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/withdrawal"
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal"
     )
       .then((response)=> {
         if(response.ok){

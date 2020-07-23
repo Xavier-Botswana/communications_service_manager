@@ -25,8 +25,8 @@ const CardShop = (props) => {
                     <i className="mdi mdi-alert-circle-outline mr-3"></i>
                     Request
                   </CardTitle>
-                  <CardText><i class="bx bx-user" style={{paddingLeft:10 }}> </i>UserName:</CardText>
-                  <CardText>RequestDate:</CardText>
+  <CardText>UserName:     {withdrawal.Username}</CardText>
+  <CardText>RequestDate:  {withdrawal.requestdate}</CardText>
                   <Input
                     type="number"
                     placeholder="enter amount"
@@ -40,7 +40,7 @@ const CardShop = (props) => {
                         color="dark"
                         className="btn btn-link waves-effect"
                       >
-                           <a href="#" download><i class="bx bx-file-blank"> </i></a>
+                           <a href={withdrawal.Proof_Of_Payment} download><i className="bx bx-file-blank"> </i></a>
                       </Button>
                       <Button
                         color="success"
