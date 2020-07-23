@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 
@@ -9,80 +9,36 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 import CardShop from "./CardShop";
 
 const EcommerceShops = (props) => {
-  const shops = [
-    {
-      id: 1,
-      color: "primary",
-      name: "Brendle's",
-      product: 112,
-      balance: "13,575",
-      profileLink: "#",
-    },
-    {
-      id: 2,
-      color: "warning",
-      name: "Tech Hifi",
-      product: 104,
-      balance: "11,145",
-      profileLink: "#",
-    },
-    {
-      id: 3,
-      color: "danger",
-      name: "Lafayette",
-      product: 126,
-      balance: "12,356",
-      profileLink: "#",
-    },
-    {
-      id: 4,
-      color: "success",
-      name: "Packer",
-      product: 102,
-      balance: "11,228",
-      profileLink: "#",
-    },
-    {
-      id: 5,
-      color: "info",
-      name: "Nedick's",
-      product: 96,
-      balance: "9,235",
-      profileLink: "#",
-    },
-    {
-      id: 6,
-      color: "dark",
-      name: "Hudson's",
-      product: 120,
-      balance: "14,794",
-      profileLink: "#",
-    },
-    {
-      id: 7,
-      color: "dark",
-      name: "Tech Hifi",
-      product: 104,
-      balance: "11,145",
-      profileLink: "#",
-    },
-    {
-      id: 8,
-      color: "primary",
-      name: "Brendle's",
-      product: 112,
-      balance: "13,575",
-      profileLink: "#",
-    },
-    {
-      id: 9,
-      color: "success",
-      name: "Lafayette",
-      product: 120,
-      balance: "12,356",
-      profileLink: "#",
-    },
-  ];
+
+   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setErrors] = useState(false);
+  const [withdrawal, setWithdrawal] = useState([]);
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(
+      "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/withdrawal"
+    )
+      .then((response)=> {
+        if(response.ok){
+        return response.json();
+      } else {
+
+        throw Error("Error fetching data.");
+      }
+    })
+      .then((withdrawal) => {
+        setWithdrawal(withdrawal);
+        
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
+
+        
+    
+
+  }, []);
+
 
   return (
     <React.Fragment>
@@ -94,8 +50,8 @@ const EcommerceShops = (props) => {
             breadcrumbItem="Withdrawal Requests"
           />
           <Row>
-            {shops.map((shop, key) => (
-              <CardShop shop={shop} key={"_shop_" + key} />
+            {withdrawal.map((withdrawal, key) => (
+              <CardShop withdrawal={withdrawal} key={"_shop_" + key} />
             ))}
           </Row>
           <Row>

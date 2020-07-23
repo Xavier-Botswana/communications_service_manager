@@ -142,7 +142,7 @@ const UiLightbox = (props) => {
                     <div className="popup-gallery">
                       <div className="img-fluid float-left">
                         <img
-                          src={img1}
+                          src={"https://wmich.edu/mus-gened/mus170/170notes/Ch1-elements.pdf"}
                           onClick={() =>  { setisGallery(true); setphotoIndex(0); }  }
                           alt=""
                           width="120"

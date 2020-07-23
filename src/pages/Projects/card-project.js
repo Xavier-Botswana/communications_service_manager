@@ -10,14 +10,12 @@ import {
 } from "reactstrap";
 
 const CardProject = (props) => {
-
   const [hasError, setErrors] = useState(false);
   const [indeliveries, setDeliveries] = useState([]);
 
   useEffect(() => {
     fetch(
-      "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/e_money_existing"
-      
+      "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/individualsdeliveries"
     )
       .then((response) => response.json())
       .then((indeliveries) => {
@@ -25,10 +23,10 @@ const CardProject = (props) => {
       })
       .catch((error) => {
         setErrors(error);
-        console.log(error);
       });
-
   }, []);
+
+  
   return (
     <React.Fragment>
       {indeliveries.map((indeliveries, key) => (
@@ -39,23 +37,22 @@ const CardProject = (props) => {
                 <li className="list-inline-item mr-3" id="dueDate">
                   <i className="bx bx-calendar mr-1"></i> {indeliveries.date}
                   <UncontrolledTooltip placement="top" target="dueDate">
-                  {indeliveries.date}
-                                    </UncontrolledTooltip>
+                    {indeliveries.date}
+                  </UncontrolledTooltip>
                 </li>
 
                 <Media className="overflow-hidden" body>
                   <h5 className="text-truncate font-size-15">
-                    Name: Katso Radebe (katso123)
+                    AGID: {indeliveries.username}
                   </h5>
                   <br />
-                  <div className="team">ID Number: 988754562</div>
-                  <br />
-                  <div className="team">Phone Number: 72845512</div>
-                  <br />
-                  <div className="team">Package: Premium</div>
-                  <br />
                   <div className="team">
-                    Address: Block 9, Plot 2312, Gaborone
+                    Full Names: {indeliveries.fullnames}
+                  </div>
+                  <div className="team">Phone Number: {indeliveries.phone}</div>
+        
+                  <div className="team">
+                    Address: {indeliveries.address}
                   </div>
                   <br />
                   <button

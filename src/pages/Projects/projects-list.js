@@ -13,23 +13,35 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 
 const ProjectsList = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
   const [emoney, setEmoney] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(
       "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/e_money_existing"
     )
-      .then((response) => response.json())
+      .then((response)=> {
+        if(response.ok){
+        return response.json();
+      } else {
+
+        throw Error("Error fetching data.");
+      }
+    })
       .then((emoney) => {
         setEmoney(emoney);
+        
       })
       .catch((error) => {
         setErrors(error);
       });
 
-  }, []);
+        
+    
 
+  }, []);
 
 
   return (

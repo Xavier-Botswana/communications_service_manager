@@ -46,40 +46,73 @@ const Dashboard = (props) => {
   ];
 
   const [hasError, setErrors] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [emoney, setEmoney] = useState([]);
   const [deliveries, setDeliveries] = useState([]);
   const [withdrawal, setWithdrawal] = useState([]);
 
   //fetching The Data from the API to display the number of emoney request
   useEffect(() => {
+    setIsLoading(true);
     fetch(
       "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/e_money_existing"
     )
-      .then((response) => response.json())
+      .then((response)=> {
+        if(response.ok){
+        return response.json();
+      } else {
+
+        throw Error("Error fetching data.");
+      }
+    })
       .then((emoney) => {
         setEmoney(emoney);
+        
       })
       .catch((error) => {
         setErrors(error);
       });
 
-    fetch("https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/leadsdeliveries")
-      .then((response) => response.json())
-      .then((deliveries) => {
-        setDeliveries(deliveries);
+      fetch(
+        "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/leadsdeliveries"
+      )
+        .then((response)=> {
+          if(response.ok){
+          return response.json();
+        } else {
+  
+          throw Error("Error fetching data.");
+        }
       })
-      .catch((error) => {
-        setErrors(error);
-      });
+        .then((deliveries) => {
+          setDeliveries(deliveries);
+          
+        })
+        .catch((error) => {
+          setErrors(error);
+        });
 
-    fetch("https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/withdrawal")
-      .then((response) => response.json())
-      .then((withdrawal) => {
-        setWithdrawal(withdrawal);
-      })
-      .catch((error) => {
-        setErrors(error);
-      });
+        fetch(
+          "https://sheetsu.com/apis/v1.0su/8d23893fa144/sheets/withdrawal"
+        )
+          .then((response)=> {
+            if(response.ok){
+            return response.json();
+          } else {
+    
+            throw Error("Error fetching data.");
+          }
+        })
+          .then((withdrawal) => {
+            setWithdrawal(withdrawal);
+            
+          })
+          .catch((error) => {
+            setErrors(error);
+          });
+    
+
   }, []);
 
   return (
