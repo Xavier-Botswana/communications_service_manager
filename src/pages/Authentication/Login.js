@@ -21,19 +21,19 @@ import logo from "../../assets/images/logo1.png";
 import firebase from "../../firebase";
 
 const Login = (props) => {
+  const { currentUser } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function login() {
     try {
       await firebase.login(email, password);
-      props.history.replace("/admin");
+      props.history.replace("/");
     } catch (error) {
       alert(error.message);
     }
   }
-
-  const { currentUser } = useContext(AuthContext);
 
   if (currentUser) {
     return <Redirect to="/" />;

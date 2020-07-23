@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
-import {
-  Container,
-  Row,
-  Col,
-  Table,
-} from "reactstrap";
+import { Container, Row, Col, Table } from "reactstrap";
+
+import Header from "../../components/HorizontalLayout/Header";
+import Footer from "../../components/HorizontalLayout/Footer";
+import Navbar from "../../components/HorizontalLayout/Navbar";
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-
 
 const ProjectsList = (props) => {
   const [hasError, setErrors] = useState(false);
@@ -27,15 +25,14 @@ const ProjectsList = (props) => {
       .catch((error) => {
         setErrors(error);
       });
-
   }, []);
-
-
 
   return (
     <React.Fragment>
+      <Header />
+      <Navbar />
       <div className="page-content">
-        <Container fluid>
+        <Container style={{ marginTop: "35px" }} fluid>
           {/* Render Breadcrumbs */}
           <Breadcrumbs
             title="New Requests"
@@ -60,52 +57,46 @@ const ProjectsList = (props) => {
                       </tr>
                     </thead>
 
-                    
                     <tbody>
-
-                            {emoney.map((item, i) => {
-        return (
-
-                      <tr key={i}>
-                        <td>11</td>
-                        <td>
-                          <h5 className="text-truncate font-size-14">
-
-                          {item.username}                        
-                          
-                            </h5>
-                        </td>
-                        <td>15 June, 20</td>
-                        <td>  {item.phone}   </td>
-                        <td>
-                        <a href={item.proof}  download>
-
-                          <span className="badge badge-primary">Payment Link </span></a>
-                        </td>
-                        <td>
-                          <button
-                            type="button"
-                            className="btn btn-success waves-effect waves-light"
-                          >
-                            <i className="bx bx-check-double font-size-16 align-middle mr-2"></i>{" "}
-                            Accept
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-danger waves-effect waves-light"
-                            style={{ marginLeft: "10px" }}
-                          >
-                            <i className="bx bx-block font-size-16 align-middle mr-2"></i>{" "}
-                            Deny
-                          </button>
-                        </td>
-                      </tr>
-
-);
-
-                        })}
+                      {emoney.map((item, i) => {
+                        return (
+                          <tr key={i}>
+                            <td>11</td>
+                            <td>
+                              <h5 className="text-truncate font-size-14">
+                                {item.username}
+                              </h5>
+                            </td>
+                            <td>15 June, 20</td>
+                            <td> {item.phone} </td>
+                            <td>
+                              <a href={item.proof} download>
+                                <span className="badge badge-primary">
+                                  Payment Link{" "}
+                                </span>
+                              </a>
+                            </td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-success waves-effect waves-light"
+                              >
+                                <i className="bx bx-check-double font-size-16 align-middle mr-2"></i>{" "}
+                                Accept
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-danger waves-effect waves-light"
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <i className="bx bx-block font-size-16 align-middle mr-2"></i>{" "}
+                                Deny
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
-
                   </Table>
                 </div>
               </div>
@@ -124,6 +115,7 @@ const ProjectsList = (props) => {
           </Row>
         </Container>
       </div>
+      <Footer />
     </React.Fragment>
   );
 };

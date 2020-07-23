@@ -19,6 +19,10 @@ import { Link } from "react-router-dom";
 //import Charts
 import StackedColumnChart from "./StackedColumnChart";
 
+import Header from "../../components/HorizontalLayout/Header";
+import Footer from "../../components/HorizontalLayout/Footer";
+import Navbar from "../../components/HorizontalLayout/Navbar";
+
 import modalimage1 from "../../assets/images/product/img-7.png";
 import modalimage2 from "../../assets/images/product/img-4.png";
 
@@ -84,8 +88,10 @@ const Dashboard = (props) => {
 
   return (
     <React.Fragment>
+      <Header />
+      <Navbar />
       <div className="page-content">
-        <Container fluid>
+        <Container style={{ marginTop: "35px" }} fluid>
           {/* Render Breadcrumb */}
           <Breadcrumbs
             title={props.t("Dashboard")}
@@ -312,6 +318,7 @@ const Dashboard = (props) => {
           </ModalFooter>
         </div>
       </Modal>
+      <Footer />
     </React.Fragment>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Switch, BrowserRouter as Router } from "react-router-dom";
+import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 import { connect } from "react-redux";
 
 // Import Routes all
@@ -17,10 +18,17 @@ import NonAuthLayout from "./components/NonAuthLayout";
 // Import scss
 import "./assets/scss/theme.scss";
 
-// Import Firebase Configuration file
-import { initFirebaseBackend } from "./helpers/firebase_helper";
+import Header from "./components/HorizontalLayout/Header";
+import Dashboard from "./pages/Dashboard/index";
+import ProjectsList from "./pages/Projects/projects-list";
+import ProjectsGrid from "./pages/Projects/projects-grid";
+import EcommerceShops from "./pages/Ecommerce/EcommerceShops";
+import EcommerceAddProduct from "./pages/Ecommerce/EcommerceAddProduct";
+import EcommerceOrders from "./pages/Ecommerce/EcommerceOrders";
+import Login from "./pages/Authentication/Login";
+import Logout from "./pages/Authentication/Logout";
+import Footer from "./components/HorizontalLayout/Footer";
 
-import fakeBackend from "./helpers/AuthType/fakeBackend";
 import AuthProvider from "./AuthProvider";
 
 const App = (props) => {
@@ -29,25 +37,18 @@ const App = (props) => {
   return (
     <AuthProvider>
       <Router>
+        {/** <Header /> */}
         <Switch>
-          {authRoutes.map((route, idx) => (
-            <Authmiddleware
-              path={route.path}
-              layout={NonAuthLayout}
-              component={route.component}
-              key={idx}
-            />
-          ))}
-
-          {userRoutes.map((route, idx) => (
-            <Authmiddleware
-              path={route.path}
-              layout={Layout}
-              component={route.component}
-              key={idx}
-            />
-          ))}
+          <PrivateRoute exact path="/" component={Dashboard} />
+          <Route exact path="/emoney-requests" component={ProjectsList} />
+          <Route exact path="/delivery-requests" component={ProjectsGrid} />
+          <Route exact path="/withdrawal-requests" component={EcommerceShops} />
+          <Route exact path="/add-users" component={EcommerceAddProduct} />
+          <Route exact path="/reward-payments" component={EcommerceOrders} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/logout" component={Logout} />
         </Switch>
+        {/** <Footer /> */}
       </Router>
     </AuthProvider>
   );
