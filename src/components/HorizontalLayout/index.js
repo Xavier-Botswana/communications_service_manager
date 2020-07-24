@@ -79,18 +79,13 @@ class Layout extends Component {
 
         <div id="layout-wrapper">
           <Header
-            userDetails={this.props.userDetails}
             theme={this.props.topbarTheme}
             isMenuOpened={this.state.isMenuOpened}
             openLeftMenuCallBack={this.openMenu}
           />
           {/** Conditional Navbar depending on user type */}
 
-          {this.props.userDetails.userType === "Admin" ? (
-            <Navbar menuOpen={this.state.isMenuOpened} />
-          ) : (
-            <Navbar2 menuOpen={this.state.isMenuOpened} />
-          )}
+          {this.props.userType === "Admin" ? <Navbar /> : <Navbar2 />}
 
           {/** *******************************************/}
           <div className="main-content">{this.props.children}</div>

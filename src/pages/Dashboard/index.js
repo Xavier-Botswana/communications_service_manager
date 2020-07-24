@@ -147,12 +147,12 @@ const Dashboard = (props) => {
     return userDetails.userType;
   };
 
-  getUserDetails(currentUser);
+  const userType = getUserDetails(currentUser);
 
   /******************************************** */
 
   return (
-    <Layout userDetails={userDetails}>
+    <Layout userType={userType}>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}

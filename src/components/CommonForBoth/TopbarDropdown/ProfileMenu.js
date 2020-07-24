@@ -16,10 +16,6 @@ import { withRouter, Link } from "react-router-dom";
 import user1 from "../../../assets/images/Prince.png";
 
 const ProfileMenu = (props) => {
-  const { userDetails } = props;
-
-  const displayName = userDetails.name;
-
   // Declare a new state variable, which we'll call "menu"
   const [menu, setMenu] = useState(false);
 
@@ -57,9 +53,7 @@ const ProfileMenu = (props) => {
             src={user1}
             alt="Header Avatar"
           />
-          <span className="d-none d-xl-inline-block ml-2 mr-1">
-            {displayName}
-          </span>
+          <span className="d-none d-xl-inline-block ml-2 mr-1">{""}</span>
           <i className="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
         </DropdownToggle>
         <DropdownMenu right>

@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useContext, useEffect } from "react";
 
+import firebase from "../../firebase";
+
 import { AuthContext } from "../../AuthProvider";
 
 import { Link } from "react-router-dom";
@@ -17,11 +19,6 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 import CardShop from "./CardShop";
 
 const EcommerceShops = (props) => {
-  /** USER INFO *********************************/
-  const { currentUser } = useContext(AuthContext);
-
-  /******************************************** */
-
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
   const [withdrawal, setWithdrawal] = useState([]);
@@ -45,8 +42,35 @@ const EcommerceShops = (props) => {
       });
   }, []);
 
+  /** USER INFO *********************************/
+  const { currentUser } = useContext(AuthContext);
+  const [userDetails, setUserDetails] = useState({});
+
+  const getUserDetails = (currentUser) => {
+    let docRef = firebase.db.collection("users").doc(currentUser.email);
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setUserDetails(doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+
+    return userDetails.userType;
+  };
+
+  const userType = getUserDetails(currentUser);
+
+  /******************************************** */
+
   return (
-    <Layout>
+    <Layout userType={userType}>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
