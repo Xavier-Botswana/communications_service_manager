@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
+
+import { AuthContext } from "../../AuthProvider";
 
 import Layout from "../../components/HorizontalLayout";
+
+import AdminLayout from "../../components/AdminLayout";
+import FinanceLayout from "../../components/AdminLayout";
 
 import {
   Container,
@@ -17,10 +22,13 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 //Import Cards
 import CardProject from "./card-project";
 
-
-
 const ProjectsGrid = (props) => {
-  const {withdrawal} = props;
+  /** USER INFO *********************************/
+  const { currentUser } = useContext(AuthContext);
+
+  /******************************************** */
+
+  const { withdrawal } = props;
 
   return (
     <Layout>

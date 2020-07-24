@@ -1,14 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
+
+import { AuthContext } from "../../AuthProvider";
 
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Table } from "reactstrap";
 
 import Layout from "../../components/HorizontalLayout";
 
+import AdminLayout from "../../components/AdminLayout";
+import FinanceLayout from "../../components/AdminLayout";
+
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 const ProjectsList = (props) => {
+  /** USER INFO *********************************/
+  const { currentUser } = useContext(AuthContext);
+
+  /******************************************** */
+
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
   const [emoney, setEmoney] = useState([]);

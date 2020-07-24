@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
+
+import { AuthContext } from "../../AuthProvider";
+
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -23,6 +26,9 @@ import {
 
 import Layout from "../../components/HorizontalLayout";
 
+import AdminLayout from "../../components/AdminLayout";
+import FinanceLayout from "../../components/AdminLayout";
+
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
@@ -30,6 +36,11 @@ import img4 from "../../assets/images/product/img-4.png";
 import img7 from "../../assets/images/product/img-7.png";
 
 const EcommerceOrders = (props) => {
+  /** USER INFO *********************************/
+  const { currentUser } = useContext(AuthContext);
+
+  /******************************************** */
+
   const [modal, setmodal] = useState(false);
 
   const Orders = [

@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
+
+import { AuthContext } from "../../AuthProvider";
+
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -23,11 +26,19 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 import Layout from "../../components/HorizontalLayout";
 
+import AdminLayout from "../../components/AdminLayout";
+import FinanceLayout from "../../components/AdminLayout";
+
 import firebase from "../../firebase";
 import FirebaseLoader from "../../components/Loader/FirebaseLoader";
 import SuccessMessage from "../../components/Alert-Popup/SuccessMessage";
 
 const EcommerceAddProduct = (props) => {
+  /** USER INFO *********************************/
+  const { currentUser } = useContext(AuthContext);
+
+  /******************************************** */
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
