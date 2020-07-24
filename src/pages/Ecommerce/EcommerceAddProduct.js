@@ -228,8 +228,8 @@ const EcommerceAddProduct = (props) => {
                             className="form-control select2"
                           >
                             <option value="">Selet user type...</option>
-                            <option value="admin">Admin</option>
-                            <option value="finance">Finance</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Finance">Finance</option>
                           </AvField>
                         </FormGroup>
                         <FormGroup>
