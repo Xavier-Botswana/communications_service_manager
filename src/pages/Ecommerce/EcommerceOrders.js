@@ -21,9 +21,7 @@ import {
   PaginationLink,
 } from "reactstrap";
 
-import Header from "../../components/HorizontalLayout/Header";
-import Footer from "../../components/HorizontalLayout/Footer";
-import Navbar from "../../components/HorizontalLayout/Navbar";
+import Layout from "../../components/HorizontalLayout";
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
@@ -137,11 +135,9 @@ const EcommerceOrders = (props) => {
   ];
 
   return (
-    <React.Fragment>
-      <Header />
-      <Navbar />
+    <Layout>
       <div className="page-content">
-        <Container style={{ marginTop: "35px" }} fluid>
+        <Container fluid>
           <Breadcrumbs
             title="Reward Payments"
             breadcrumbItem="Reward Payments"
@@ -322,7 +318,6 @@ const EcommerceOrders = (props) => {
             </Col>
           </Row>
         </Container>
-        <Footer />
       </div>
 
       <Modal
@@ -429,7 +424,7 @@ const EcommerceOrders = (props) => {
           </ModalFooter>
         </div>
       </Modal>
-    </React.Fragment>
+    </Layout>
   );
 };
 

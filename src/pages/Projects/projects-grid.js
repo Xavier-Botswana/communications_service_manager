@@ -1,5 +1,7 @@
 import React from "react";
 
+import Layout from "../../components/HorizontalLayout";
+
 import {
   Container,
   Row,
@@ -8,10 +10,6 @@ import {
   PaginationItem,
   PaginationLink,
 } from "reactstrap";
-
-import Header from "../../components/HorizontalLayout/Header";
-import Footer from "../../components/HorizontalLayout/Footer";
-import Navbar from "../../components/HorizontalLayout/Navbar";
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
@@ -151,11 +149,9 @@ const ProjectsGrid = (props) => {
   ];
 
   return (
-    <React.Fragment>
-      <Header />
-      <Navbar />
+    <Layout>
       <div className="page-content">
-        <Container style={{ marginTop: "35px" }} fluid>
+        <Container fluid>
           {/* Render Breadcrumbs */}
           <Breadcrumbs
             title="Individual Requests"
@@ -196,8 +192,7 @@ const ProjectsGrid = (props) => {
           </Row>
         </Container>
       </div>
-      <Footer />
-    </React.Fragment>
+    </Layout>
   );
 };
 

@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Table } from "reactstrap";
 
-import Header from "../../components/HorizontalLayout/Header";
-import Footer from "../../components/HorizontalLayout/Footer";
-import Navbar from "../../components/HorizontalLayout/Navbar";
+import Layout from "../../components/HorizontalLayout";
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
@@ -28,11 +26,9 @@ const ProjectsList = (props) => {
   }, []);
 
   return (
-    <React.Fragment>
-      <Header />
-      <Navbar />
+    <Layout>
       <div className="page-content">
-        <Container style={{ marginTop: "35px" }} fluid>
+        <Container fluid>
           {/* Render Breadcrumbs */}
           <Breadcrumbs
             title="New Requests"
@@ -115,8 +111,7 @@ const ProjectsList = (props) => {
           </Row>
         </Container>
       </div>
-      <Footer />
-    </React.Fragment>
+    </Layout>
   );
 };
 
