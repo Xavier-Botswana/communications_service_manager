@@ -21,6 +21,8 @@ import {
   PaginationLink,
 } from "reactstrap";
 
+import Layout from "../../components/HorizontalLayout";
+
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
@@ -133,7 +135,7 @@ const EcommerceOrders = (props) => {
   ];
 
   return (
-    <React.Fragment>
+    <Layout>
       <div className="page-content">
         <Container fluid>
           <Breadcrumbs
@@ -422,7 +424,7 @@ const EcommerceOrders = (props) => {
           </ModalFooter>
         </div>
       </Modal>
-    </React.Fragment>
+    </Layout>
   );
 };
 

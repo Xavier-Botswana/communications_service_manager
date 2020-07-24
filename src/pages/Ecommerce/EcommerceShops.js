@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 
+import Layout from "../../components/HorizontalLayout";
+
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
@@ -41,7 +43,7 @@ const EcommerceShops = (props) => {
 
 
   return (
-    <React.Fragment>
+    <Layout>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
@@ -66,7 +68,7 @@ const EcommerceShops = (props) => {
           </Row>
         </Container>
       </div>
-    </React.Fragment>
+    </Layout>
   );
 };
 

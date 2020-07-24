@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import Layout from "../../components/HorizontalLayout";
+
 import {
   Container,
   Row,
@@ -21,7 +23,7 @@ const ProjectsGrid = (props) => {
   const {withdrawal} = props;
 
   return (
-    <React.Fragment>
+    <Layout>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumbs */}
@@ -64,7 +66,7 @@ const ProjectsGrid = (props) => {
           </Row>
         </Container>
       </div>
-    </React.Fragment>
+    </Layout>
   );
 };
 

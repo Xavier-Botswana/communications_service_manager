@@ -21,6 +21,8 @@ import Dropzone from "react-dropzone";
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
+import Layout from "../../components/HorizontalLayout";
+
 import firebase from "../../firebase";
 import FirebaseLoader from "../../components/Loader/FirebaseLoader";
 import SuccessMessage from "../../components/Alert-Popup/SuccessMessage";
@@ -136,7 +138,7 @@ const EcommerceAddProduct = (props) => {
   ///////////////////////////////////////////////////////
 
   return (
-    <React.Fragment>
+    <Layout>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
@@ -331,7 +333,7 @@ const EcommerceAddProduct = (props) => {
           </Row>
         </Container>
       </div>
-    </React.Fragment>
+    </Layout>
   );
 };
 

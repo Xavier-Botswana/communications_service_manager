@@ -174,7 +174,7 @@ const userRoutes = [
   { path: "/pages-pricing", component: PagesPricing },
 
   // this route should be at the end of all other routes
-  { path: "/", exact: true, component: () => <Redirect to="/admin" /> },
+  //{ path: "/", exact: true, component: () => <Redirect to="/admin" /> },
 ];
 
 const authRoutes = [

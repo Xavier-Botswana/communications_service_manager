@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   Container,
   Row,
@@ -18,6 +19,8 @@ import { Link } from "react-router-dom";
 
 //import Charts
 import StackedColumnChart from "./StackedColumnChart";
+
+import Layout from "../../components/HorizontalLayout";
 
 import modalimage1 from "../../assets/images/product/img-7.png";
 import modalimage2 from "../../assets/images/product/img-4.png";
@@ -123,7 +126,7 @@ const Dashboard = (props) => {
   }, []);
 
   return (
-    <React.Fragment>
+    <Layout>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
@@ -352,7 +355,7 @@ const Dashboard = (props) => {
           </ModalFooter>
         </div>
       </Modal>
-    </React.Fragment>
+    </Layout>
   );
 };
 
