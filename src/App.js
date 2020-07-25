@@ -30,6 +30,8 @@ import Logout from "./pages/Authentication/Logout";
 import Footer from "./components/HorizontalLayout/Footer";
 
 import AuthProvider from "./AuthProvider";
+import EmoneyNew from "./pages/Projects/emoneynew";
+import TeamDeliveries from "./pages/Projects/teamrequest";
 
 const App = (props) => {
   const Layout = HorizontalLayout;
@@ -41,7 +43,9 @@ const App = (props) => {
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />
           <Route exact path="/emoney-requests" component={ProjectsList} />
+          <Route exact path="/emoneynew" component={EmoneyNew} />
           <Route exact path="/delivery-requests" component={ProjectsGrid} />
+          <Route exact path="/teamdelivery-requests" component={TeamDeliveries} />
           <Route exact path="/withdrawal-requests" component={EcommerceShops} />
           <Route exact path="/add-users" component={EcommerceAddProduct} />
           <Route exact path="/reward-payments" component={EcommerceOrders} />

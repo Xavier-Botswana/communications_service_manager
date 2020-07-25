@@ -43,7 +43,7 @@ const CardProject = (props) => {
 
                 <Media className="overflow-hidden" body>
                   <h5 className="text-truncate font-size-15">
-                    AGID: {indeliveries.username}
+                    ID: {indeliveries.username}
                   </h5>
                   <br />
                   <div className="team">
