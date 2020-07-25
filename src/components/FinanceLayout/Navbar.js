@@ -8,7 +8,7 @@ import { withNamespaces } from "react-i18next";
 
 import { connect } from "react-redux";
 
-const Navbar2 = (props) => {
+const Navbar = (props) => {
   const [dashboard, setdashboard] = useState(false);
   const [ui, setui] = useState(false);
   const [app, setapp] = useState(false);
@@ -112,5 +112,5 @@ const mapStatetoProps = (state) => {
 };
 
 export default withRouter(
-  connect(mapStatetoProps, {})(withNamespaces()(Navbar2))
+  connect(mapStatetoProps, {})(withNamespaces()(Navbar))
 );

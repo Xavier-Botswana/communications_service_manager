@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
+
+import { AuthContext } from "../../AuthProvider";
+
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -23,6 +26,9 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 import Layout from "../../components/HorizontalLayout";
 
+import AdminLayout from "../../components/AdminLayout";
+import FinanceLayout from "../../components/AdminLayout";
+
 import firebase from "../../firebase";
 import FirebaseLoader from "../../components/Loader/FirebaseLoader";
 import SuccessMessage from "../../components/Alert-Popup/SuccessMessage";
@@ -31,7 +37,7 @@ const EcommerceAddProduct = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [userType, setUserType] = useState("");
+  const [type, setUserType] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [imageURL, setImageURL] = useState("");
 
@@ -45,7 +51,7 @@ const EcommerceAddProduct = (props) => {
     if (
       firstName === "" ||
       lastName === "" ||
-      userType === "" ||
+      type === "" ||
       phoneNumber === "" ||
       email === ""
     ) {
@@ -77,7 +83,7 @@ const EcommerceAddProduct = (props) => {
           .set({
             name: `${firstName} ${lastName}`,
             phoneNumber: phoneNumber,
-            userType: userType,
+            type: type,
             imageURL: imageURL,
           })
           .then(() => {
@@ -104,7 +110,7 @@ const EcommerceAddProduct = (props) => {
       setLastName(value);
     } else if (name === "email") {
       setEmail(value);
-    } else if (name === "userType") {
+    } else if (name === "type") {
       setUserType(value);
     } else if (name === "phoneNumber") {
       setPhoneNumber(value);
@@ -137,8 +143,35 @@ const EcommerceAddProduct = (props) => {
   }
   ///////////////////////////////////////////////////////
 
+  /** USER INFO *********************************/
+  const { currentUser } = useContext(AuthContext);
+  const [userDetails, setUserDetails] = useState({});
+
+  const getUserDetails = (currentUser) => {
+    let docRef = firebase.db.collection("users").doc(currentUser.email);
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setUserDetails(doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+
+    return userDetails.userType;
+  };
+
+  const userType = getUserDetails(currentUser);
+
+  /******************************************** */
+
   return (
-    <Layout>
+    <Layout userType={userType}>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
@@ -212,13 +245,13 @@ const EcommerceAddProduct = (props) => {
                             errorMessage="Select a user type"
                             type="select"
                             id="utype"
-                            name="userType"
+                            name="type"
                             onChange={(event) => onChangeHandler(event)}
                             className="form-control select2"
                           >
                             <option value="">Selet user type...</option>
-                            <option value="admin">Admin</option>
-                            <option value="finance">Finance</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Finance">Finance</option>
                           </AvField>
                         </FormGroup>
                         <FormGroup>
@@ -242,7 +275,7 @@ const EcommerceAddProduct = (props) => {
 
                     {isProcessSuccessful ? (
                       <SuccessMessage
-                        message={`User ${firstName} ${lastName} successfully added as ${userType}.`}
+                        message={`User ${firstName} ${lastName} successfully added as ${type}.`}
                       />
                     ) : null}
 

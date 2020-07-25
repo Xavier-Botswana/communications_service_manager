@@ -1,8 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
+
+import firebase from "../../firebase";
+
+import { AuthContext } from "../../AuthProvider";
+
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 
 import Layout from "../../components/HorizontalLayout";
+
+import AdminLayout from "../../components/AdminLayout";
+import FinanceLayout from "../../components/AdminLayout";
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
@@ -11,8 +19,7 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 import CardShop from "./CardShop";
 
 const EcommerceShops = (props) => {
-
-   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
   const [withdrawal, setWithdrawal] = useState([]);
   useEffect(() => {
@@ -20,30 +27,50 @@ const EcommerceShops = (props) => {
     fetch(
       "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal"
     )
-      .then((response)=> {
-        if(response.ok){
-        return response.json();
-      } else {
-
-        throw Error("Error fetching data.");
-      }
-    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw Error("Error fetching data.");
+        }
+      })
       .then((withdrawal) => {
         setWithdrawal(withdrawal);
-        
       })
       .catch((error) => {
         setErrors(error);
       });
-
-        
-    
-
   }, []);
 
+  /** USER INFO *********************************/
+  const { currentUser } = useContext(AuthContext);
+  const [userDetails, setUserDetails] = useState({});
+
+  const getUserDetails = (currentUser) => {
+    let docRef = firebase.db.collection("users").doc(currentUser.email);
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setUserDetails(doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+
+    return userDetails.userType;
+  };
+
+  const userType = getUserDetails(currentUser);
+
+  /******************************************** */
 
   return (
-    <Layout>
+    <Layout userType={userType}>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}

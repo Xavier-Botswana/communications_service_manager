@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
+
+import firebase from "../../firebase";
+
+import { AuthContext } from "../../AuthProvider";
 
 import {
   Container,
@@ -15,6 +19,7 @@ import {
   Media,
   Table,
 } from "reactstrap";
+
 import { Link } from "react-router-dom";
 
 //import Charts
@@ -41,6 +46,7 @@ import { withNamespaces } from "react-i18next";
 
 const Dashboard = (props) => {
   const [modal, setmodal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const email = [
     { title: "Week", linkto: "#", isActive: false },
@@ -49,7 +55,6 @@ const Dashboard = (props) => {
   ];
 
   const [hasError, setErrors] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const [emoney, setEmoney] = useState([]);
   const [deliveries, setDeliveries] = useState([]);
@@ -59,74 +64,95 @@ const Dashboard = (props) => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing",{
-        mode:"cors"
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing",
+      {
+        mode: "cors",
       }
     )
-      .then((response)=> {
-        if(response.ok){
-        return response.json();
-      } else {
-
-        throw Error("Error fetching data.");
-      }
-    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw Error("Error fetching data.");
+        }
+      })
       .then((emoney) => {
         setEmoney(emoney);
-        
       })
       .catch((error) => {
         setErrors(error);
       });
 
-      fetch(
-        "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/leadsdeliveries",{
-        mode:"cors"
-        }
-      )
-        .then((response)=> {
-          if(response.ok){
+    fetch(
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/leadsdeliveries",
+      {
+        mode: "cors",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
           return response.json();
         } else {
-  
           throw Error("Error fetching data.");
         }
       })
-        .then((deliveries) => {
-          setDeliveries(deliveries);
-          
-        })
-        .catch((error) => {
-          setErrors(error);
-        });
+      .then((deliveries) => {
+        setDeliveries(deliveries);
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
 
-        fetch(
-          "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal",{
-            mode:"cors"
-           
-          }
-        )
-          .then((response)=> {
-            if(response.ok){
-            return response.json();
-          } else {
-    
-            throw Error("Error fetching data.");
-          }
-        })
-          .then((withdrawal) => {
-            setWithdrawal(withdrawal);
-            
-          })
-          .catch((error) => {
-            setErrors(error);
-          });
-    
-
+    fetch(
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal",
+      {
+        mode: "cors",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw Error("Error fetching data.");
+        }
+      })
+      .then((withdrawal) => {
+        setWithdrawal(withdrawal);
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
   }, []);
 
+  /** USER INFO *********************************/
+  const { currentUser } = useContext(AuthContext);
+  const [userDetails, setUserDetails] = useState({});
+
+  const getUserDetails = (currentUser) => {
+    let docRef = firebase.db.collection("users").doc(currentUser.email);
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setUserDetails(doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+
+    return userDetails.userType;
+  };
+
+  const userType = getUserDetails(currentUser);
+
+  /******************************************** */
+
   return (
-    <Layout>
+    <Layout userType={userType}>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
@@ -137,7 +163,10 @@ const Dashboard = (props) => {
 
           <Row>
             <Col xl="4">
-              <WelcomeComp />
+              <WelcomeComp
+                currentUser={currentUser}
+                userDetails={userDetails}
+              />
               <MonthlyEarning />
             </Col>
             <Col xl="8">

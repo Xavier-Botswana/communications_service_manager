@@ -10,7 +10,6 @@ import {
 
 // Other Layout related Component
 import Navbar from "./Navbar";
-import Navbar2 from "./Navbar2";
 import Header from "./Header";
 import Footer from "./Footer";
 import Rightbar from "../CommonForBoth/Rightbar";
@@ -84,9 +83,7 @@ class Layout extends Component {
             openLeftMenuCallBack={this.openMenu}
           />
           {/** Conditional Navbar depending on user type */}
-
-          {this.props.userType === "Admin" ? <Navbar /> : <Navbar2 />}
-
+          <Navbar menuOpen={this.state.isMenuOpened} />
           {/** *******************************************/}
           <div className="main-content">{this.props.children}</div>
           <Footer />

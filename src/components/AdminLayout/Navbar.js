@@ -118,6 +118,12 @@ const Navbar = (props) => {
                     <span> {props.t("Add Users")}</span>
                   </Link>
                 </li>
+                <li>
+                  <Link to="/reward-payments" className="dropdown-item">
+                    <i className="bx bx-user"></i>
+                    <span> {props.t("Reward Payments")}</span>
+                  </Link>
+                </li>
               </ul>
             </Collapse>
           </nav>
