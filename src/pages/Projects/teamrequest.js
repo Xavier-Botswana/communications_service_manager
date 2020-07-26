@@ -12,10 +12,10 @@ import {
 } from "reactstrap";
 
 //Import Breadcrumb
-import Breadcrumbs from "../../components/Common/Teamreq";
 
 //Import Cards
 import CardProject from "./teamcard";
+import Teamcrumb from "../../components/Common/Teamreq";
 
 
 
@@ -27,7 +27,7 @@ const TeamDeliveries = (props) => {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumbs */}
-          <Breadcrumbs
+          <Teamcrumb
             title="Team Delivery Requests"
             breadcrumbItem="Individual Delivery Requests"
           />

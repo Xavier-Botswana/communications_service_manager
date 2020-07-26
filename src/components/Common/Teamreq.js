@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { Row, Col, BreadcrumbItem } from "reactstrap";
 
-const Breadcrumb = (props) => {
+const Teamcrumb = (props) => {
   return (
      <Row>
                     <Col xs="12">
@@ -14,7 +14,7 @@ const Breadcrumb = (props) => {
                                         <Link to="#">{props.title}</Link>
                                     </BreadcrumbItem>
                                     <BreadcrumbItem active>
-                                        <Link to="/teamdelivery-requests">{props.breadcrumbItem}</Link>
+                                        <Link to="/delivery-requests">{props.breadcrumbItem}</Link>
                                     </BreadcrumbItem>
                             </ol>
                             </div>
@@ -24,4 +24,4 @@ const Breadcrumb = (props) => {
   );
 }
 
-export default Breadcrumb;
+export default Teamcrumb;

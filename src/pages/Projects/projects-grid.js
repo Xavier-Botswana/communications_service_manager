@@ -23,6 +23,7 @@ import Breadcrumbs from "../../components/Common/Individualreq";
 
 //Import Cards
 import CardProject from "./card-project";
+import Individualreq from "../../components/Common/Individualreq";
 
 const ProjectsGrid = (props) => {
   const { withdrawal } = props;
@@ -59,7 +60,7 @@ const ProjectsGrid = (props) => {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumbs */}
-          <Breadcrumbs
+          <Individualreq
             title="Individual Requests"
             breadcrumbItem="Team Requests"
           />
