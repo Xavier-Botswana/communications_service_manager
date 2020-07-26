@@ -94,17 +94,18 @@ const CardProject = (props) => {
                             <i className="bx bx-check-double font-size-16 align-middle mr-2"></i>{" "}
                             Accept
                           </button>
-                          
                         </td>
 
-                        <td><button
+                        <td>
+                          <button
                             type="button"
                             className="btn btn-danger waves-effect waves-light"
                             style={{ marginLeft: "10px" }}
                           >
                             <i className="bx bx-block font-size-16 align-middle mr-2"></i>{" "}
                             Decline
-                          </button></td>
+                          </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>

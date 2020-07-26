@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
 
 import Layout from "../../components/HorizontalLayout";
+
+import firebase from "../../firebase";
+
+import { AuthContext } from "../../AuthProvider";
 
 import {
   Container,
@@ -17,13 +21,38 @@ import {
 import CardProject from "./teamcard";
 import Teamcrumb from "../../components/Common/Teamreq";
 
-
-
 const TeamDeliveries = (props) => {
-  const {withdrawal} = props;
+  const { withdrawal } = props;
+
+  /** USER INFO *********************************/
+  const { currentUser } = useContext(AuthContext);
+  const [userDetails, setUserDetails] = useState({});
+
+  const getUserDetails = (currentUser) => {
+    let docRef = firebase.db.collection("users").doc(currentUser.email);
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setUserDetails(doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+
+    return userDetails.userType;
+  };
+
+  const userType = getUserDetails(currentUser);
+
+  /******************************************** */
 
   return (
-    <Layout>
+    <Layout userType={userType}>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumbs */}

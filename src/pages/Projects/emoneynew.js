@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Table } from "reactstrap";
 
 import Layout from "../../components/HorizontalLayout";
+
+import firebase from "../../firebase";
+
+import { AuthContext } from "../../AuthProvider";
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumbemoneynew";
@@ -33,16 +37,39 @@ const EmoneyNew = (props) => {
       });
   }, []);
 
+  /** USER INFO *********************************/
+  const { currentUser } = useContext(AuthContext);
+  const [userDetails, setUserDetails] = useState({});
+
+  const getUserDetails = (currentUser) => {
+    let docRef = firebase.db.collection("users").doc(currentUser.email);
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setUserDetails(doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+
+    return userDetails.userType;
+  };
+
+  const userType = getUserDetails(currentUser);
+
+  /******************************************** */
+
   return (
-    <Layout>
+    <Layout userType={userType}>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumbs */}
-          <Breadcrumbs
-            title="New Users"
-            breadcrumbItem="Existing Users"
-            
-          />
+          <Breadcrumbs title="New Users" breadcrumbItem="Existing Users" />
 
           <Row>
             <Col lg="12">

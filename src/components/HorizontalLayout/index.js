@@ -14,6 +14,7 @@ import Navbar2 from "./Navbar2";
 import Header from "./Header";
 import Footer from "./Footer";
 import Rightbar from "../CommonForBoth/Rightbar";
+import NavbarLoading from "./NavbarLoading";
 
 class Layout extends Component {
   constructor(props) {
@@ -85,7 +86,19 @@ class Layout extends Component {
           />
           {/** Conditional Navbar depending on user type */}
 
-          {this.props.userType === "Admin" ? <Navbar /> : <Navbar2 />}
+          {this.props.userType === "Admin" ? (
+            <Navbar
+              userType={this.props.userType}
+              menuOpen={this.state.isMenuOpened}
+            />
+          ) : this.props.userType === "Finance" ? (
+            <Navbar2
+              userType={this.props.userType}
+              menuOpen={this.state.isMenuOpened}
+            />
+          ) : (
+            <NavbarLoading />
+          )}
 
           {/** *******************************************/}
           <div className="main-content">{this.props.children}</div>
