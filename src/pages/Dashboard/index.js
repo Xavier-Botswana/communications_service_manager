@@ -125,34 +125,14 @@ const Dashboard = (props) => {
   }, []);
 
   /** USER INFO *********************************/
-  const { currentUser } = useContext(AuthContext);
-  const [userDetails, setUserDetails] = useState({});
+  const { currentUser, getUserDetails } = useContext(AuthContext);
 
-  const getUserDetails = (currentUser) => {
-    let docRef = firebase.db.collection("users").doc(currentUser.email);
-
-    docRef
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          setUserDetails(doc.data());
-        } else {
-          console.log("No such document!");
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
-
-    return userDetails.userType;
-  };
-
-  const userType = getUserDetails(currentUser);
+  const userDetails = getUserDetails(currentUser);
 
   /******************************************** */
 
   return (
-    <Layout userType={userType}>
+    <Layout userType={userDetails.userType}>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
@@ -163,10 +143,7 @@ const Dashboard = (props) => {
 
           <Row>
             <Col xl="4">
-              <WelcomeComp
-                currentUser={currentUser}
-                userDetails={userDetails}
-              />
+              <WelcomeComp userDetails={userDetails} />
               <MonthlyEarning />
             </Col>
             <Col xl="8">
