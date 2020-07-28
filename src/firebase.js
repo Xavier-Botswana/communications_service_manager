@@ -20,6 +20,16 @@ class Firebase {
     this.db = app.firestore();
   }
 
+  onAuthStateChange() {
+    return this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("The user is logged in");
+      } else {
+        console.log("The user is not logged in");
+      }
+    });
+  }
+
   login(email, password) {
     return this.auth.signInWithEmailAndPassword(email, password);
   }

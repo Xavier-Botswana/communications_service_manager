@@ -139,15 +139,8 @@ const EcommerceOrders = (props) => {
     },
   ];
 
-  /** USER INFO *********************************/
-  const { currentUser, getUserDetails } = useContext(AuthContext);
-
-  const userDetails = getUserDetails(currentUser);
-
-  /******************************************** */
-
   return (
-    <Layout userType={userDetails.userType}>
+    <Layout>
       <div className="page-content">
         <Container fluid>
           <Breadcrumbs

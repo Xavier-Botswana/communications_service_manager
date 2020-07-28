@@ -27,11 +27,18 @@ export default function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    firebase.auth.onAuthStateChanged(setCurrentUser);
+    firebase.auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setCurrentUser(authUser);
+        setUserDetails(getUserDetails(currentUser));
+      } else {
+        setCurrentUser(null);
+      }
+    });
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, getUserDetails }}>
+    <AuthContext.Provider value={{ currentUser, userDetails, getUserDetails }}>
       {children}
     </AuthContext.Provider>
   );

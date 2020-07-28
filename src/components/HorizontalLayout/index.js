@@ -86,19 +86,7 @@ class Layout extends Component {
           />
           {/** Conditional Navbar depending on user type */}
 
-          {this.props.userType === "Admin" ? (
-            <Navbar
-              userType={this.props.userType}
-              menuOpen={this.state.isMenuOpened}
-            />
-          ) : this.props.userType === "Finance" ? (
-            <Navbar2
-              userType={this.props.userType}
-              menuOpen={this.state.isMenuOpened}
-            />
-          ) : (
-            <NavbarLoading />
-          )}
+          <Navbar />
 
           {/** *******************************************/}
           <div className="main-content">{this.props.children}</div>

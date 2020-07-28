@@ -28,15 +28,8 @@ import Individualreq from "../../components/Common/Individualreq";
 const ProjectsGrid = (props) => {
   const { withdrawal } = props;
 
-  /** USER INFO *********************************/
-  const { currentUser, getUserDetails } = useContext(AuthContext);
-
-  const userDetails = getUserDetails(currentUser);
-
-  /******************************************** */
-
   return (
-    <Layout userType={userDetails.userType}>
+    <Layout>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumbs */}

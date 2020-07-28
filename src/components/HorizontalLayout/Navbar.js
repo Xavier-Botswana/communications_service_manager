@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Row, Col, Collapse } from "reactstrap";
 import { Link, withRouter } from "react-router-dom";
 import classname from "classnames";
+
+import { AuthContext } from "../../AuthProvider";
 
 //i18n
 import { withNamespaces } from "react-i18next";
@@ -9,27 +11,18 @@ import { withNamespaces } from "react-i18next";
 import { connect } from "react-redux";
 
 const Navbar = (props) => {
-  const [dashboard, setdashboard] = useState(false);
-  const [ui, setui] = useState(false);
-  const [app, setapp] = useState(false);
-  const [email, setemail] = useState(false);
-  const [ecommerce, setecommerce] = useState(false);
-  const [crypto, setcrypto] = useState(false);
-  const [project, setproject] = useState(false);
-  const [task, settask] = useState(false);
-  const [contact, setcontact] = useState(false);
-  const [component, setcomponent] = useState(false);
-  const [form, setform] = useState(false);
-  const [table, settable] = useState(false);
-  const [chart, setchart] = useState(false);
-  const [icon, seticon] = useState(false);
-  const [map, setmap] = useState(false);
-  const [extra, setextra] = useState(false);
-  const [invoice, setinvoice] = useState(false);
-  const [auth, setauth] = useState(false);
-  const [utility, setutility] = useState(false);
+  /** USER INFO *********************************/
+  const { currentUser, getUserDetails } = useContext(AuthContext);
+
+  /******************************************** */
+
+  const [userDetails, setUserDetails] = useState({});
 
   useEffect(() => {
+    /** UPDATE INFO *********************************/
+    setUserDetails(getUserDetails(currentUser));
+    /******************************************** */
+
     let matchingMenuItem = null;
     let ul = document.getElementById("navigation");
     let items = ul.getElementsByTagName("a");
@@ -78,48 +71,87 @@ const Navbar = (props) => {
             className="navbar navbar-light navbar-expand-lg topnav-menu"
             id="navigation"
           >
-            <Collapse
-              isOpen={props.leftMenu}
-              className="navbar-collapse"
-              id="topnav-menu-content"
-            >
-              <ul className="navbar-nav">
-                <li>
-                  <Link to="/" className="dropdown-item">
-                    <i className="bx bx-calendar"></i>
-                    <span> {props.t("Dashboard")}</span>
-                  </Link>
-                </li>
+            {userDetails.userType === "Finance" ? (
+              <Collapse
+                isOpen={props.leftMenu}
+                className="navbar-collapse"
+                id="topnav-menu-content"
+              >
+                <ul className="navbar-nav">
+                  <li>
+                    <Link to="/" className="dropdown-item">
+                      <i className="bx bx-calendar"></i>
+                      <span> {props.t("Dashboard")}</span>
+                    </Link>
+                  </li>
 
-                <li>
-                  <Link to="/emoney-requests" className="dropdown-item">
-                    <i className="bx bx-money"></i>
-                    <span> {props.t("E-money Requests")}</span>
-                  </Link>
-                </li>
+                  <li>
+                    <Link to="/reward-payments" className="dropdown-item">
+                      <i className="bx bx-user"></i>
+                      <span> {props.t("Reward Payments")}</span>
+                    </Link>
+                  </li>
+                </ul>
+              </Collapse>
+            ) : userDetails.userType === "Admin" ? (
+              <Collapse
+                isOpen={props.leftMenu}
+                className="navbar-collapse"
+                id="topnav-menu-content"
+              >
+                <ul className="navbar-nav">
+                  <li>
+                    <Link to="/" className="dropdown-item">
+                      <i className="bx bx-calendar"></i>
+                      <span> {props.t("Dashboard")}</span>
+                    </Link>
+                  </li>
 
-                <li>
-                  <Link to="/delivery-requests" className="dropdown-item">
-                    <i className="bx bxs-truck"></i>
-                    <span> {props.t("Delivery Requests")}</span>
-                  </Link>
-                </li>
+                  <li>
+                    <Link to="/emoney-requests" className="dropdown-item">
+                      <i className="bx bx-money"></i>
+                      <span> {props.t("E-money Requests")}</span>
+                    </Link>
+                  </li>
 
-                <li>
-                  <Link to="/withdrawal-requests" className="dropdown-item">
-                    <i className="bx bx-money"></i>
-                    <span> {props.t("Withdrawal Requests")}</span>
-                  </Link>
-                </li>
+                  <li>
+                    <Link to="/delivery-requests" className="dropdown-item">
+                      <i className="bx bxs-truck"></i>
+                      <span> {props.t("Delivery Requests")}</span>
+                    </Link>
+                  </li>
 
-                <li>
-                  <Link to="/add-users" className="dropdown-item">
-                    <i className="bx bx-user"></i>
-                    <span> {props.t("Add Users")}</span>
-                  </Link>
-                </li>
-              </ul>
-            </Collapse>
+                  <li>
+                    <Link to="/withdrawal-requests" className="dropdown-item">
+                      <i className="bx bx-money"></i>
+                      <span> {props.t("Withdrawal Requests")}</span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/add-users" className="dropdown-item">
+                      <i className="bx bx-user"></i>
+                      <span> {props.t("Add Users")}</span>
+                    </Link>
+                  </li>
+                </ul>
+              </Collapse>
+            ) : (
+              <Collapse
+                isOpen={props.leftMenu}
+                className="navbar-collapse"
+                id="topnav-menu-content"
+              >
+                <ul className="navbar-nav">
+                  <li>
+                    <Link to="#" className="text-success">
+                      <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
+                      Loading{" "}
+                    </Link>
+                  </li>
+                </ul>
+              </Collapse>
+            )}
           </nav>
         </div>
       </div>

@@ -45,7 +45,7 @@ const EmoneyNew = (props) => {
   /******************************************** */
 
   return (
-    <Layout userType={userDetails.userType}>
+    <Layout>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumbs */}

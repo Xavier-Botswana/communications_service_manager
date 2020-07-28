@@ -45,7 +45,11 @@ const App = (props) => {
           <Route exact path="/emoney-requests" component={ProjectsList} />
           <Route exact path="/emoneynew" component={EmoneyNew} />
           <Route exact path="/delivery-requests" component={ProjectsGrid} />
-          <Route exact path="/teamdelivery-requests" component={TeamDeliveries} />
+          <Route
+            exact
+            path="/teamdelivery-requests"
+            component={TeamDeliveries}
+          />
           <Route exact path="/withdrawal-requests" component={EcommerceShops} />
           <Route exact path="/add-users" component={EcommerceAddProduct} />
           <Route exact path="/reward-payments" component={EcommerceOrders} />
