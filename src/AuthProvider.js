@@ -29,6 +29,7 @@ export default function AuthProvider({ children }) {
       if (authUser) {
         // Store user locally
         localStorage.setItem("current-user", authUser);
+
         setCurrentUser(authUser);
         getUserDetails(authUser);
       } else {
@@ -36,7 +37,7 @@ export default function AuthProvider({ children }) {
       }
     });
 
-    console.log(`STORED USER: ${localStorage.getItem("current-user")}`);
+    //console.log(`STORED USER: ${localStorage.getItem("current-user")}`);
     setCurrentUser(localStorage.getItem("current-user"));
   }, []);
 

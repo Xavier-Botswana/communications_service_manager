@@ -37,13 +37,6 @@ const EmoneyNew = (props) => {
       });
   }, []);
 
-  /** USER INFO *********************************/
-  const { currentUser, getUserDetails } = useContext(AuthContext);
-
-  const userDetails = getUserDetails(currentUser);
-
-  /******************************************** */
-
   return (
     <Layout>
       <div className="page-content">
