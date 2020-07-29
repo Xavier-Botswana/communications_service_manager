@@ -22,23 +22,26 @@ export default function AuthProvider({ children }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-
-    return userDetails;
   };
 
   useEffect(() => {
     firebase.auth.onAuthStateChanged((authUser) => {
       if (authUser) {
+        // Store user locally
+        localStorage.setItem("current-user", authUser);
         setCurrentUser(authUser);
-        setUserDetails(getUserDetails(currentUser));
+        getUserDetails(authUser);
       } else {
         setCurrentUser(null);
       }
     });
+
+    console.log(`STORED USER: ${localStorage.getItem("current-user")}`);
+    setCurrentUser(localStorage.getItem("current-user"));
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, userDetails, getUserDetails }}>
+    <AuthContext.Provider value={{ currentUser, userDetails }}>
       {children}
     </AuthContext.Provider>
   );

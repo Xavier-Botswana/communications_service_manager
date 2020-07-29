@@ -12,17 +12,11 @@ import { connect } from "react-redux";
 
 const Navbar = (props) => {
   /** USER INFO *********************************/
-  const { currentUser, getUserDetails } = useContext(AuthContext);
+  const { userDetails } = useContext(AuthContext);
 
   /******************************************** */
 
-  const [userDetails, setUserDetails] = useState({});
-
   useEffect(() => {
-    /** UPDATE INFO *********************************/
-    setUserDetails(getUserDetails(currentUser));
-    /******************************************** */
-
     let matchingMenuItem = null;
     let ul = document.getElementById("navigation");
     let items = ul.getElementsByTagName("a");

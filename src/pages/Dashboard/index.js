@@ -125,7 +125,7 @@ const Dashboard = (props) => {
   }, []);
 
   /** USER INFO *********************************/
-  const { currentUser, userDetails } = useContext(AuthContext);
+  const { userDetails } = useContext(AuthContext);
 
   /******************************************** */
 
