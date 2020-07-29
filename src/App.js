@@ -39,7 +39,6 @@ const App = (props) => {
   return (
     <AuthProvider>
       <Router>
-        {/** <Header /> */}
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />
           <Route exact path="/emoney-requests" component={ProjectsList} />
@@ -56,7 +55,6 @@ const App = (props) => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
         </Switch>
-        {/** <Footer /> */}
       </Router>
     </AuthProvider>
   );

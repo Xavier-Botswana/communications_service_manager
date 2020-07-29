@@ -26,7 +26,22 @@ import CardProject from "./card-project";
 import Individualreq from "../../components/Common/Individualreq";
 
 const ProjectsGrid = (props) => {
-  const { withdrawal } = props;
+  const [indeliveries, setDeliveries] = useState([]);
+
+  const [hasError, setErrors] = useState(false);
+
+  useEffect(() => {
+    fetch(
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/individualsdeliveries"
+    )
+      .then((response) => response.json())
+      .then((indeliveries) => {
+        setDeliveries(indeliveries);
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
+  }, []);
 
   return (
     <Layout>
@@ -40,7 +55,10 @@ const ProjectsGrid = (props) => {
 
           <Row>
             {/* Import Cards */}
-            <CardProject projects={withdrawal} />
+
+            {indeliveries.map((item, key) => {
+              return <CardProject key={key} indeliveries={item} />;
+            })}
           </Row>
 
           <Row>

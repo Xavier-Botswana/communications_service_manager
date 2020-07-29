@@ -18,11 +18,26 @@ import {
 //Import Breadcrumb
 
 //Import Cards
-import CardProject from "./teamcard";
+import TeamCard from "./teamcard";
 import Teamcrumb from "../../components/Common/Teamreq";
 
 const TeamDeliveries = (props) => {
-  const { withdrawal } = props;
+  const [teamdeliveries, setDeliveries] = useState([]);
+
+  const [hasError, setErrors] = useState(false);
+
+  useEffect(() => {
+    fetch(
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/leadsdeliveries"
+    )
+      .then((response) => response.json())
+      .then((teamdeliveries) => {
+        setDeliveries(teamdeliveries);
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
+  }, []);
 
   return (
     <Layout>
@@ -36,7 +51,10 @@ const TeamDeliveries = (props) => {
 
           <Row>
             {/* Import Cards */}
-            <CardProject projects={withdrawal} />
+
+            {teamdeliveries.map((item, key) => {
+              return <TeamCard key={key} teamdeliveries={item} />;
+            })}
           </Row>
 
           <Row>

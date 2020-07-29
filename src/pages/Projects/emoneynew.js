@@ -11,6 +11,7 @@ import { AuthContext } from "../../AuthProvider";
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumbemoneynew";
+import NewRequest from "./NewRequest";
 
 const EmoneyNew = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -66,45 +67,7 @@ const EmoneyNew = (props) => {
 
                     <tbody>
                       {emoney.map((item, i) => {
-                        return (
-                          <tr key={i}>
-                            <td>11</td>
-                            <td>
-                              <h5 className="text-truncate font-size-14">
-                                {item.sponsor_username}
-                              </h5>
-                            </td>
-                            <td> {item.phone} </td>
-                            <td>{item.sponsor_contact}</td>
-                            <td>{item.date}</td>
-
-                            <td>
-                              <a href={item.proof_of_payment} download>
-                                <span className="badge badge-primary">
-                                  Payment Link{" "}
-                                </span>
-                              </a>
-                            </td>
-
-                            <td>
-                              <button
-                                type="button"
-                                className="btn btn-success waves-effect waves-light"
-                              >
-                                <i className="bx bx-check-double font-size-16 align-middle mr-2"></i>{" "}
-                                Accept
-                              </button>
-                              <button
-                                type="button"
-                                className="btn btn-danger waves-effect waves-light"
-                                style={{ marginLeft: "10px" }}
-                              >
-                                <i className="bx bx-block font-size-16 align-middle mr-2"></i>{" "}
-                                Deny
-                              </button>
-                            </td>
-                          </tr>
-                        );
+                        return <NewRequest key={i} request={item} />;
                       })}
                     </tbody>
                   </Table>

@@ -14,11 +14,16 @@ import FinanceLayout from "../../components/AdminLayout";
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumbemoneyex";
+import ExistingRequest from "./ExistingRequest";
 
 const ProjectsList = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
   const [emoney, setEmoney] = useState([]);
+
+  const handleAccept = () => {
+    console.log(emoney.phone);
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -67,42 +72,7 @@ const ProjectsList = (props) => {
 
                     <tbody>
                       {emoney.map((item, i) => {
-                        return (
-                          <tr key={i}>
-                            <td>11</td>
-                            <td>
-                              <h5 className="text-truncate font-size-14">
-                                {item.username}
-                              </h5>
-                            </td>
-                            <td>15 June, 20</td>
-                            <td> {item.phone} </td>
-                            <td>
-                              <a href={item.proof} download>
-                                <span className="badge badge-primary">
-                                  Payment Link{" "}
-                                </span>
-                              </a>
-                            </td>
-                            <td>
-                              <button
-                                type="button"
-                                className="btn btn-success waves-effect waves-light"
-                              >
-                                <i className="bx bx-check-double font-size-16 align-middle mr-2"></i>{" "}
-                                Accept
-                              </button>
-                              <button
-                                type="button"
-                                className="btn btn-danger waves-effect waves-light"
-                                style={{ marginLeft: "10px" }}
-                              >
-                                <i className="bx bx-block font-size-16 align-middle mr-2"></i>{" "}
-                                Deny
-                              </button>
-                            </td>
-                          </tr>
-                        );
+                        return <ExistingRequest key={i} request={item} />;
                       })}
                     </tbody>
                   </Table>
