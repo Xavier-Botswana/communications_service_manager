@@ -33,9 +33,33 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 import img4 from "../../assets/images/product/img-4.png";
 import img7 from "../../assets/images/product/img-7.png";
+import SinglePayment from "./SinglePayment";
 
 const EcommerceOrders = (props) => {
   const [modal, setmodal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setErrors] = useState(false);
+  const [withdrawal, setWithdrawal] = useState([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal"
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw Error("Error fetching data.");
+        }
+      })
+      .then((withdrawal) => {
+        setWithdrawal(withdrawal);
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
+  }, []);
 
   const Orders = [
     {
@@ -151,146 +175,24 @@ const EcommerceOrders = (props) => {
             <Col xs="12">
               <Card>
                 <CardBody>
-                  <Row className="mb-2">
-                    <Col sm="4">
-                      <div className="search-box mr-2 mb-2 d-inline-block">
-                        <div className="position-relative">
-                          <Input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search..."
-                          />
-                          <i className="bx bx-search-alt search-icon"></i>
-                        </div>
-                      </div>
-                    </Col>
-                    <Col sm="8">
-                      <div className="text-sm-right">
-                        <Button
-                          type="button"
-                          color="success"
-                          className="btn-rounded waves-effect waves-light mb-2 mr-2"
-                        >
-                          <i className="mdi mdi-plus mr-1"></i> Add New Order
-                        </Button>
-                      </div>
-                    </Col>
-                  </Row>
+                  <Row className="mb-2"></Row>
 
                   <div className="table-responsive">
                     <Table className="table table-centered table-nowrap">
                       <thead className="thead-light">
                         <tr>
-                          <th style={{ width: "20px" }}>
-                            <div className="custom-control custom-checkbox">
-                              <Input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="customCheck1"
-                              />
-                              <Label
-                                className="custom-control-label"
-                                htmlFor="customCheck1"
-                              >
-                                &nbsp;
-                              </Label>
-                            </div>
-                          </th>
-                          <th>Order ID</th>
-                          <th>Billing Name</th>
+                          <th>Username</th>
                           <th>Date</th>
-                          <th>Total</th>
-                          <th>Payment Status</th>
+                          <th>Amount ($)</th>
                           <th>Payment Method</th>
-                          <th>View Details</th>
+                          <th>Payment Status</th>
+
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {Orders.map((order, key) => (
-                          <tr key={"_order_" + key}>
-                            <td>
-                              <div className="custom-control custom-checkbox">
-                                <Input
-                                  type="checkbox"
-                                  className="custom-control-input"
-                                  id={order.id}
-                                />
-                                <Label
-                                  className="custom-control-label"
-                                  htmlFor={order.id}
-                                >
-                                  &nbsp;
-                                </Label>
-                              </div>
-                            </td>
-                            <td>
-                              <Link
-                                to="#"
-                                className="text-body font-weight-bold"
-                              >
-                                {order.orderId}
-                              </Link>
-                            </td>
-                            <td>{order.billingName}</td>
-                            <td>{order.Date}</td>
-                            <td>{order.total}</td>
-                            <td>
-                              <Badge
-                                className={
-                                  "font-size-12 badge-soft-" + order.badgeclass
-                                }
-                                color={order.badgeClass}
-                                pill
-                              >
-                                {order.paymentStatus}
-                              </Badge>
-                            </td>
-                            <td>
-                              <i
-                                className={"fab " + order.methodIcon + " mr-1"}
-                              ></i>{" "}
-                              {order.paymentMethod}
-                            </td>
-                            <td>
-                              <Button
-                                type="button"
-                                color="primary"
-                                className="btn-sm btn-rounded"
-                                onClick={() => {
-                                  setmodal(!modal);
-                                }}
-                              >
-                                View Details
-                              </Button>
-                            </td>
-                            <td>
-                              <Link to="#" className="mr-3 text-primary">
-                                <i
-                                  className="mdi mdi-pencil font-size-18 mr-3"
-                                  id="edittooltip"
-                                ></i>
-                                <UncontrolledTooltip
-                                  placement="top"
-                                  target="edittooltip"
-                                >
-                                  Edit
-                                </UncontrolledTooltip>
-                              </Link>
-                              <Link to="#" className="text-danger">
-                                <i
-                                  className="mdi mdi-close font-size-18 mr-3"
-                                  id="deletetooltip"
-                                ></i>
-                                <UncontrolledTooltip
-                                  placement="top"
-                                  target="deletetooltip"
-                                >
-                                  Delete
-                                </UncontrolledTooltip>
-                              </Link>
-                            </td>
-                          </tr>
+                        {withdrawal.map((item, key) => (
+                          <SinglePayment key={key} withdrawal={item} />
                         ))}
                       </tbody>
                     </Table>

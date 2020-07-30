@@ -247,9 +247,7 @@ const EcommerceAddProduct = (props) => {
                     {isLoading ? <FirebaseLoader /> : null}
 
                     {isProcessSuccessful ? (
-                      <SuccessMessage
-                        message={`User ${firstName} ${lastName} successfully added as ${type}.`}
-                      />
+                      <SuccessMessage message="User successfully added" />
                     ) : null}
 
                     <Card>

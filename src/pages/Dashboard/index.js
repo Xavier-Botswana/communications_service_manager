@@ -57,12 +57,14 @@ const Dashboard = (props) => {
   const [hasError, setErrors] = useState(false);
 
   const [emoney, setEmoney] = useState([]);
+  const [newEmoney, setNewEmoney] = useState([]);
   const [deliveries, setDeliveries] = useState([]);
   const [withdrawal, setWithdrawal] = useState([]);
 
   //fetching The Data from the API to display the number of emoney request
   useEffect(() => {
     setIsLoading(true);
+    // Emoney existing fetch
     fetch(
       "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing",
       {
@@ -78,6 +80,28 @@ const Dashboard = (props) => {
       })
       .then((emoney) => {
         setEmoney(emoney);
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
+
+    // Emoney new fetch
+    setIsLoading(true);
+    fetch(
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new",
+      {
+        mode: "cors",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw Error("Error fetching data.");
+        }
+      })
+      .then((emoney) => {
+        setNewEmoney(emoney);
       })
       .catch((error) => {
         setErrors(error);
@@ -154,7 +178,9 @@ const Dashboard = (props) => {
                           <p className="text-muted font-weight-medium">
                             E Money Requests
                           </p>
-                          <h4 className="mb-0">{emoney.length}</h4>
+                          <h4 className="mb-0">
+                            {emoney.length + newEmoney.length}
+                          </h4>
                         </Media>
                         <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
                           <span className="avatar-title">
@@ -172,7 +198,7 @@ const Dashboard = (props) => {
                       <Media>
                         <Media body>
                           <p className="text-muted font-weight-medium">
-                            Deliveries
+                            Delivery Requests
                           </p>
                           <h4 className="mb-0">{deliveries.length} </h4>
                         </Media>

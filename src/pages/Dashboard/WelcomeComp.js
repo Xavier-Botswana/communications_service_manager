@@ -3,7 +3,7 @@ import React from "react";
 import { Row, Col, Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 
-import avatar1 from "../../assets/images/Prince.png";
+import avatar1 from "../../assets/images/profile.png";
 import profileImg from "../../assets/images/profile-img.png";
 
 const WelcomeComp = (props) => {

@@ -22,6 +22,7 @@ const EcommerceShops = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
   const [withdrawal, setWithdrawal] = useState([]);
+
   useEffect(() => {
     setIsLoading(true);
     fetch(

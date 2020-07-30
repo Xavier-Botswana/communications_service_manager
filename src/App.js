@@ -27,6 +27,7 @@ import EcommerceAddProduct from "./pages/Ecommerce/EcommerceAddProduct";
 import EcommerceOrders from "./pages/Ecommerce/EcommerceOrders";
 import Login from "./pages/Authentication/Login";
 import Logout from "./pages/Authentication/Logout";
+import Error404 from "./pages/Utility/pages-404";
 import Footer from "./components/HorizontalLayout/Footer";
 
 import AuthProvider from "./AuthProvider";
@@ -54,6 +55,7 @@ const App = (props) => {
           <Route exact path="/reward-payments" component={EcommerceOrders} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
+          <Route exact path="/404" component={Error404} />
         </Switch>
       </Router>
     </AuthProvider>

@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 
 // users
-import user1 from "../../../assets/images/Prince.png";
+import user1 from "../../../assets/images/profile.png";
 
 const ProfileMenu = (props) => {
   // Declare a new state variable, which we'll call "menu"
