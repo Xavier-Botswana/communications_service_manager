@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 export default function NewRequest(props) {
   const { request } = props;
@@ -30,48 +31,16 @@ export default function NewRequest(props) {
 
     // Send SMS confirmation
 
-    const https = require("https");
+    const message = `Dear ${request.username}, your e-money request has been approved. Please confirm so at the portal.`;
 
-    let username = "pappiah";
-    let password = "@pappiah1";
-
-    let postData = JSON.stringify({
-      to: `+267${request.phone}`,
-      body: "Hello World!",
-    });
-
-    let options = {
-      hostname: "api.bulksms.com",
-      port: 443,
-      mode: "cors",
-      path: "/v1/messages",
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-        "Content-Length": postData.length,
-        Authorization:
-          "Basic " + Buffer.from(username + ":" + password).toString("base64"),
-      },
-    };
-
-    let req = https.request(options, (resp) => {
-      console.log("statusCode:", resp.statusCode);
-      let data = "";
-      resp.on("data", (chunk) => {
-        data += chunk;
+    axios
+      .post("http://localhost:5000/sms", { to: "+2675501296", body: message })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      resp.on("end", () => {
-        console.log("Response:", data);
-      });
-    });
-
-    req.on("error", (e) => {
-      console.error(e);
-    });
-
-    req.write(postData);
-    req.end();
   };
 
   const handleDeny = () => {
