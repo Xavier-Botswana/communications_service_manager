@@ -2,6 +2,7 @@ import React from "react";
 
 export default function NewRequest(props) {
   const { request } = props;
+  
 
   let PATCH_URL =
     "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new/phone/*";
@@ -22,6 +23,8 @@ export default function NewRequest(props) {
     })
       .then((r) => r.json())
       .then((data) => {
+
+        
         console.log(data);
       })
       .catch((error) => {
@@ -29,6 +32,50 @@ export default function NewRequest(props) {
       });
 
     // Send SMS confirmation
+
+    const https = require('https');
+
+    let username = 'pappiah';
+    let password = '@pappiah1';
+    
+    let postData = JSON.stringify({
+      'to' : `+267${request.phone}`,
+      'body': 'Hello World!'
+    });
+    
+    let options = {
+      hostname: 'api.bulksms.com',
+      port: 443,
+      mode: 'cors',
+      path: '/v1/messages',
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': postData.length,
+        'Authorization': 'Basic ' + Buffer.from(username + ':' + password).toString('base64')
+      }
+    };
+    
+    let req = https.request(options, (resp) => {
+      console.log('statusCode:', resp.statusCode);
+      let data = '';
+        resp.on('data', (chunk) => {
+        data += chunk;
+      });
+      resp.on('end', () => {
+        console.log("Response:", data);
+      });
+    });
+    
+    req.on('error', (e) => {
+      console.error(e);
+    });
+    
+    req.write(postData);
+    req.end();
+    
+
   };
 
   const handleDeny = () => {
