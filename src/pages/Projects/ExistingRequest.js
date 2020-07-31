@@ -30,7 +30,7 @@ export default function ExistingRequest(props) {
       });
 
     // Send SMS confirmation
-    const message = `Dear AG Nutrition sponsor ${request.sponsor_name}, your e-money request has been declined. Kindly contact `;
+    const message = `Dear AG Nutrition sponsor ${request.username}, your e-money request has been approved. Kindly visit the portal to confirm account credit.`;
     sendSMS(request.phone, message);
   };
 
