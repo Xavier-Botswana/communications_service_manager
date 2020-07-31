@@ -32,16 +32,9 @@ export default function NewRequest(props) {
       });
 
     // Send SMS confirmation
-    const message = `Dear ${request.username}, your e-money request has been approved. Please confirm so at the portal.`;
+    const message = `Dear AG Nutrition sponsor ${request.sponsor_username}, your e-money request has been approved. Kindly visit the portal to register new user.`;
 
-    axios
-      .post("http://localhost:5000/sms", { to: "+2675501296", body: message })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    sendSMS(request.phone, message);
   };
 
   const handleDeny = () => {
@@ -67,6 +60,9 @@ export default function NewRequest(props) {
       });
 
     // Send SMS confirmation
+    const message = `Dear AG Nutrition sponsor ${request.sponsor_username}, your e-money request has been declined. Kindly contact support for more details.`;
+
+    sendSMS(request.phone, message);
   };
 
   return (

@@ -40,7 +40,7 @@ const CardProject = (props) => {
       });
 
     // Send SMS confirmation
-    const message = `Dear ${indeliveries.username}, your delivery request made on date has been dispatched for delivery.`;
+    const message = `Dear AG Nutrition user ${indeliveries.username}, your order has been dispatched for delivery.`;
     sendSMS(indeliveries.phone, message);
   };
 
@@ -67,7 +67,7 @@ const CardProject = (props) => {
       });
 
     // Send SMS confirmation
-    const message = `Dear ${indeliveries.username}, your delivery request made on date has not been dispatched. Contact support for more detaails.`;
+    const message = `Dear AG Nutrition ${indeliveries.username}, your order request has been declined. Kindly contact support for more details.`;
     sendSMS(indeliveries.phone, message);
   };
 

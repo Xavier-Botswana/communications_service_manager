@@ -31,12 +31,11 @@ const EmoneyNew = (props) => {
         }
       })
       .then((emoney) => {
-        let filtered = emoney.filter((e) => {
-          return e.status === null;
+        let filteredemoney = emoney.filter(function (e) {
+          return e.status === null || e.status === "";
         });
-        console.log("GANGSTAS");
-        console.log(filtered);
-        setEmoney(emoney);
+        console.log(filteredemoney);
+        setEmoney(filteredemoney);
       })
       .catch((error) => {
         setErrors(error);

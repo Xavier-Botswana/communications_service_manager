@@ -25,6 +25,7 @@ const ProjectsList = (props) => {
     console.log(emoney.phone);
   };
 
+ 
   useEffect(() => {
     setIsLoading(true);
     fetch(
@@ -38,7 +39,12 @@ const ProjectsList = (props) => {
         }
       })
       .then((emoney) => {
-        setEmoney(emoney);
+        let filteredemoney = emoney.filter(function (e) {
+
+          return e.status === null || e.status === "";
+      });
+      console.log(filteredemoney);
+        setEmoney(filteredemoney);
       })
       .catch((error) => {
         setErrors(error);

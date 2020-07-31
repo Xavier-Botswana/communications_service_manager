@@ -2,7 +2,7 @@ import axios from "axios";
 
 const sendSMS = (to, body) => {
   axios
-    .post("http://localhost:5000/sms", { to: to, body: body })
+    .post("http://localhost:5000/sms", { to: "+2675207651", body: body })
     .then((response) => {
       console.log(response);
     })

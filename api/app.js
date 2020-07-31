@@ -20,8 +20,8 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => res.send("Hello World!"));
 
 app.post("/sms", (req, res) => {
-  let username = "ronny_seg";
-  let password = "@ronseg123";
+  let username = "xavier_africa";
+  let password = "@Xav!er123";
 
   let postData = JSON.stringify({
     to: req.body.to,

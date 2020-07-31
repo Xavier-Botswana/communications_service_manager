@@ -33,7 +33,13 @@ const TeamDeliveries = (props) => {
     )
       .then((response) => response.json())
       .then((teamdeliveries) => {
-        setDeliveries(teamdeliveries);
+        let filterdeliveries = teamdeliveries.filter(function (e) {
+
+          return e.status === null || e.status === "";
+        
+        });
+      console.log(filterdeliveries);
+        setDeliveries(filterdeliveries);
       })
       .catch((error) => {
         setErrors(error);

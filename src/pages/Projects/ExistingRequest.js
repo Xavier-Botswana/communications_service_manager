@@ -2,7 +2,7 @@ import React from "react";
 import sendSMS from "../../sms.js";
 
 export default function ExistingRequest(props) {
-  const { request } = props;
+  const { request, setEmoney } = props;
 
   let PATCH_URL =
     "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing/phone/*";
@@ -30,7 +30,7 @@ export default function ExistingRequest(props) {
       });
 
     // Send SMS confirmation
-    const message = `Dear ${request.username}, your e-money request has been approved. Kindly check the portal to confirm that your account has been credited.`;
+    const message = `Dear AG Nutrition sponsor ${request.sponsor_name}, your e-money request has been declined. Kindly contact `;
     sendSMS(request.phone, message);
   };
 
@@ -57,6 +57,8 @@ export default function ExistingRequest(props) {
       });
 
     // Send SMS confirmation
+    const message = `Dear AG Nutrition sponsor ${request.username}, your e-money request has been declined. Kindly contact support for more details.`;
+    sendSMS(request.phone, message);
   };
 
   return (

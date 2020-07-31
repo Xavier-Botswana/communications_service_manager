@@ -19,6 +19,8 @@ import {
   ButtonDropdown,
 } from "reactstrap";
 
+import sendSMS from "../../sms";
+
 const CardShop = (props) => {
   const { withdrawal } = props;
   const [amount, setAmount] = useState(0);
@@ -80,23 +82,14 @@ const CardShop = (props) => {
         console.log(error);
       });
 
-    // Send SMS confirmation
-    //const message = `Dear ${withdrawal.username}, your e-money withdrawal has been approved. Please confirm so at the portal.`;
-
-    /*
-
-    axios
-      .post("http://localhost:5000/sms", { to: "+2675501296", body: message })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      */
+    const message = `Dear ${withdrawal.Username}, your e-money withdrawal request has been approved. You will receive your payment in the next 3 working days.`;
+    sendSMS(withdrawal.phone, message);
   };
 
-  const handleDeny = () => {};
+  const handleDeny = () => {
+    const message = `Dear ${withdrawal.Username}, your e-money withdrawal request has been denied. Kindly contact support for mmore details.`;
+    sendSMS(withdrawal.phone, message);
+  };
 
   return (
     <React.Fragment>
