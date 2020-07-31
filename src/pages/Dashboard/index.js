@@ -59,6 +59,7 @@ const Dashboard = (props) => {
   const [emoney, setEmoney] = useState([]);
   const [newEmoney, setNewEmoney] = useState([]);
   const [deliveries, setDeliveries] = useState([]);
+  const [indeliveries, setIndeliveries] = useState([]);
   const [withdrawal, setWithdrawal] = useState([]);
 
   //fetching The Data from the API to display the number of emoney request
@@ -107,6 +108,7 @@ const Dashboard = (props) => {
         setErrors(error);
       });
 
+    // team deliveries fetch
     fetch(
       "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/leadsdeliveries",
       {
@@ -127,6 +129,28 @@ const Dashboard = (props) => {
         setErrors(error);
       });
 
+    // individual deliveries fetch
+    fetch(
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/individualsdeliveries",
+      {
+        mode: "cors",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw Error("Error fetching data.");
+        }
+      })
+      .then((deliveries) => {
+        setIndeliveries(deliveries);
+      })
+      .catch((error) => {
+        setErrors(error);
+      });
+
+    // withdrawal fetch
     fetch(
       "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal",
       {
@@ -200,7 +224,9 @@ const Dashboard = (props) => {
                           <p className="text-muted font-weight-medium">
                             Delivery Requests
                           </p>
-                          <h4 className="mb-0">{deliveries.length} </h4>
+                          <h4 className="mb-0">
+                            {deliveries.length + indeliveries.length}{" "}
+                          </h4>
                         </Media>
                         <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
                           <span className="avatar-title">
