@@ -46,6 +46,27 @@ export default function NewRequest(props) {
 
   const handleDeny = () => {
     // Change status to deny
+    PATCH_URL = `${PATCH_URL}${request.phone}*`;
+    console.log(`Processing request: ${request.phone}`);
+    fetch(PATCH_URL, {
+      method: "PATCH",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        status: "denied",
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // Send SMS confirmation
   };
 
   return (

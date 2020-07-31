@@ -31,6 +31,11 @@ const EmoneyNew = (props) => {
         }
       })
       .then((emoney) => {
+        let filtered = emoney.filter((e) => {
+          return e.status === null;
+        });
+        console.log("GANGSTAS");
+        console.log(filtered);
         setEmoney(emoney);
       })
       .catch((error) => {

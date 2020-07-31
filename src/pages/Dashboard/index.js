@@ -102,6 +102,12 @@ const Dashboard = (props) => {
         }
       })
       .then((emoney) => {
+        let filteredItems = emoney.filter((item) => {
+          if (item.status === "") {
+            return item;
+          }
+        });
+        console.log(filteredItems);
         setNewEmoney(emoney);
       })
       .catch((error) => {
