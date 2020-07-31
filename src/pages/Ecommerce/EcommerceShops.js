@@ -36,7 +36,13 @@ const EcommerceShops = (props) => {
         }
       })
       .then((withdrawal) => {
-        setWithdrawal(withdrawal);
+        let filterwithdrawal = withdrawal.filter(function (e) {
+
+          return e.status === null || e.status === "";
+        
+        });
+      console.log(filterwithdrawal);
+        setWithdrawal(filterwithdrawal);
       })
       .catch((error) => {
         setErrors(error);
