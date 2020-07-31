@@ -1,4 +1,5 @@
 import React from "react";
+import sendSMS from "../../sms.js";
 
 export default function ExistingRequest(props) {
   const { request } = props;
@@ -29,6 +30,8 @@ export default function ExistingRequest(props) {
       });
 
     // Send SMS confirmation
+    const message = `Dear ${request.username}, your e-money request has been approved. Kindly check the portal to confirm that your account has been credited.`;
+    sendSMS(request.phone, message);
   };
 
   const handleDeny = () => {

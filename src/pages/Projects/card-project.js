@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import sendSMS from "../../sms.js";
 import {
   Col,
   Card,
@@ -39,6 +40,8 @@ const CardProject = (props) => {
       });
 
     // Send SMS confirmation
+    const message = `Dear ${indeliveries.username}, your delivery request made on date has been dispatched for delivery.`;
+    sendSMS(indeliveries.phone, message);
   };
 
   const handleDecline = () => {
@@ -64,6 +67,8 @@ const CardProject = (props) => {
       });
 
     // Send SMS confirmation
+    const message = `Dear ${indeliveries.username}, your delivery request made on date has not been dispatched. Contact support for more detaails.`;
+    sendSMS(indeliveries.phone, message);
   };
 
   return (

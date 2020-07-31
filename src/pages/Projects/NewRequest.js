@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import sendSMS from "../../sms";
 
 export default function NewRequest(props) {
   const { request } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   let PATCH_URL =
     "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new/phone/*";
@@ -30,7 +32,6 @@ export default function NewRequest(props) {
       });
 
     // Send SMS confirmation
-
     const message = `Dear ${request.username}, your e-money request has been approved. Please confirm so at the portal.`;
 
     axios
