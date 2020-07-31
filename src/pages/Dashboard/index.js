@@ -79,8 +79,18 @@ const Dashboard = (props) => {
           throw Error("Error fetching data.");
         }
       })
+
       .then((emoney) => {
-        setEmoney(emoney);
+
+        let filteredemoney = emoney.filter(function (e) {
+
+          return e.status === null || e.status === "";
+        
+        });
+        setEmoney(filteredemoney);
+
+
+
       })
       .catch((error) => {
         setErrors(error);
@@ -97,12 +107,24 @@ const Dashboard = (props) => {
       .then((response) => {
         if (response.ok) {
           return response.json();
+
         } else {
           throw Error("Error fetching data.");
         }
       })
-      .then((emoney) => {
-        setNewEmoney(emoney);
+
+
+      .then((newEmoney) => {
+
+        let filteredemoney = newEmoney.filter(function (e) {
+
+          return e.status === null || e.status === "";
+        
+        });
+        setNewEmoney(filteredemoney);
+
+
+
       })
       .catch((error) => {
         setErrors(error);
@@ -123,7 +145,16 @@ const Dashboard = (props) => {
         }
       })
       .then((deliveries) => {
-        setDeliveries(deliveries);
+
+        let filteredeliveries = deliveries.filter(function (e) {
+
+          return e.status === null || e.status === "";
+        
+        });
+        setDeliveries(filteredeliveries);
+
+
+
       })
       .catch((error) => {
         setErrors(error);
@@ -143,8 +174,17 @@ const Dashboard = (props) => {
           throw Error("Error fetching data.");
         }
       })
-      .then((deliveries) => {
-        setIndeliveries(deliveries);
+      .then((indeliveries) => {
+
+        let filteredeliveries = indeliveries.filter(function (e) {
+
+          return e.status === null || e.status === "";
+        
+        });
+        setIndeliveries(filteredeliveries);
+
+
+
       })
       .catch((error) => {
         setErrors(error);
@@ -165,7 +205,16 @@ const Dashboard = (props) => {
         }
       })
       .then((withdrawal) => {
-        setWithdrawal(withdrawal);
+
+        let filteredwithdrawal = withdrawal.filter(function (e) {
+
+          return e.status === null || e.status === "";
+        
+        });
+        setWithdrawal(filteredwithdrawal);
+
+
+
       })
       .catch((error) => {
         setErrors(error);

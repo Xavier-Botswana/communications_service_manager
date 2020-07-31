@@ -18,6 +18,7 @@ const EmoneyNew = (props) => {
   const [hasError, setErrors] = useState(false);
   const [emoney, setEmoney] = useState([]);
 
+
   useEffect(() => {
     setIsLoading(true);
     fetch(
@@ -31,7 +32,13 @@ const EmoneyNew = (props) => {
         }
       })
       .then((emoney) => {
-        setEmoney(emoney);
+        let filteredemoney = emoney.filter(function (e) {
+
+          return e.status === null || e.status === "";
+        
+        });
+      console.log(filteredemoney);
+        setEmoney(filteredemoney);
       })
       .catch((error) => {
         setErrors(error);
