@@ -3,6 +3,7 @@ import React, { useState, useCallback, useContext, useEffect } from "react";
 import Layout from "../../components/HorizontalLayout";
 
 import firebase from "../../firebase";
+import { Link } from "react-router-dom";
 
 import { AuthContext } from "../../AuthProvider";
 
@@ -57,31 +58,15 @@ const TeamDeliveries = (props) => {
             })}
           </Row>
 
+         
           <Row>
-            <Col lg="12">
-              <Pagination className="pagination pagination-rounded justify-content-center mt-2 mb-5">
-                <PaginationItem disabled>
-                  <PaginationLink previous href="#" />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">1</PaginationLink>
-                </PaginationItem>
-                <PaginationItem active>
-                  <PaginationLink href="#">2</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">3</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">4</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">5</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink next href="#" />
-                </PaginationItem>
-              </Pagination>
+            <Col xs="12">
+              <div className="text-center my-3">
+                <Link to="#" className="text-success">
+                  <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
+                  Load more{" "}
+                </Link>
+              </div>
             </Col>
           </Row>
         </Container>
