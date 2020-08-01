@@ -79,11 +79,8 @@ const CardShop = (props) => {
 
   /******************************************************************** */
 
-  let PATCH_URL_STATUS =
-    "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal/status/*";
-
-  let PATCH_URL_AMOUNT =
-    "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal/amount/*";
+  let PATCH_URL =
+    "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal/Username/*";
 
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
@@ -95,9 +92,9 @@ const CardShop = (props) => {
 
   const handleAccept = () => {
     // Change status to accepted
-    PATCH_URL_STATUS = `${PATCH_URL_STATUS}${withdrawal.Username}*`;
-    console.log(`Processing withdrawal: ${withdrawal.Username}`);
-    fetch(PATCH_URL_STATUS, {
+    PATCH_URL = `${PATCH_URL}${withdrawal.Username}*`;
+    console.log(`Processing request: ${withdrawal.Username}`);
+    fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
       headers: {
@@ -116,16 +113,15 @@ const CardShop = (props) => {
       });
 
     // Add amount
-    PATCH_URL_AMOUNT = `${PATCH_URL_AMOUNT}${withdrawal.Username}*`;
-    console.log(`Adding amount: ${amount} for ${withdrawal.Username}`);
-    fetch(PATCH_URL_AMOUNT, {
+    console.log(`Adding amount: ${amount * 12} for ${withdrawal.Username}`);
+    fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        amount: amount,
+        amount: amount * 12,
       }),
     })
       .then((r) => r.json())
@@ -141,6 +137,27 @@ const CardShop = (props) => {
   };
 
   const handleDeny = () => {
+    // Change status to declined
+    PATCH_URL = `${PATCH_URL}${withdrawal.Username}*`;
+    console.log(`Processing request: ${withdrawal.Username}`);
+    fetch(PATCH_URL, {
+      method: "PATCH",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        status: "denied",
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     const message = `Dear ${withdrawal.Username}, your withdrawal request has been denied. Kindly contact support for mmore details.`;
     sendSMS(withdrawal.phone, message);
   };
@@ -158,6 +175,7 @@ const CardShop = (props) => {
                     Withdrawal Request
                   </CardTitle>
                   <CardText>Username: {withdrawal.Username}</CardText>
+                  <CardText>Phone Number: {withdrawal.phone}</CardText>
                   <CardText>withdrawal Date: {withdrawal.requestdate}</CardText>
                   <Input
                     onChange={onChangeHandler}
@@ -165,6 +183,7 @@ const CardShop = (props) => {
                     placeholder="enter amount"
                     name="amount"
                     id="placement"
+                    value={amount}
                   />
 
                   <CardBody>
