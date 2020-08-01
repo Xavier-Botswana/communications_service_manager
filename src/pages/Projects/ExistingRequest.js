@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import sendSMS from "../../sms.js";
 
+import { Input } from "reactstrap";
+
 //SweetAlert
 import SweetAlert from "react-bootstrap-sweetalert";
 
 export default function ExistingRequest(props) {
   const { request, setEmoney } = props;
+  const [amount, setAmount] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   /**SWEET ALERT */
@@ -61,6 +64,14 @@ export default function ExistingRequest(props) {
   let PATCH_URL =
     "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing/phone/*";
 
+  const onChangeHandler = (event) => {
+    const { name, value } = event.currentTarget;
+
+    if (name === "amount") {
+      setAmount(value);
+    }
+  };
+
   const handleAccept = () => {
     // Change status to accepted
     PATCH_URL = `${PATCH_URL}${request.phone}*`;
@@ -73,6 +84,26 @@ export default function ExistingRequest(props) {
       },
       body: JSON.stringify({
         status: "accepted",
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // Add amount of e-money (Converted from BWP to USD)
+    console.log(`Adding amount: ${amount / 14} for ${request.phone}`);
+    fetch(PATCH_URL, {
+      method: "PATCH",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: amount / 14,
       }),
     })
       .then((r) => r.json())
@@ -128,6 +159,16 @@ export default function ExistingRequest(props) {
           <a href={request.proof} download>
             <span className="badge badge-primary">Payment Link </span>
           </a>
+        </td>
+        <td>
+          <Input
+            onChange={onChangeHandler}
+            type="number"
+            placeholder="enter amount (BWP)"
+            name="amount"
+            id="placement"
+            value={amount}
+          />
         </td>
         <td>
           <button

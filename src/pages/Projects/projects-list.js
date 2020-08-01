@@ -25,7 +25,6 @@ const ProjectsList = (props) => {
     console.log(emoney.phone);
   };
 
- 
   useEffect(() => {
     setIsLoading(true);
     fetch(
@@ -40,10 +39,9 @@ const ProjectsList = (props) => {
       })
       .then((emoney) => {
         let filteredemoney = emoney.filter(function (e) {
-
           return e.status === null || e.status === "";
-      });
-      console.log(filteredemoney);
+        });
+        console.log(filteredemoney);
         setEmoney(filteredemoney);
       })
       .catch((error) => {
@@ -72,6 +70,7 @@ const ProjectsList = (props) => {
                         <th scope="col">Request Date</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Proof of Payment</th>
+                        <th scope="col">Amount</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>

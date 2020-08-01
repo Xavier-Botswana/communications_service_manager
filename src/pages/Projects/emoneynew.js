@@ -65,6 +65,8 @@ const EmoneyNew = (props) => {
                         <th scope="col">Date</th>
 
                         <th scope="col">Proof of Payment</th>
+                        <th scope="col">Amount</th>
+
                         <th scope="col">Action</th>
                       </tr>
                     </thead>

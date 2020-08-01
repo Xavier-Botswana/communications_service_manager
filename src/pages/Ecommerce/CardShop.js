@@ -27,7 +27,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 const CardShop = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const { withdrawal } = props;
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(null);
 
   /**SWEET ALERT */
 
@@ -112,7 +112,7 @@ const CardShop = (props) => {
         console.log(error);
       });
 
-    // Add amount
+    // Add amount to pay (Converted from USD to BWP)
     console.log(`Adding amount: ${amount * 12} for ${withdrawal.Username}`);
     fetch(PATCH_URL, {
       method: "PATCH",
@@ -180,7 +180,7 @@ const CardShop = (props) => {
                   <Input
                     onChange={onChangeHandler}
                     type="number"
-                    placeholder="enter amount"
+                    placeholder="enter amount (USD)"
                     name="amount"
                     id="placement"
                     value={amount}
