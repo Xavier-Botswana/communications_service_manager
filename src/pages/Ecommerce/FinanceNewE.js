@@ -96,7 +96,7 @@ const EcommerceCustomers = (props) => {
                       <thead>
                         <tr>
                           <th>Sponsor Username</th>
-                          <th>Sponsor Phone</th>
+                          <th>Sponsor #</th>
                           <th>Phone</th>
                           <th>Payment Link</th>
                           <th>Status</th>
@@ -110,13 +110,13 @@ const EcommerceCustomers = (props) => {
                         return <tr>
                         <td>{item.sponsor_username}</td>
                         <td>
-                          <p className="mb-1">{item.sponsor_contact}</p>
+                          {item.sponsor_contact}
                         </td>
                         
                         <td>{item.phone}</td>
                         <td>
                         <a href={item.proof_of_payment} download>
-                          <Badge color="success" className="font-size-12">
+                          <Badge color="success" >
                             <i className="mdi mdi-star mr-1"></i> Click To View Payment
                           </Badge>
                           </a>
