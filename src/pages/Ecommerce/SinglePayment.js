@@ -12,14 +12,10 @@ export default function SinglePayment(props) {
   return (
     <tr>
       <td>{withdrawal.Username}</td>
-      <td>{withdrawal.requestdate}</td>
+      <td>{withdrawal.phone}</td>
+      <td>{withdrawal.date}</td>
       <td>{withdrawal.amount}</td>
-      <td>{withdrawal.paymentMethod}</td>
-      <td>
-        <Badge className="font-size-12 badge-soft-" color="pending" pill>
-          {withdrawal.status}
-        </Badge>
-      </td>
+      <td>{withdrawal.method_payment}</td>
 
       <td>
         <Button

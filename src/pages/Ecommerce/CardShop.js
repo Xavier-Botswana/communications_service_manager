@@ -101,7 +101,7 @@ const CardShop = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        status: "approved",
+        status: "accepted",
       }),
     })
       .then((r) => r.json())

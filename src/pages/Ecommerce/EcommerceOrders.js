@@ -185,10 +185,10 @@ const EcommerceOrders = (props) => {
                       <thead className="thead-light">
                         <tr>
                           <th>Username</th>
+                          <th>Phone</th>
                           <th>Date</th>
-                          <th>Amount ($)</th>
+                          <th>Amount (BWP)</th>
                           <th>Payment Method</th>
-                          <th>Payment Status</th>
 
                           <th>Action</th>
                         </tr>
@@ -200,17 +200,17 @@ const EcommerceOrders = (props) => {
                       </tbody>
                     </Table>
                   </div>
-                 
-          <Row>
-            <Col xs="12">
-              <div className="text-center my-3">
-                <Link to="#" className="text-success">
-                  <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
-                  Load more{" "}
-                </Link>
-              </div>
-            </Col>
-          </Row>
+
+                  <Row>
+                    <Col xs="12">
+                      <div className="text-center my-3">
+                        <Link to="#" className="text-success">
+                          <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
+                          Load more{" "}
+                        </Link>
+                      </div>
+                    </Col>
+                  </Row>
                 </CardBody>
               </Card>
             </Col>
