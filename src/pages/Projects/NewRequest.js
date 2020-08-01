@@ -150,12 +150,6 @@ export default function NewRequest(props) {
             Accept
           </button>
 
-          {/************************ */}
-
-          <Button color="primary" onClick={openConfirm} id="sa-params">
-            Acc
-          </Button>
-
           <button
             onClick={openConfirmDeny}
             type="button"
@@ -164,10 +158,6 @@ export default function NewRequest(props) {
           >
             <i className="bx bx-block font-size-16 align-middle mr-2"></i> Deny
           </button>
-
-          <Button color="primary" onClick={openConfirmDeny} id="sa-params">
-            Den
-          </Button>
         </td>
       </tr>
 
