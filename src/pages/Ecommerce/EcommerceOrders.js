@@ -189,6 +189,7 @@ const EcommerceOrders = (props) => {
                           <th>Date</th>
                           <th>Amount (BWP)</th>
                           <th>Payment Method</th>
+                          <th>Proof</th>
 
                           <th>Action</th>
                         </tr>

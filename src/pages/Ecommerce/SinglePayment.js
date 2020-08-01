@@ -16,6 +16,13 @@ export default function SinglePayment(props) {
       <td>{withdrawal.date}</td>
       <td>{withdrawal.amount}</td>
       <td>{withdrawal.method_payment}</td>
+      <td>
+                        <a href={withdrawal.proof_of_payment} download>
+                          <Badge color="success" >
+                            <i className="mdi mdi-star mr-1"></i> Click To View Payment
+                          </Badge>
+                          </a>
+                        </td>
 
       <td>
         <Button

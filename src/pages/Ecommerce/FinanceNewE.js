@@ -99,7 +99,6 @@ const EcommerceCustomers = (props) => {
                           <th>Sponsor #</th>
                           <th>Phone</th>
                           <th>Payment Link</th>
-                          <th>Status</th>
                           <th>Request Date</th>
                           <th>Amount(USD)</th>
                           <th>Action</th>
@@ -121,7 +120,6 @@ const EcommerceCustomers = (props) => {
                           </Badge>
                           </a>
                         </td>
-                        <td>{item.status} </td>
                         <td>{item.date} </td>
                         <td>{item.amount} </td>
                         

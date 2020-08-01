@@ -98,7 +98,6 @@ const FinanceEmoneyExisting = (props) => {
                           <th>Username</th>
                           <th>Phone</th>
                           <th>Proof</th>
-                          <th>Status</th>
                           <th>Date</th>
                           <th>Amount(USD)</th>
                           <th>Action</th>
@@ -119,7 +118,6 @@ const FinanceEmoneyExisting = (props) => {
                           </Badge>
                           </a>
                         </td>
-                        <td>{item.status} </td>
 
                         <td>{item.date} </td>
                         <td>{item.amount} </td>
