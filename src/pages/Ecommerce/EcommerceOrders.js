@@ -54,7 +54,10 @@ const EcommerceOrders = (props) => {
         }
       })
       .then((withdrawal) => {
-        setWithdrawal(withdrawal);
+        let filteredwithdrawal = withdrawal.filter(function (e) {
+          return e.status === "accepted";
+        });
+        setWithdrawal(filteredwithdrawal);
       })
       .catch((error) => {
         setErrors(error);
@@ -197,29 +200,17 @@ const EcommerceOrders = (props) => {
                       </tbody>
                     </Table>
                   </div>
-                  <Pagination className="pagination pagination-rounded justify-content-end mb-2">
-                    <PaginationItem disabled>
-                      <PaginationLink previous href="#" />
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">1</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem active>
-                      <PaginationLink href="#">2</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">3</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">4</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">5</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink next href="#" />
-                    </PaginationItem>
-                  </Pagination>
+                 
+          <Row>
+            <Col xs="12">
+              <div className="text-center my-3">
+                <Link to="#" className="text-success">
+                  <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
+                  Load more{" "}
+                </Link>
+              </div>
+            </Col>
+          </Row>
                 </CardBody>
               </Card>
             </Col>
