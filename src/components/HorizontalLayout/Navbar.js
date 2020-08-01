@@ -81,8 +81,15 @@ const Navbar = (props) => {
 
                   <li>
                     <Link to="/reward-payments" className="dropdown-item">
-                      <i className="bx bx-user"></i>
+                      <i className="bx bx-money"></i>
                       <span> {props.t("Reward Payments")}</span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/finemoneynew" className="dropdown-item">
+                      <i className="bx bx-money"></i>
+                      <span> {props.t("Emoney Request")}</span>
                     </Link>
                   </li>
                 </ul>

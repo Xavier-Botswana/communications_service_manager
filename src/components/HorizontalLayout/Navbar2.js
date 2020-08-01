@@ -90,7 +90,12 @@ const Navbar2 = (props) => {
                     <span> {props.t("Dashboard")}</span>
                   </Link>
                 </li>
-
+                <li>
+                  <Link to="/finemoneynew" className="dropdown-item">
+                    <i className="bx bx-user"></i>
+                    <span> {props.t("Emoney Requests")}</span>
+                  </Link>
+                </li>
                 <li>
                   <Link to="/reward-payments" className="dropdown-item">
                     <i className="bx bx-user"></i>

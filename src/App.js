@@ -33,6 +33,7 @@ import Footer from "./components/HorizontalLayout/Footer";
 import AuthProvider from "./AuthProvider";
 import EmoneyNew from "./pages/Projects/emoneynew";
 import TeamDeliveries from "./pages/Projects/teamrequest";
+import EcommerceCustomers from "./pages/Ecommerce/FinanceNewE";
 
 const App = (props) => {
   const Layout = HorizontalLayout;
@@ -53,6 +54,7 @@ const App = (props) => {
           <Route exact path="/withdrawal-requests" component={EcommerceShops} />
           <Route exact path="/add-users" component={EcommerceAddProduct} />
           <Route exact path="/reward-payments" component={EcommerceOrders} />
+          <Route exact path="/finemoneynew" component={EcommerceCustomers} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/404" component={Error404} />
