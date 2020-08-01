@@ -22,6 +22,7 @@ import {
 import sendSMS from "../../sms";
 
 const CardShop = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const { withdrawal } = props;
   const [amount, setAmount] = useState(0);
 

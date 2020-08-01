@@ -18,6 +18,53 @@ const EmoneyNew = (props) => {
   const [hasError, setErrors] = useState(false);
   const [emoney, setEmoney] = useState([]);
 
+  const [confirm_both, setConfirm_both] = useState(false);
+  const [confirm_both_deny, setConfirm_both_deny] = useState(false);
+  const [success_dlg, setSuccess_dlg] = useState(false);
+  const [success_msg, setSuccess_msg] = useState(false);
+  const [dynamic_title, setDynamic_title] = useState("");
+  const [dynamic_description, setDynamic_description] = useState("false");
+
+  const openConfirm = () => {
+    setConfirm_both(true);
+  };
+
+  const openConfirmDeny = () => {
+    setConfirm_both_deny(true);
+  };
+
+  const closeConfirm = () => {
+    setSuccess_msg(false);
+  };
+
+  const close_dlg = () => {
+    setSuccess_dlg(false);
+  };
+
+  const confirmAction = () => {
+    // Action
+    setConfirm_both(false);
+    setSuccess_dlg(true);
+    setDynamic_title("Action complete");
+    setDynamic_description("Notification message sent.");
+  };
+
+  const cancelAction = () => {
+    setConfirm_both(false);
+  };
+
+  const confirmActionDeny = () => {
+    // Action
+    setConfirm_both_deny(false);
+    setSuccess_dlg(true);
+    setDynamic_title("Action complete");
+    setDynamic_description("Notification message sent.");
+  };
+
+  const cancelActionDeny = () => {
+    setConfirm_both_deny(false);
+  };
+
   useEffect(() => {
     setIsLoading(true);
     fetch(

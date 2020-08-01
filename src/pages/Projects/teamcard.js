@@ -14,6 +14,7 @@ import {
 import TopCities from "../Dashboard/TopCities";
 
 const CardProject = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const { teamdeliveries } = props;
 
   let PATCH_URL =

@@ -13,6 +13,7 @@ import {
 
 const CardProject = (props) => {
   const { indeliveries } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   let PATCH_URL =
     "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/individualsdeliveries/phone/*";

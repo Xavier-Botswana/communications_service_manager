@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Badge } from "reactstrap";
 
 export default function SinglePayment(props) {
+  const [isLoading, setIsLoading] = useState(false);
   let { withdrawal } = props;
 
   const handlePaymentMade = () => {
