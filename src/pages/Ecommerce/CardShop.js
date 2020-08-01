@@ -21,10 +21,63 @@ import {
 
 import sendSMS from "../../sms";
 
+//SweetAlert
+import SweetAlert from "react-bootstrap-sweetalert";
+
 const CardShop = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const { withdrawal } = props;
   const [amount, setAmount] = useState(0);
+
+  /**SWEET ALERT */
+
+  const [confirm_both, setConfirm_both] = useState(false);
+  const [confirm_both_deny, setConfirm_both_deny] = useState(false);
+  const [success_dlg, setSuccess_dlg] = useState(false);
+  const [dynamic_title, setDynamic_title] = useState("");
+  const [dynamic_description, setDynamic_description] = useState("false");
+
+  const openConfirm = () => {
+    setConfirm_both(true);
+  };
+
+  const openConfirmDeny = () => {
+    setConfirm_both_deny(true);
+  };
+
+  const close_dlg = () => {
+    setSuccess_dlg(false);
+  };
+
+  const confirmAction = () => {
+    // Action
+    setConfirm_both(false);
+    setSuccess_dlg(true);
+    setDynamic_title("Request approved");
+    setDynamic_description("Notification message sent.");
+    // Proceed to accept
+    handleAccept();
+  };
+
+  const cancelAction = () => {
+    setConfirm_both(false);
+  };
+
+  const confirmActionDeny = () => {
+    // Action
+    setConfirm_both_deny(false);
+    setSuccess_dlg(true);
+    setDynamic_title("Request denied");
+    setDynamic_description("Notification message sent.");
+    // Proceed to decline
+    handleDeny();
+  };
+
+  const cancelActionDeny = () => {
+    setConfirm_both_deny(false);
+  };
+
+  /******************************************************************** */
 
   let PATCH_URL_STATUS =
     "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal/status/*";
@@ -83,12 +136,12 @@ const CardShop = (props) => {
         console.log(error);
       });
 
-    const message = `Dear ${withdrawal.Username}, your e-money withdrawal request has been approved. You will receive your payment in the next 3 working days.`;
+    const message = `Dear ${withdrawal.Username}, your withdrawal request has been approved. You will receive your payment in the next 3 working days.`;
     sendSMS(withdrawal.phone, message);
   };
 
   const handleDeny = () => {
-    const message = `Dear ${withdrawal.Username}, your e-money withdrawal request has been denied. Kindly contact support for mmore details.`;
+    const message = `Dear ${withdrawal.Username}, your withdrawal request has been denied. Kindly contact support for mmore details.`;
     sendSMS(withdrawal.phone, message);
   };
 
@@ -125,7 +178,7 @@ const CardShop = (props) => {
                         </a>
                       </Button>
                       <Button
-                        onClick={handleAccept}
+                        onClick={openConfirm}
                         color="success"
                         className="btn btn-success waves-effect waves-light"
                       >
@@ -133,7 +186,7 @@ const CardShop = (props) => {
                       </Button>
 
                       <Button
-                        onClick={handleDeny}
+                        onClick={openConfirmDeny}
                         color="danger"
                         className="btn btn-danger waves-effect waves-light"
                       >
@@ -147,6 +200,39 @@ const CardShop = (props) => {
           </Row>
         </Card>
       </Col>
+      {confirm_both ? (
+        <SweetAlert
+          title="Are you sure?"
+          warning
+          showCancel
+          confirmBtnBsStyle="success"
+          cancelBtnBsStyle="danger"
+          onConfirm={confirmAction}
+          onCancel={cancelAction}
+        >
+          Accept withdarwal request from user {withdrawal.Username}?
+        </SweetAlert>
+      ) : null}
+
+      {confirm_both_deny ? (
+        <SweetAlert
+          title="Are you sure?"
+          warning
+          showCancel
+          confirmBtnBsStyle="success"
+          cancelBtnBsStyle="danger"
+          onConfirm={confirmActionDeny}
+          onCancel={cancelActionDeny}
+        >
+          Decline withdarwal request from user {withdrawal.Username}?
+        </SweetAlert>
+      ) : null}
+
+      {success_dlg ? (
+        <SweetAlert success title={dynamic_title} onConfirm={close_dlg}>
+          {dynamic_description}
+        </SweetAlert>
+      ) : null}
     </React.Fragment>
   );
 };
