@@ -11,9 +11,62 @@ import {
   Badge,
 } from "reactstrap";
 
+//SweetAlert
+import SweetAlert from "react-bootstrap-sweetalert";
+
 const CardProject = (props) => {
   const { indeliveries } = props;
   const [isLoading, setIsLoading] = useState(false);
+
+  /**SWEET ALERT */
+
+  const [confirm_both, setConfirm_both] = useState(false);
+  const [confirm_both_deny, setConfirm_both_deny] = useState(false);
+  const [success_dlg, setSuccess_dlg] = useState(false);
+  const [dynamic_title, setDynamic_title] = useState("");
+  const [dynamic_description, setDynamic_description] = useState("false");
+
+  const openConfirm = () => {
+    setConfirm_both(true);
+  };
+
+  const openConfirmDeny = () => {
+    setConfirm_both_deny(true);
+  };
+
+  const close_dlg = () => {
+    setSuccess_dlg(false);
+  };
+
+  const confirmAction = () => {
+    // Action
+    setConfirm_both(false);
+    setSuccess_dlg(true);
+    setDynamic_title("Request approved");
+    setDynamic_description("Notification message sent.");
+    // Proceed to accept
+    handleDispatch();
+  };
+
+  const cancelAction = () => {
+    setConfirm_both(false);
+  };
+
+  const confirmActionDeny = () => {
+    // Action
+    setConfirm_both_deny(false);
+    setSuccess_dlg(true);
+    setDynamic_title("Request denied");
+    setDynamic_description("Notification message sent.");
+    // Proceed to decline
+    handleDecline();
+  };
+
+  const cancelActionDeny = () => {
+    setConfirm_both_deny(false);
+  };
+
+  /******************************************************************** */
 
   let PATCH_URL =
     "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/individualsdeliveries/phone/*";
@@ -131,7 +184,7 @@ const CardProject = (props) => {
                   <tr>
                     <td>
                       <button
-                        onClick={handleDispatch}
+                        onClick={openConfirm}
                         type="button"
                         className="btn btn-success waves-effect waves-light"
                       >
@@ -142,7 +195,7 @@ const CardProject = (props) => {
 
                     <td>
                       <button
-                        onClick={handleDecline}
+                        onClick={openConfirmDeny}
                         type="button"
                         className="btn btn-danger waves-effect waves-light"
                         style={{ marginLeft: "10px" }}
@@ -163,6 +216,39 @@ const CardProject = (props) => {
           </CardBody>
         </Card>
       </Col>
+      {confirm_both ? (
+        <SweetAlert
+          title="Are you sure?"
+          warning
+          showCancel
+          confirmBtnBsStyle="success"
+          cancelBtnBsStyle="danger"
+          onConfirm={confirmAction}
+          onCancel={cancelAction}
+        >
+          Dispatch order for user {indeliveries.username}?
+        </SweetAlert>
+      ) : null}
+
+      {confirm_both_deny ? (
+        <SweetAlert
+          title="Are you sure?"
+          warning
+          showCancel
+          confirmBtnBsStyle="success"
+          cancelBtnBsStyle="danger"
+          onConfirm={confirmActionDeny}
+          onCancel={cancelActionDeny}
+        >
+          Decline dispatch for user {indeliveries.username}?
+        </SweetAlert>
+      ) : null}
+
+      {success_dlg ? (
+        <SweetAlert success title={dynamic_title} onConfirm={close_dlg}>
+          {dynamic_description}
+        </SweetAlert>
+      ) : null}
     </React.Fragment>
   );
 };
