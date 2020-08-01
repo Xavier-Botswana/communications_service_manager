@@ -20,21 +20,21 @@ import {
 } from "reactstrap";
 
 //Import Breadcrumb
-import Breadcrumbs from "../../components/Common/BreadcrumbFinanceEnew";
+import Breadcrumbs from "../../components/Common/BreadcrumbFinanceExis";
 import Layout from "../../components/HorizontalLayout";
 import { Link } from "react-router-dom";
 
-const EcommerceCustomers = (props) => {
+const FinanceEmoneyExisting = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
-  const [emoney, setEmoney] = useState([]);
+  const [emoneyexisting, setEmoney] = useState([]);
 
  
 
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new"
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing"
     )
       .then((response) => {
         if (response.ok) {
@@ -43,8 +43,8 @@ const EcommerceCustomers = (props) => {
           throw Error("Error fetching data.");
         }
       })
-      .then((emoney) => {
-        let filteredemoney = emoney.filter(function (e) {
+      .then((emoneyexisting) => {
+        let filteredemoney = emoneyexisting.filter(function (e) {
 
           return e.status === "accepted";
       });
@@ -65,8 +65,8 @@ const EcommerceCustomers = (props) => {
       <div className="page-content">
         <Container fluid>
           <Breadcrumbs
-            title=" New Emoney Requests"
-            breadcrumbItem=" Existing Emoney Requests"
+            title=" Existing Emoney Requests"
+            breadcrumbItem=" New Emoney Requests"
           />
 
           <Row>
@@ -95,33 +95,32 @@ const EcommerceCustomers = (props) => {
                     <Table className="table-centered table-nowrap">
                       <thead>
                         <tr>
-                          <th>Sponsor Username</th>
-                          <th>Sponsor #</th>
+                          <th>Username</th>
                           <th>Phone</th>
-                          <th>Payment Link</th>
+                          <th>Proof</th>
                           <th>Status</th>
-                          <th>Request Date</th>
+                          <th>Date</th>
                           <th>Amount(USD)</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                      {emoney.map((item, i) => {
+                      {emoneyexisting.map((item, i) => {
                         return <tr>
-                        <td>{item.sponsor_username}</td>
+                        <td>{item.username}</td>
                         <td>
-                          {item.sponsor_contact}
+                          {item.phone}
                         </td>
                         
-                        <td>{item.phone}</td>
                         <td>
-                        <a href={item.proof_of_payment} download>
+                        <a href={item.proof} download>
                           <Badge color="success" >
                             <i className="mdi mdi-star mr-1"></i> Click To View Payment
                           </Badge>
                           </a>
                         </td>
                         <td>{item.status} </td>
+
                         <td>{item.date} </td>
                         <td>{item.amount} </td>
                         
@@ -161,4 +160,4 @@ const EcommerceCustomers = (props) => {
 };
 
 
-export default EcommerceCustomers;
+export default FinanceEmoneyExisting;

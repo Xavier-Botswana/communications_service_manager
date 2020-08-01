@@ -34,6 +34,7 @@ import AuthProvider from "./AuthProvider";
 import EmoneyNew from "./pages/Projects/emoneynew";
 import TeamDeliveries from "./pages/Projects/teamrequest";
 import EcommerceCustomers from "./pages/Ecommerce/FinanceNewE";
+import FinanceEmoneyExisting from "./pages/Ecommerce/FinanceNewExis";
 
 const App = (props) => {
   const Layout = HorizontalLayout;
@@ -55,6 +56,7 @@ const App = (props) => {
           <Route exact path="/add-users" component={EcommerceAddProduct} />
           <Route exact path="/reward-payments" component={EcommerceOrders} />
           <Route exact path="/finemoneynew" component={EcommerceCustomers} />
+          <Route exact path="/finemoneyexist" component={FinanceEmoneyExisting} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/404" component={Error404} />
