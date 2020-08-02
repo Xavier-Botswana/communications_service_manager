@@ -54,7 +54,6 @@ const EcommerceShops = (props) => {
           {/* Render Breadcrumb */}
           <Breadcrumbs
             title="Withdrawal Requests"
-            breadcrumbItem="Withdrawal Requests"
           />
           <Row>
             {withdrawal.map((item, key) => (

@@ -64,7 +64,7 @@ const ProjectsList = (props) => {
                     <thead>
                       <tr>
                         
-                        <th scope="col">Name</th>
+                        <th scope="col">User Name</th>
                         <th scope="col">Request Date</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Proof of Payment</th>

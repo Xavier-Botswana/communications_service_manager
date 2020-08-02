@@ -172,7 +172,6 @@ const EcommerceOrders = (props) => {
         <Container fluid>
           <Breadcrumbs
             title="Reward Payments"
-            breadcrumbItem="Reward Payments"
           />
           <Row>
             <Col xs="12">

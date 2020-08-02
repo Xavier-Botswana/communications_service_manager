@@ -158,17 +158,7 @@ const Header = (props) => {
 
             <ProfileMenu userDetails={userDetails} />
 
-            <div className="dropdown d-inline-block">
-              <button
-                onClick={() => {
-                  props.showRightSidebarAction(!props.showRightSidebar);
-                }}
-                type="button"
-                className="btn header-item noti-icon right-bar-toggle waves-effect"
-              >
-                <i className="bx bx-cog bx-spin"></i>
-              </button>
-            </div>
+            
           </div>
         </div>
       </header>

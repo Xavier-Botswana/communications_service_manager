@@ -201,7 +201,6 @@ const Dashboard = (props) => {
           {/* Render Breadcrumb */}
           <Breadcrumbs
             title={props.t("Dashboard")}
-            breadcrumbItem={props.t("Dashboard")}
           />
 
           <Row>

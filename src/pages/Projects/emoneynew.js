@@ -57,7 +57,7 @@ const EmoneyNew = (props) => {
                     <thead>
                       <tr>
                        
-                        <th scope="col">Sponsor</th>
+                        <th scope="col">Sponsor Username</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Sponsor #</th>
                         <th scope="col">Date</th>

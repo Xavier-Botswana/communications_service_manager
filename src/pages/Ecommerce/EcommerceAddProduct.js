@@ -222,7 +222,7 @@ const EcommerceAddProduct = (props) => {
                             onChange={(event) => onChangeHandler(event)}
                             className="form-control select2"
                           >
-                            <option value="">Selet user type...</option>
+                            <option value="">Select user type...</option>
                             <option value="Admin">Admin</option>
                             <option value="Finance">Finance</option>
                           </AvField>
