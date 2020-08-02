@@ -279,7 +279,7 @@ const Dashboard = (props) => {
               <Card>
                 <CardBody>
                   <CardTitle className="mb-4 float-sm-left">
-                    Email Sent
+                    Messages Sent
                   </CardTitle>
                   <div className="float-sm-right">
                     <ul className="nav nav-pills">
@@ -303,8 +303,6 @@ const Dashboard = (props) => {
               </Card>
             </Col>
           </Row>
-
-         
 
           <Row>
             <Col lg="12">
