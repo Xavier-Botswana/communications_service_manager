@@ -1,6 +1,11 @@
 import React from "react";
 
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import {
+  Route,
+  Redirect,
+  Switch,
+  BrowserRouter as Router,
+} from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import { connect } from "react-redux";
 
@@ -56,10 +61,15 @@ const App = (props) => {
           <Route exact path="/add-users" component={EcommerceAddProduct} />
           <Route exact path="/reward-payments" component={EcommerceOrders} />
           <Route exact path="/finemoneynew" component={EcommerceCustomers} />
-          <Route exact path="/finemoneyexist" component={FinanceEmoneyExisting} />
+          <Route
+            exact
+            path="/finemoneyexist"
+            component={FinanceEmoneyExisting}
+          />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
-          <Route exact path="/404" component={Error404} />
+          <Route path="/404" component={Error404} />
+          <Redirect from="*" to="/404" />
         </Switch>
       </Router>
     </AuthProvider>
