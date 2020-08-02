@@ -16,6 +16,8 @@ import TopCities from "../Dashboard/TopCities";
 //SweetAlert
 import SweetAlert from "react-bootstrap-sweetalert";
 
+import sendSMS from "../../sms.js";
+
 const CardProject = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const { teamdeliveries, teamdeliveriesArr, setDeliveries } = props;
@@ -104,6 +106,8 @@ const CardProject = (props) => {
       });
 
     // Send SMS confirmation
+    const message = `Dear AG Nutrition ${teamdeliveries.username}, your team delivery has been dispatched for delivery.`;
+    sendSMS(teamdeliveries.phone, message);
   };
 
   const handleDecline = () => {
@@ -137,6 +141,8 @@ const CardProject = (props) => {
       });
 
     // Send SMS confirmation
+    const message = `Dear AG Nutrition ${teamdeliveries.username}, your team delivery request has been declined. Kindly contact support for more details.`;
+    sendSMS(teamdeliveries.phone, message);
   };
 
   return (
