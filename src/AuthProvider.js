@@ -6,6 +6,7 @@ export const AuthContext = React.createContext();
 export default function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [userDetails, setUserDetails] = useState({});
+  const [pending, setPending] = useState(true);
 
   const getUserDetails = (currentUser) => {
     let docRef = firebase.db.collection("users").doc(currentUser.email);
@@ -16,11 +17,11 @@ export default function AuthProvider({ children }) {
         if (doc.exists) {
           setUserDetails(doc.data());
         } else {
-          console.log("No such document!");
+          //console.log("No such document!");
         }
       })
       .catch((error) => {
-        console.log("Error getting document:", error);
+       // console.log("Error getting document:", error);
       });
   };
 
@@ -32,14 +33,23 @@ export default function AuthProvider({ children }) {
 
         setCurrentUser(authUser);
         getUserDetails(authUser);
+        setPending(false)
+
       } else {
         setCurrentUser(null);
       }
     });
-
+  
     //console.log(`STORED USER: ${localStorage.getItem("current-user")}`);
     setCurrentUser(localStorage.getItem("current-user"));
   }, []);
+
+/** if(pending){
+    return <div class="spinner">
+    <div class="cube1"></div>
+    <div class="cube2"></div>
+  </div>
+  } */
 
   return (
     <AuthContext.Provider value={{ currentUser, userDetails }}>
