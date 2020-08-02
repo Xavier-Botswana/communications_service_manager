@@ -196,7 +196,12 @@ const EcommerceOrders = (props) => {
                       </thead>
                       <tbody>
                         {withdrawal.map((item, key) => (
-                          <SinglePayment key={key} withdrawal={item} />
+                          <SinglePayment
+                            key={key}
+                            withdrawal={item}
+                            withdrawals={withdrawal}
+                            setWithdrawal={setWithdrawal}
+                          />
                         ))}
                       </tbody>
                     </Table>

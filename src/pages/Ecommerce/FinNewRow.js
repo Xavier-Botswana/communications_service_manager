@@ -1,12 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { Button, Badge } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Table,
+  Label,
+  Input,
+  Button,
+  Badge,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+} from "reactstrap";
 
 //SweetAlert
 import SweetAlert from "react-bootstrap-sweetalert";
 
-export default function SinglePayment(props) {
-  const [isLoading, setIsLoading] = useState(false);
-  let { withdrawal, withdrawals, setWithdrawal } = props;
+export default function FinNewRow(props) {
+  const { request, emoney, setEmoney } = props;
 
   /**SWEET ALERT */
 
@@ -49,12 +66,12 @@ export default function SinglePayment(props) {
   /******************************************************************** */
 
   let PATCH_URL =
-    "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal/Username/*";
+    "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new/phone/*";
 
   const transact = () => {
     // Change status to paid
-    PATCH_URL = `${PATCH_URL}${withdrawal.Username}*`;
-    console.log(`Processing request: ${withdrawal.Username}`);
+    PATCH_URL = `${PATCH_URL}${request.phone}*`;
+    console.log(`Processing request: ${request.phone}`);
 
     fetch(PATCH_URL, {
       method: "PATCH",
@@ -69,11 +86,11 @@ export default function SinglePayment(props) {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
-        const index = withdrawals.indexOf(withdrawal);
+        const index = emoney.indexOf(request);
         if (index > -1) {
-          setWithdrawal(
-            withdrawals.filter((item) => {
-              return item !== withdrawal;
+          setEmoney(
+            emoney.filter((item) => {
+              return item !== request;
             })
           );
         }
@@ -86,28 +103,29 @@ export default function SinglePayment(props) {
   return (
     <React.Fragment>
       <tr>
-        <td>{withdrawal.Username}</td>
-        <td>{withdrawal.phone}</td>
-        <td>{withdrawal.date}</td>
-        <td>{withdrawal.amount}</td>
-        <td>{withdrawal.method_payment}</td>
+        <td>{request.sponsor_username}</td>
+        <td>{request.sponsor_contact}</td>
+
+        <td>{request.phone}</td>
         <td>
-          <a href={withdrawal.proof_of_payment} download>
+          <a href={request.proof_of_payment} download>
             <Badge color="success">
               <i className="mdi mdi-star mr-1"></i> Click To View Payment
             </Badge>
           </a>
         </td>
+        <td>{request.date} </td>
+        <td>{request.amount} </td>
 
         <td>
-          <Button
+          <button
             onClick={openConfirm}
-            color="success"
+            type="button"
             className="btn btn-success waves-effect waves-light"
           >
             <i className="bx bx-check-double font-size-16 align-middle mr-2"></i>{" "}
-            Transact
-          </Button>
+            Transact{" "}
+          </button>
         </td>
       </tr>
       {confirm_both ? (
@@ -120,7 +138,7 @@ export default function SinglePayment(props) {
           onConfirm={confirmAction}
           onCancel={cancelAction}
         >
-          Confrim payment made to user {withdrawal.Username}?
+          Confirm e-money credit to user {request.sponsor_username}?
         </SweetAlert>
       ) : null}
 

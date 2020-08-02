@@ -23,13 +23,12 @@ import {
 import Breadcrumbs from "../../components/Common/BreadcrumbFinanceExis";
 import Layout from "../../components/HorizontalLayout";
 import { Link } from "react-router-dom";
+import FinExistingRow from "./FinExistingRow";
 
 const FinanceEmoneyExisting = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
   const [emoneyexisting, setEmoney] = useState([]);
-
- 
 
   useEffect(() => {
     setIsLoading(true);
@@ -45,20 +44,15 @@ const FinanceEmoneyExisting = (props) => {
       })
       .then((emoneyexisting) => {
         let filteredemoney = emoneyexisting.filter(function (e) {
-
           return e.status === "accepted";
-      });
-      console.log(filteredemoney);
+        });
+        console.log(filteredemoney);
         setEmoney(filteredemoney);
       })
       .catch((error) => {
         setErrors(error);
       });
   }, []);
-
-
-
-
 
   return (
     <Layout>
@@ -104,36 +98,17 @@ const FinanceEmoneyExisting = (props) => {
                         </tr>
                       </thead>
                       <tbody>
-                      {emoneyexisting.map((item, i) => {
-                        return <tr>
-                        <td>{item.username}</td>
-                        <td>
-                          {item.phone}
-                        </td>
-                        
-                        <td>
-                        <a href={item.proof} download>
-                          <Badge color="success" >
-                            <i className="mdi mdi-star mr-1"></i> Click To View Payment
-                          </Badge>
-                          </a>
-                        </td>
-
-                        <td>{item.date} </td>
-                        <td>{item.amount} </td>
-                        
-                        <td>
-                          <button
-                            type="button"
-                            className="btn btn-success waves-effect waves-light"
-                          >
-                            <i className="bx bx-check-double font-size-16 align-middle mr-2"></i>{" "}
-                            Transact{" "}
-                          </button>
-                        </td>
-                        </tr> 
-                      })}
-                    </tbody>
+                        {emoneyexisting.map((item, i) => {
+                          return (
+                            <FinExistingRow
+                              key={i}
+                              request={item}
+                              emoneyexisting={emoneyexisting}
+                              setEmoney={setEmoney}
+                            />
+                          );
+                        })}
+                      </tbody>
                     </Table>
                   </div>
                   <Row>
@@ -150,12 +125,10 @@ const FinanceEmoneyExisting = (props) => {
               </Card>
             </Col>
           </Row>
-
         </Container>
       </div>
     </Layout>
   );
 };
-
 
 export default FinanceEmoneyExisting;

@@ -23,13 +23,12 @@ import {
 import Breadcrumbs from "../../components/Common/BreadcrumbFinanceEnew";
 import Layout from "../../components/HorizontalLayout";
 import { Link } from "react-router-dom";
+import FinNewRow from "./FinNewRow";
 
 const EcommerceCustomers = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
   const [emoney, setEmoney] = useState([]);
-
- 
 
   useEffect(() => {
     setIsLoading(true);
@@ -45,20 +44,15 @@ const EcommerceCustomers = (props) => {
       })
       .then((emoney) => {
         let filteredemoney = emoney.filter(function (e) {
-
           return e.status === "accepted";
-      });
-      console.log(filteredemoney);
+        });
+        console.log(filteredemoney);
         setEmoney(filteredemoney);
       })
       .catch((error) => {
         setErrors(error);
       });
   }, []);
-
-
-
-
 
   return (
     <Layout>
@@ -100,41 +94,22 @@ const EcommerceCustomers = (props) => {
                           <th>Phone</th>
                           <th>Payment Link</th>
                           <th>Request Date</th>
-                          <th>Amount(USD)</th>
+                          <th>Amount (USD)</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                      {emoney.map((item, i) => {
-                        return <tr>
-                        <td>{item.sponsor_username}</td>
-                        <td>
-                          {item.sponsor_contact}
-                        </td>
-                        
-                        <td>{item.phone}</td>
-                        <td>
-                        <a href={item.proof_of_payment} download>
-                          <Badge color="success" >
-                            <i className="mdi mdi-star mr-1"></i> Click To View Payment
-                          </Badge>
-                          </a>
-                        </td>
-                        <td>{item.date} </td>
-                        <td>{item.amount} </td>
-                        
-                        <td>
-                          <button
-                            type="button"
-                            className="btn btn-success waves-effect waves-light"
-                          >
-                            <i className="bx bx-check-double font-size-16 align-middle mr-2"></i>{" "}
-                            Transact{" "}
-                          </button>
-                        </td>
-                        </tr> 
-                      })}
-                    </tbody>
+                        {emoney.map((item, i) => {
+                          return (
+                            <FinNewRow
+                              key={i}
+                              request={item}
+                              emoney={emoney}
+                              setEmoney={setEmoney}
+                            />
+                          );
+                        })}
+                      </tbody>
                     </Table>
                   </div>
                   <Row>
@@ -151,12 +126,10 @@ const EcommerceCustomers = (props) => {
               </Card>
             </Col>
           </Row>
-
         </Container>
       </div>
     </Layout>
   );
 };
-
 
 export default EcommerceCustomers;
