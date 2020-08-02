@@ -49,19 +49,43 @@ const App = (props) => {
       <Router>
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />
-          <Route exact path="/emoney-requests" component={ProjectsList} />
-          <Route exact path="/emoneynew" component={EmoneyNew} />
-          <Route exact path="/delivery-requests" component={ProjectsGrid} />
-          <Route
+          <PrivateRoute
+            exact
+            path="/emoney-requests"
+            component={ProjectsList}
+          />
+          <PrivateRoute exact path="/emoneynew" component={EmoneyNew} />
+          <PrivateRoute
+            exact
+            path="/delivery-requests"
+            component={ProjectsGrid}
+          />
+          <PrivateRoute
             exact
             path="/teamdelivery-requests"
             component={TeamDeliveries}
           />
-          <Route exact path="/withdrawal-requests" component={EcommerceShops} />
-          <Route exact path="/add-users" component={EcommerceAddProduct} />
-          <Route exact path="/reward-payments" component={EcommerceOrders} />
-          <Route exact path="/finemoneynew" component={EcommerceCustomers} />
-          <Route
+          <PrivateRoute
+            exact
+            path="/withdrawal-requests"
+            component={EcommerceShops}
+          />
+          <PrivateRoute
+            exact
+            path="/add-users"
+            component={EcommerceAddProduct}
+          />
+          <PrivateRoute
+            exact
+            path="/reward-payments"
+            component={EcommerceOrders}
+          />
+          <PrivateRoute
+            exact
+            path="/finemoneynew"
+            component={EcommerceCustomers}
+          />
+          <PrivateRoute
             exact
             path="/finemoneyexist"
             component={FinanceEmoneyExisting}
