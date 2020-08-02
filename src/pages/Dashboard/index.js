@@ -201,6 +201,7 @@ const Dashboard = (props) => {
           {/* Render Breadcrumb */}
           <Breadcrumbs
             title={props.t("Dashboard")}
+            breadcrumbItem={props.t("Dashboard")}
           />
 
           <Row>
@@ -303,18 +304,7 @@ const Dashboard = (props) => {
             </Col>
           </Row>
 
-          <Row>
-            <Col xl="4">
-              <SocialSource />
-            </Col>
-            <Col xl="4">
-              <ActivityComp />
-            </Col>
-
-            <Col xl="4">
-              <TopCities />
-            </Col>
-          </Row>
+         
 
           <Row>
             <Col lg="12">
