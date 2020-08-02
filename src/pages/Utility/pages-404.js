@@ -18,7 +18,7 @@ const Pages404 = (props) => {
                                     <h1 className="display-2 font-weight-medium">4<i className="bx bx-buoy bx-spin text-primary display-3"></i>4</h1>
                                     <h4 className="text-uppercase">Sorry, page not found</h4>
                                     <div className="mt-5 text-center">
-                                        <Link className="btn btn-primary waves-effect waves-light" to="/dashboard">Back to Dashboard</Link>
+                                        <Link className="btn btn-primary waves-effect waves-light" to="/">Back to Dashboard</Link>
                                     </div>
                                 </div>
                             </Col>

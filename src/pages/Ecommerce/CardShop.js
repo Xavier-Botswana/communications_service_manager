@@ -184,7 +184,7 @@ const CardShop = (props) => {
         <Card>
           <Row>
             <Col lg={12}>
-              <Card color="white" className="text-black">
+              <Card color="black" className="text-black">
                 <CardBody>
                   <CardTitle className="mb-4 text-black">
                     <i className="mdi mdi-alert-circle-outline mr-3"></i>

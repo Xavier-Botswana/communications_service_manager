@@ -165,7 +165,6 @@ export default function ExistingRequest(props) {
   return (
     <React.Fragment>
       <tr>
-        <td>11</td>
         <td>
           <h5 className="text-truncate font-size-14">{request.username}</h5>
         </td>
