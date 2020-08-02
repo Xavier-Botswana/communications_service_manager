@@ -63,9 +63,7 @@ const ProjectsList = (props) => {
                   <Table className="project-list-table table-nowrap table-centered table-borderless">
                     <thead>
                       <tr>
-                        <th scope="col" style={{ width: "100px" }}>
-                          #
-                        </th>
+                        
                         <th scope="col">Name</th>
                         <th scope="col">Request Date</th>
                         <th scope="col">Phone</th>

@@ -56,9 +56,7 @@ const EmoneyNew = (props) => {
                   <Table className="project-list-table table-nowrap table-centered table-borderless">
                     <thead>
                       <tr>
-                        <th scope="col" style={{ width: "100px" }}>
-                          #
-                        </th>
+                       
                         <th scope="col">Sponsor</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Sponsor #</th>
