@@ -71,7 +71,7 @@ export default function FinExistingRow(props) {
   const transact = () => {
     // Change status to paid
     PATCH_URL = `${PATCH_URL}${request.phone}*`;
-    console.log(`Processing request: ${request.phone}`);
+    //console.log(`Processing request: ${request.phone}`);
 
     fetch(PATCH_URL, {
       method: "PATCH",
@@ -85,7 +85,7 @@ export default function FinExistingRow(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+    //    console.log(data);
         const index = emoneyexisting.indexOf(request);
         if (index > -1) {
           setEmoney(
@@ -96,7 +96,7 @@ export default function FinExistingRow(props) {
         }
       })
       .catch((error) => {
-        console.log(error);
+       // console.log(error);
       });
   };
 

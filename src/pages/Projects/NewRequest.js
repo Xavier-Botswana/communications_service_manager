@@ -75,7 +75,7 @@ export default function NewRequest(props) {
     setIsLoading(true);
     // Change status to accepted
     PATCH_URL = `${PATCH_URL}${request.phone}*`;
-    console.log(`Processing request: ${request.phone}`);
+    //console.log(`Processing request: ${request.phone}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -88,14 +88,14 @@ export default function NewRequest(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+       // console.log(data);
       })
       .catch((error) => {
-        console.log(error);
+       // console.log(error);
       });
 
     // Add amount of e-money (Converted from BWP to USD)
-    console.log(`Adding amount: ${amount / 14} for ${request.phone}`);
+    //console.log(`Adding amount: ${amount / 14} for ${request.phone}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -108,7 +108,7 @@ export default function NewRequest(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+       // console.log(data);
         const index = emoney.indexOf(request);
         if (index > -1) {
           setEmoney(
@@ -119,7 +119,7 @@ export default function NewRequest(props) {
         }
       })
       .catch((error) => {
-        console.log(error);
+       // console.log(error);
       });
 
     // Send SMS confirmation
@@ -131,7 +131,7 @@ export default function NewRequest(props) {
   const handleDeny = () => {
     // Change status to deny
     PATCH_URL = `${PATCH_URL}${request.phone}*`;
-    console.log(`Processing request: ${request.phone}`);
+    //console.log(`Processing request: ${request.phone}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -144,7 +144,7 @@ export default function NewRequest(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+       // console.log(data);
         const index = emoney.indexOf(request);
         if (index > -1) {
           setEmoney(
@@ -155,7 +155,7 @@ export default function NewRequest(props) {
         }
       })
       .catch((error) => {
-        console.log(error);
+       // console.log(error);
       });
 
     // Send SMS confirmation

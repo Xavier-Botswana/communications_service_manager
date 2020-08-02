@@ -78,7 +78,7 @@ const CardProject = (props) => {
   const handleDispatch = () => {
     // Dispatch delivery
     PATCH_URL = `${PATCH_URL}${teamdeliveries.phone}*`;
-    console.log(`Processing request: ${teamdeliveries.phone}`);
+    //console.log(`Processing request: ${teamdeliveries.phone}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -91,7 +91,7 @@ const CardProject = (props) => {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+       // console.log(data);
         const index = teamdeliveriesArr.indexOf(teamdeliveries);
         if (index > -1) {
           setDeliveries(
@@ -102,7 +102,7 @@ const CardProject = (props) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+       // console.log(error);
       });
 
     // Send SMS confirmation
@@ -113,7 +113,7 @@ const CardProject = (props) => {
   const handleDecline = () => {
     // Deny delivery
     PATCH_URL = `${PATCH_URL}${teamdeliveries.phone}*`;
-    console.log(`Processing request: ${teamdeliveries.phone}`);
+    //console.log(`Processing request: ${teamdeliveries.phone}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -126,7 +126,7 @@ const CardProject = (props) => {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+       // console.log(data);
         const index = teamdeliveriesArr.indexOf(teamdeliveries);
         if (index > -1) {
           setDeliveries(
@@ -137,7 +137,7 @@ const CardProject = (props) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+      //  console.log(error);
       });
 
     // Send SMS confirmation

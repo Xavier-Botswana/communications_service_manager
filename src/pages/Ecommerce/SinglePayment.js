@@ -54,7 +54,7 @@ export default function SinglePayment(props) {
   const transact = () => {
     // Change status to paid
     PATCH_URL = `${PATCH_URL}${withdrawal.Username}*`;
-    console.log(`Processing request: ${withdrawal.Username}`);
+    //console.log(`Processing request: ${withdrawal.Username}`);
 
     fetch(PATCH_URL, {
       method: "PATCH",
@@ -68,7 +68,7 @@ export default function SinglePayment(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+    //    console.log(data);
         const index = withdrawals.indexOf(withdrawal);
         if (index > -1) {
           setWithdrawal(
@@ -79,7 +79,7 @@ export default function SinglePayment(props) {
         }
       })
       .catch((error) => {
-        console.log(error);
+       // console.log(error);
       });
   };
 
