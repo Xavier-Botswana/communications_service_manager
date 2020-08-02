@@ -89,7 +89,7 @@ const Navbar = (props) => {
                   <li>
                     <Link to="/finemoneynew" className="dropdown-item">
                       <i className="bx bx-money"></i>
-                      <span> {props.t("Emoney Request")}</span>
+                      <span> {props.t("Approved Emoney Requests")}</span>
                     </Link>
                   </li>
                 </ul>
@@ -126,6 +126,63 @@ const Navbar = (props) => {
                     <Link to="/withdrawal-requests" className="dropdown-item">
                       <i className="bx bx-money"></i>
                       <span> {props.t("Withdrawal Requests")}</span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/add-users" className="dropdown-item">
+                      <i className="bx bx-user"></i>
+                      <span> {props.t("Add Users")}</span>
+                    </Link>
+                  </li>
+                </ul>
+              </Collapse>
+            ) : userDetails.userType === "Super Admin" ? (
+              <Collapse
+                isOpen={props.leftMenu}
+                className="navbar-collapse"
+                id="topnav-menu-content"
+              >
+                <ul className="navbar-nav">
+                  <li>
+                    <Link to="/" className="dropdown-item">
+                      <i className="bx bx-calendar"></i>
+                      <span> {props.t("Dashboard")}</span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/emoney-requests" className="dropdown-item">
+                      <i className="bx bx-money"></i>
+                      <span> {props.t("E-money Requests")}</span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/delivery-requests" className="dropdown-item">
+                      <i className="bx bxs-truck"></i>
+                      <span> {props.t("Delivery Requests")}</span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/withdrawal-requests" className="dropdown-item">
+                      <i className="bx bx-money"></i>
+                      <span> {props.t("Withdrawal Requests")}</span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/reward-payments" className="dropdown-item">
+                      <i className="bx bx-money"></i>
+                      <span> {props.t("Reward Payments")}</span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/finemoneynew" className="dropdown-item">
+                      <i className="bx bx-money"></i>
+                      <span> {props.t("Approved E-money Requests")}</span>
                     </Link>
                   </li>
 
