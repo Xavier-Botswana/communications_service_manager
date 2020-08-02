@@ -46,7 +46,7 @@ const FinanceEmoneyExisting = (props) => {
         let filteredemoney = emoneyexisting.filter(function (e) {
           return e.status === "accepted";
         });
-        console.log(filteredemoney);
+     //   console.log(filteredemoney);
         setEmoney(filteredemoney);
       })
       .catch((error) => {

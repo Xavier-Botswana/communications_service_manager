@@ -22,7 +22,7 @@ const ProjectsList = (props) => {
   const [emoney, setEmoney] = useState([]);
 
   const handleAccept = () => {
-    console.log(emoney.phone);
+    //console.log(emoney.phone);
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const ProjectsList = (props) => {
         let filteredemoney = emoney.filter(function (e) {
           return e.status === null || e.status === "";
         });
-        console.log(filteredemoney);
+       // console.log(filteredemoney);
         setEmoney(filteredemoney);
       })
       .catch((error) => {

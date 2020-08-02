@@ -36,7 +36,7 @@ const TeamDeliveries = (props) => {
         let filterdeliveries = teamdeliveries.filter(function (e) {
           return e.status === null || e.status === "";
         });
-        console.log(filterdeliveries);
+        //console.log(filterdeliveries);
         setDeliveries(filterdeliveries);
       })
       .catch((error) => {

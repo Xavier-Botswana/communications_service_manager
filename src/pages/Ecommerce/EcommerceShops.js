@@ -39,7 +39,7 @@ const EcommerceShops = (props) => {
         let filterwithdrawal = withdrawal.filter(function (e) {
           return e.status === null || e.status === "";
         });
-        console.log(filterwithdrawal);
+      //  console.log(filterwithdrawal);
         setWithdrawal(filterwithdrawal);
       })
       .catch((error) => {

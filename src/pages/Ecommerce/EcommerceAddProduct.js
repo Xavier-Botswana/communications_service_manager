@@ -62,7 +62,7 @@ const EcommerceAddProduct = (props) => {
     firebase.auth
       .createUserWithEmailAndPassword(email, "password123")
       .then(() => {
-        console.log("Added user auth details.");
+       // console.log("Added user auth details.");
 
         // Update displayName
         firebase.auth.currentUser
@@ -70,10 +70,10 @@ const EcommerceAddProduct = (props) => {
             displayName: `${firstName} ${lastName}`,
           })
           .then(() => {
-            console.log("Updated user auth details.");
+           // console.log("Updated user auth details.");
           })
           .catch((error) => {
-            console.log(error);
+          //  console.log(error);
           });
 
         // Firestore function to save user details:
@@ -87,17 +87,17 @@ const EcommerceAddProduct = (props) => {
             imageURL: imageURL,
           })
           .then(() => {
-            console.log("Document successfully written!");
+            //console.log("Document successfully written!");
           })
           .catch((error) => {
-            console.error("Error writing document: ", error);
+           // console.error("Error writing document: ", error);
           });
 
         setIsLoading(false);
         setIsProcessSuccessful(true);
       })
       .catch((error) => {
-        console.log(error);
+       // console.log(error);
       });
   };
 
