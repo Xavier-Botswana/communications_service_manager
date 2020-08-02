@@ -15,14 +15,12 @@ const MonthlyEarning = (props) => {
           <Row>
             <Col sm="6">
               <p className="text-muted">Converted from dollars</p>
-              <h3>P3,600</h3>
+              <h3>P3,600.78</h3>
 
               <div className="mt-4"></div>
             </Col>
             <Col sm="6">
-              <div className="mt-4 mt-sm-0">
-                <ApexRadial />
-              </div>
+              <div className="mt-4 mt-sm-0"></div>
             </Col>
           </Row>
         </CardBody>
