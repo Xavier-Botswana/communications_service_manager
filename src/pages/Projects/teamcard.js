@@ -147,7 +147,7 @@ const CardProject = (props) => {
 
   return (
     <React.Fragment>
-      <Col xl="4" sm="6">
+      <Col xl="6" sm="6">
         <Card>
           <CardBody>
             <CardTitle className="mb-4">Team Request</CardTitle>
