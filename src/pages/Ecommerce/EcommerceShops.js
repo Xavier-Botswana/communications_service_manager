@@ -37,11 +37,9 @@ const EcommerceShops = (props) => {
       })
       .then((withdrawal) => {
         let filterwithdrawal = withdrawal.filter(function (e) {
-
           return e.status === null || e.status === "";
-        
         });
-      console.log(filterwithdrawal);
+        console.log(filterwithdrawal);
         setWithdrawal(filterwithdrawal);
       })
       .catch((error) => {
@@ -59,8 +57,13 @@ const EcommerceShops = (props) => {
             breadcrumbItem="Withdrawal Requests"
           />
           <Row>
-            {withdrawal.map((withdrawal, key) => (
-              <CardShop withdrawal={withdrawal} key={"_shop_" + key} />
+            {withdrawal.map((item, key) => (
+              <CardShop
+                withdrawal={item}
+                withdrawals={withdrawal}
+                setWithdrawal={setWithdrawal}
+                key={"_shop_" + key}
+              />
             ))}
           </Row>
           <Row>

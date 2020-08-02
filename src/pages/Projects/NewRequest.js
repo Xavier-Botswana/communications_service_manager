@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import sendSMS from "../../sms";
-import FirebaseLoader from "../../components/Loader/FirebaseLoader";
-import { Button } from "reactstrap";
 import { Input } from "reactstrap";
 
 //SweetAlert
 import SweetAlert from "react-bootstrap-sweetalert";
 
 export default function NewRequest(props) {
-  const { request } = props;
-  const [amount, setAmount] = useState(null);
+  const { request, emoney, setEmoney } = props;
+  const [amount, setAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   /**SWEET ALERT */
@@ -112,6 +109,14 @@ export default function NewRequest(props) {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
+        const index = emoney.indexOf(request);
+        if (index > -1) {
+          setEmoney(
+            emoney.filter((item) => {
+              return item !== request;
+            })
+          );
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -140,6 +145,14 @@ export default function NewRequest(props) {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
+        const index = emoney.indexOf(request);
+        if (index > -1) {
+          setEmoney(
+            emoney.filter((item) => {
+              return item !== request;
+            })
+          );
+        }
       })
       .catch((error) => {
         console.log(error);

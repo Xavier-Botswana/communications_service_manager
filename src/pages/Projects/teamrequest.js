@@ -34,11 +34,9 @@ const TeamDeliveries = (props) => {
       .then((response) => response.json())
       .then((teamdeliveries) => {
         let filterdeliveries = teamdeliveries.filter(function (e) {
-
           return e.status === null || e.status === "";
-        
         });
-      console.log(filterdeliveries);
+        console.log(filterdeliveries);
         setDeliveries(filterdeliveries);
       })
       .catch((error) => {
@@ -60,11 +58,17 @@ const TeamDeliveries = (props) => {
             {/* Import Cards */}
 
             {teamdeliveries.map((item, key) => {
-              return <TeamCard key={key} teamdeliveries={item} />;
+              return (
+                <TeamCard
+                  key={key}
+                  teamdeliveries={item}
+                  teamdeliveriesArr={teamdeliveries}
+                  setDeliveries={setDeliveries}
+                />
+              );
             })}
           </Row>
 
-         
           <Row>
             <Col xs="12">
               <div className="text-center my-3">

@@ -7,8 +7,8 @@ import { Input } from "reactstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
 
 export default function ExistingRequest(props) {
-  const { request, setEmoney } = props;
-  const [amount, setAmount] = useState(null);
+  const { request, emoney, setEmoney } = props;
+  const [amount, setAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   /**SWEET ALERT */
@@ -109,6 +109,14 @@ export default function ExistingRequest(props) {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
+        const index = emoney.indexOf(request);
+        if (index > -1) {
+          setEmoney(
+            emoney.filter((item) => {
+              return item !== request;
+            })
+          );
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -136,6 +144,14 @@ export default function ExistingRequest(props) {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
+        const index = emoney.indexOf(request);
+        if (index > -1) {
+          setEmoney(
+            emoney.filter((item) => {
+              return item !== request;
+            })
+          );
+        }
       })
       .catch((error) => {
         console.log(error);

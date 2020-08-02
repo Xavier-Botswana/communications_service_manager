@@ -73,7 +73,14 @@ const EmoneyNew = (props) => {
 
                     <tbody>
                       {emoney.map((item, i) => {
-                        return <NewRequest key={i} request={item} />;
+                        return (
+                          <NewRequest
+                            key={i}
+                            request={item}
+                            emoney={emoney}
+                            setEmoney={setEmoney}
+                          />
+                        );
                       })}
                     </tbody>
                   </Table>

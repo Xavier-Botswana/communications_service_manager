@@ -26,8 +26,8 @@ import SweetAlert from "react-bootstrap-sweetalert";
 
 const CardShop = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { withdrawal } = props;
-  const [amount, setAmount] = useState(null);
+  const { withdrawal, withdrawals, setWithdrawal } = props;
+  const [amount, setAmount] = useState(0);
 
   /**SWEET ALERT */
 
@@ -127,6 +127,14 @@ const CardShop = (props) => {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
+        const index = withdrawals.indexOf(withdrawal);
+        if (index > -1) {
+          setWithdrawal(
+            withdrawals.filter((item) => {
+              return item !== withdrawal;
+            })
+          );
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -153,6 +161,14 @@ const CardShop = (props) => {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
+        const index = withdrawals.indexOf(withdrawal);
+        if (index > -1) {
+          setWithdrawal(
+            withdrawals.filter((item) => {
+              return item !== withdrawal;
+            })
+          );
+        }
       })
       .catch((error) => {
         console.log(error);

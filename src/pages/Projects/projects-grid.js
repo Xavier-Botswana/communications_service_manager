@@ -7,7 +7,6 @@ import { AuthContext } from "../../AuthProvider";
 import Layout from "../../components/HorizontalLayout";
 import { Link } from "react-router-dom";
 
-
 import AdminLayout from "../../components/AdminLayout";
 import FinanceLayout from "../../components/AdminLayout";
 
@@ -39,11 +38,9 @@ const ProjectsGrid = (props) => {
       .then((response) => response.json())
       .then((indeliveries) => {
         let filterdeliveries = indeliveries.filter(function (e) {
-
           return e.status === null || e.status === "";
-        
         });
-      console.log(filterdeliveries);
+        console.log(filterdeliveries);
         setDeliveries(filterdeliveries);
       })
       .catch((error) => {
@@ -65,11 +62,17 @@ const ProjectsGrid = (props) => {
             {/* Import Cards */}
 
             {indeliveries.map((item, key) => {
-              return <CardProject key={key} indeliveries={item} />;
+              return (
+                <CardProject
+                  indeliveriesArr={indeliveries}
+                  setDeliveries={setDeliveries}
+                  key={key}
+                  indeliveries={item}
+                />
+              );
             })}
           </Row>
 
-          
           <Row>
             <Col xs="12">
               <div className="text-center my-3">

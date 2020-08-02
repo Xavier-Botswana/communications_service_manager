@@ -15,7 +15,7 @@ import {
 import SweetAlert from "react-bootstrap-sweetalert";
 
 const CardProject = (props) => {
-  const { indeliveries } = props;
+  const { indeliveries, indeliveriesArr, setDeliveries } = props;
   const [isLoading, setIsLoading] = useState(false);
 
   /**SWEET ALERT */
@@ -88,6 +88,14 @@ const CardProject = (props) => {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
+        const index = indeliveriesArr.indexOf(indeliveries);
+        if (index > -1) {
+          setDeliveries(
+            indeliveriesArr.filter((item) => {
+              return item !== indeliveries;
+            })
+          );
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -115,6 +123,14 @@ const CardProject = (props) => {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
+        const index = indeliveriesArr.indexOf(indeliveries);
+        if (index > -1) {
+          setDeliveries(
+            indeliveriesArr.filter((item) => {
+              return item !== indeliveries;
+            })
+          );
+        }
       })
       .catch((error) => {
         console.log(error);

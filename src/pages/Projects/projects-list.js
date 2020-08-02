@@ -77,7 +77,14 @@ const ProjectsList = (props) => {
 
                     <tbody>
                       {emoney.map((item, i) => {
-                        return <ExistingRequest key={i} request={item} />;
+                        return (
+                          <ExistingRequest
+                            key={i}
+                            request={item}
+                            emoney={emoney}
+                            setEmoney={setEmoney}
+                          />
+                        );
                       })}
                     </tbody>
                   </Table>
