@@ -75,7 +75,7 @@ export default function ExistingRequest(props) {
   const handleAccept = () => {
     // Change status to accepted
     PATCH_URL = `${PATCH_URL}${request.phone}*`;
-   // console.log(`Processing request: ${request.phone}`);
+    // console.log(`Processing request: ${request.phone}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -88,10 +88,10 @@ export default function ExistingRequest(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-     //   console.log(data);
+        //   console.log(data);
       })
       .catch((error) => {
-      //  console.log(error);
+        //  console.log(error);
       });
 
     // Add amount of e-money (Converted from BWP to USD)
@@ -108,7 +108,7 @@ export default function ExistingRequest(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-       // console.log(data);
+        // console.log(data);
         const index = emoney.indexOf(request);
         if (index > -1) {
           setEmoney(
@@ -119,7 +119,7 @@ export default function ExistingRequest(props) {
         }
       })
       .catch((error) => {
-      //  console.log(error);
+        //  console.log(error);
       });
 
     // Send SMS confirmation
@@ -130,7 +130,7 @@ export default function ExistingRequest(props) {
   const handleDeny = () => {
     // Change status to deny
     PATCH_URL = `${PATCH_URL}${request.phone}*`;
-  //  console.log(`Processing request: ${request.phone}`);
+    //  console.log(`Processing request: ${request.phone}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -154,7 +154,7 @@ export default function ExistingRequest(props) {
         }
       })
       .catch((error) => {
-      //  console.log(error);
+        //  console.log(error);
       });
 
     // Send SMS confirmation

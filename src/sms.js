@@ -1,14 +1,19 @@
-import axios from "axios";
-
 const sendSMS = (to, body) => {
   to = `+267${to}`;
-  axios
-    .post("http://localhost:5000/sms", { to: to, body: body })
-    .then((response) => {
-      console.log(response);
+
+  fetch("http://localhost:5000/sms", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ to: to, body: body }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
     })
     .catch((error) => {
-      console.log(error);
+      console.error("Error:", error);
     });
 };
 
