@@ -10,10 +10,10 @@ const sendSMS = (to, body) => {
   })
     .then((response) => response.json())
     .then((data) => {
-     // console.log("Success:", data);
+    console.log("Success:", data);
     })
     .catch((error) => {
-    //  console.error("Error:", error);
+   console.error("Error:", error);
     });
 };
 
