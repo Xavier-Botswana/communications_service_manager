@@ -172,7 +172,7 @@ export default function ExistingRequest(props) {
         <td>{request.date}</td>
         <td> {request.phone} </td>
         <td>
-          <a href={request.proof} download>
+          <a href={request.proof} download target="_blank">
             <span className="badge badge-primary">Payment Link </span>
           </a>
         </td>

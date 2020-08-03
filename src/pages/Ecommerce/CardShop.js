@@ -208,7 +208,7 @@ const CardShop = (props) => {
                         color="dark"
                         className="btn btn-link waves-effect"
                       >
-                        <a href={withdrawal.Proof_Of_Payment} target="_blank" download>
+                        <a href={withdrawal.Proof_Of_Payment}  download target="_blank">
                           <i className="bx bx-file-blank"> </i>
                         </a>
                       </Button>
