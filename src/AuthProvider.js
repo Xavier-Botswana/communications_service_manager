@@ -39,17 +39,17 @@ export default function AuthProvider({ children }) {
         setCurrentUser(null);
       }
     });
-  
+
     //console.log(`STORED USER: ${localStorage.getItem("current-user")}`);
     setCurrentUser(localStorage.getItem("current-user"));
   }, []);
 
-/** if(pending){
+/*if(pending){
     return <div class="spinner">
     <div class="cube1"></div>
     <div class="cube2"></div>
   </div>
-  } */
+  }*/ 
 
   return (
     <AuthContext.Provider value={{ currentUser, userDetails }}>
