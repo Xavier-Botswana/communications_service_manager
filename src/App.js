@@ -40,14 +40,12 @@ import EmoneyNew from "./pages/Projects/emoneynew";
 import TeamDeliveries from "./pages/Projects/teamrequest";
 import EcommerceCustomers from "./pages/Ecommerce/FinanceNewE";
 import FinanceEmoneyExisting from "./pages/Ecommerce/FinanceNewExis";
-import Spinner from "./components/Loader/Spinner";
 
 const App = (props) => {
   const Layout = HorizontalLayout;
 
   return (
-    <Spinner/>
-    <AuthProvider >
+    <AuthProvider>
       <Router>
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />
