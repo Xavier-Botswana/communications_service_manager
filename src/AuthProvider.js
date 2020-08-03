@@ -21,7 +21,7 @@ export default function AuthProvider({ children }) {
         }
       })
       .catch((error) => {
-       // console.log("Error getting document:", error);
+        // console.log("Error getting document:", error);
       });
   };
 
@@ -33,8 +33,7 @@ export default function AuthProvider({ children }) {
 
         setCurrentUser(authUser);
         getUserDetails(authUser);
-        setPending(false)
-
+        setPending(false);
       } else {
         setCurrentUser(null);
       }
@@ -43,13 +42,6 @@ export default function AuthProvider({ children }) {
     //console.log(`STORED USER: ${localStorage.getItem("current-user")}`);
     setCurrentUser(localStorage.getItem("current-user"));
   }, []);
-
-/*if(pending){
-    return <div class="spinner">
-    <div class="cube1"></div>
-    <div class="cube2"></div>
-  </div>
-  }*/ 
 
   return (
     <AuthContext.Provider value={{ currentUser, userDetails }}>

@@ -40,64 +40,12 @@ import EmoneyNew from "./pages/Projects/emoneynew";
 import TeamDeliveries from "./pages/Projects/teamrequest";
 import EcommerceCustomers from "./pages/Ecommerce/FinanceNewE";
 import FinanceEmoneyExisting from "./pages/Ecommerce/FinanceNewExis";
+import Spinner from "./components/Loader/Spinner";
 
 const App = (props) => {
   const Layout = HorizontalLayout;
 
-  return (
-    <AuthProvider >
-      <Router>
-        <Switch>
-          <PrivateRoute exact path="/" component={Dashboard} />
-          <PrivateRoute
-            exact
-            path="/emoney-requests"
-            component={ProjectsList}
-          />
-          <PrivateRoute exact path="/emoneynew" component={EmoneyNew} />
-          <PrivateRoute
-            exact
-            path="/delivery-requests"
-            component={ProjectsGrid}
-          />
-          <PrivateRoute
-            exact
-            path="/teamdelivery-requests"
-            component={TeamDeliveries}
-          />
-          <PrivateRoute
-            exact
-            path="/withdrawal-requests"
-            component={EcommerceShops}
-          />
-          <PrivateRoute
-            exact
-            path="/add-users"
-            component={EcommerceAddProduct}
-          />
-          <PrivateRoute
-            exact
-            path="/reward-payments"
-            component={EcommerceOrders}
-          />
-          <PrivateRoute
-            exact
-            path="/finemoneynew"
-            component={EcommerceCustomers}
-          />
-          <PrivateRoute
-            exact
-            path="/finemoneyexist"
-            component={FinanceEmoneyExisting}
-          />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/logout" component={Logout} />
-          <Route path="/404" component={Error404} />
-          <Redirect from="*" to="/404" />
-        </Switch>
-      </Router>
-    </AuthProvider>
-  );
+  return <Spinner />;
 };
 
 const mapStateToProps = (state) => {
