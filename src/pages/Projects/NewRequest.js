@@ -178,7 +178,7 @@ export default function NewRequest(props) {
         <td>{request.date}</td>
 
         <td>
-          <a href={request.proof_of_payment} download>
+          <a href={request.proof_of_payment} target="_blank" download>
             <span className="badge badge-primary">Payment Link </span>
           </a>
         </td>

@@ -231,7 +231,7 @@ const ProjectsOverview = (props) => {
                                                                 </td>
                                                                 <td>
                                                                     <div className="text-center">
-                                                                        <Link to={file.link} className="text-dark"><i className="bx bx-download h3 m-0"></i></Link>
+                                                                        <Link to={file.link} className="text-dark"><i className="bx bx-download h3 m-0" target="_blank"></i></Link>
                                                                     </div>
                                                                 </td>
                                                             </tr>

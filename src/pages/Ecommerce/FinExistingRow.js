@@ -108,7 +108,7 @@ export default function FinExistingRow(props) {
         <td>{request.phone}</td>
 
         <td>
-          <a href={request.proof} download>
+          <a href={request.proof} target="_blank" download>
             <Badge color="success">
               <i className="mdi mdi-star mr-1"></i> Click To View Payment
             </Badge>

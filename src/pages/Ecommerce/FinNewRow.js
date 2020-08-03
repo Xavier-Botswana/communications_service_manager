@@ -109,7 +109,7 @@ export default function FinNewRow(props) {
 
         <td>{request.phone}</td>
         <td>
-          <a href={request.proof_of_payment} download>
+          <a href={request.proof_of_payment} target="_blank" download>
             <Badge color="success">
               <i className="mdi mdi-star mr-1"></i> Click To View Payment
             </Badge>
