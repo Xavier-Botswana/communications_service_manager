@@ -3,6 +3,7 @@ const sendSMS = (to, body) => {
 
   fetch("http://localhost:5000/sms", {
     method: "POST",
+    mode:"cors",
     headers: {
       "Content-Type": "application/json",
     },
