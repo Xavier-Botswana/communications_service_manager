@@ -91,7 +91,7 @@ const CardProject = (props) => {
     })
       .then((r) => r.json())
       .then((data) => {
-       // console.log(data);
+        // console.log(data);
         const index = teamdeliveriesArr.indexOf(teamdeliveries);
         if (index > -1) {
           setDeliveries(
@@ -102,7 +102,7 @@ const CardProject = (props) => {
         }
       })
       .catch((error) => {
-       // console.log(error);
+        // console.log(error);
       });
 
     // Send SMS confirmation
@@ -126,7 +126,7 @@ const CardProject = (props) => {
     })
       .then((r) => r.json())
       .then((data) => {
-       // console.log(data);
+        // console.log(data);
         const index = teamdeliveriesArr.indexOf(teamdeliveries);
         if (index > -1) {
           setDeliveries(
@@ -137,7 +137,7 @@ const CardProject = (props) => {
         }
       })
       .catch((error) => {
-      //  console.log(error);
+        //  console.log(error);
       });
 
     // Send SMS confirmation
@@ -160,6 +160,14 @@ const CardProject = (props) => {
             <div className="table-responsive mt-4">
               <table className="table table-centered table-nowrap mb-2">
                 <tbody>
+                  <tr>
+                    <td style={{ width: "30%" }}>
+                      <p className="mb-0">Request date: </p>
+                    </td>
+                    <td style={{ width: "25%" }}>
+                      <h5 className="mb-0">{teamdeliveries.date}</h5>
+                    </td>
+                  </tr>
                   <tr>
                     <td style={{ width: "30%" }}>
                       <p className="mb-0">Delivery Address: </p>

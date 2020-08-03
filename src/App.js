@@ -45,7 +45,7 @@ const App = (props) => {
   const Layout = HorizontalLayout;
 
   return (
-    <AuthProvider >
+    <AuthProvider>
       <Router>
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />

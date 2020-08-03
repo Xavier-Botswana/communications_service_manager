@@ -168,7 +168,7 @@ export default function ExistingRequest(props) {
         <td>
           <h5 className="text-truncate font-size-14">{request.username}</h5>
         </td>
-        <td>15 June, 20</td>
+        <td>{request.date}</td>
         <td> {request.phone} </td>
         <td>
           <a href={request.proof} download>
