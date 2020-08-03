@@ -103,6 +103,7 @@ export default function FinExistingRow(props) {
   return (
     <React.Fragment>
       <tr>
+        <td>{request.id}</td>
         <td>{request.username}</td>
         <td>{request.phone}</td>
 

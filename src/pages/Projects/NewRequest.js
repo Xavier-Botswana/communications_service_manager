@@ -88,10 +88,10 @@ export default function NewRequest(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-       // console.log(data);
+        // console.log(data);
       })
       .catch((error) => {
-       // console.log(error);
+        // console.log(error);
       });
 
     // Add amount of e-money (Converted from BWP to USD)
@@ -108,7 +108,7 @@ export default function NewRequest(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-       // console.log(data);
+        // console.log(data);
         const index = emoney.indexOf(request);
         if (index > -1) {
           setEmoney(
@@ -119,7 +119,7 @@ export default function NewRequest(props) {
         }
       })
       .catch((error) => {
-       // console.log(error);
+        // console.log(error);
       });
 
     // Send SMS confirmation
@@ -144,7 +144,7 @@ export default function NewRequest(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-       // console.log(data);
+        // console.log(data);
         const index = emoney.indexOf(request);
         if (index > -1) {
           setEmoney(
@@ -155,7 +155,7 @@ export default function NewRequest(props) {
         }
       })
       .catch((error) => {
-       // console.log(error);
+        // console.log(error);
       });
 
     // Send SMS confirmation
@@ -167,6 +167,7 @@ export default function NewRequest(props) {
   return (
     <React.Fragment>
       <tr>
+        <td> {request.id} </td>
         <td>
           <h5 className="text-truncate font-size-14">
             {request.sponsor_username}

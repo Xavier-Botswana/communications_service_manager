@@ -85,7 +85,7 @@ export default function FinNewRow(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-    //    console.log(data);
+        //    console.log(data);
         const index = emoney.indexOf(request);
         if (index > -1) {
           setEmoney(
@@ -103,6 +103,7 @@ export default function FinNewRow(props) {
   return (
     <React.Fragment>
       <tr>
+        <td>{request.id}</td>
         <td>{request.sponsor_username}</td>
         <td>{request.sponsor_contact}</td>
 

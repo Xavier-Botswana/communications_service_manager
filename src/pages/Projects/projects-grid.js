@@ -37,10 +37,14 @@ const ProjectsGrid = (props) => {
     )
       .then((response) => response.json())
       .then((indeliveries) => {
+        indeliveries = indeliveries.map((item) => {
+          const i = indeliveries.indexOf(item);
+          return { ...item, id: i + 1 };
+        });
         let filterdeliveries = indeliveries.filter(function (e) {
           return e.status === null || e.status === "";
         });
-     //   console.log(filterdeliveries);
+        //   console.log(filterdeliveries);
         setDeliveries(filterdeliveries);
       })
       .catch((error) => {

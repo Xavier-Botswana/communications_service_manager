@@ -43,10 +43,14 @@ const FinanceEmoneyExisting = (props) => {
         }
       })
       .then((emoneyexisting) => {
+        emoneyexisting = emoneyexisting.map((item) => {
+          const i = emoneyexisting.indexOf(item);
+          return { ...item, id: i + 1 };
+        });
         let filteredemoney = emoneyexisting.filter(function (e) {
           return e.status === "accepted";
         });
-     //   console.log(filteredemoney);
+        //   console.log(filteredemoney);
         setEmoney(filteredemoney);
       })
       .catch((error) => {
@@ -89,6 +93,7 @@ const FinanceEmoneyExisting = (props) => {
                     <Table className="table-centered table-nowrap">
                       <thead>
                         <tr>
+                          <th>ID</th>
                           <th>Username</th>
                           <th>Phone</th>
                           <th>Proof</th>

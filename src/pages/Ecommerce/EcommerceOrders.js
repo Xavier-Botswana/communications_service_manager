@@ -54,6 +54,10 @@ const EcommerceOrders = (props) => {
         }
       })
       .then((withdrawal) => {
+        withdrawal = withdrawal.map((item) => {
+          const i = withdrawal.indexOf(item);
+          return { ...item, id: i + 1 };
+        });
         let filteredwithdrawal = withdrawal.filter(function (e) {
           return e.status === "accepted";
         });
@@ -170,9 +174,7 @@ const EcommerceOrders = (props) => {
     <Layout>
       <div className="page-content">
         <Container fluid>
-          <Breadcrumbs
-            title="Reward Payments"
-          />
+          <Breadcrumbs title="Reward Payments" />
           <Row>
             <Col xs="12">
               <Card>
@@ -183,6 +185,7 @@ const EcommerceOrders = (props) => {
                     <Table className="table table-centered table-nowrap">
                       <thead className="thead-light">
                         <tr>
+                          <th>ID</th>
                           <th>Username</th>
                           <th>Phone</th>
                           <th>Date</th>

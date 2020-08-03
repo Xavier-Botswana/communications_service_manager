@@ -38,10 +38,14 @@ const ProjectsList = (props) => {
         }
       })
       .then((emoney) => {
+        emoney = emoney.map((item) => {
+          const i = emoney.indexOf(item);
+          return { ...item, id: i + 1 };
+        });
         let filteredemoney = emoney.filter(function (e) {
           return e.status === null || e.status === "";
         });
-       // console.log(filteredemoney);
+        // console.log(filteredemoney);
         setEmoney(filteredemoney);
       })
       .catch((error) => {
@@ -63,7 +67,7 @@ const ProjectsList = (props) => {
                   <Table className="project-list-table table-nowrap table-centered table-borderless">
                     <thead>
                       <tr>
-                        
+                        <th scope="col">ID</th>
                         <th scope="col">User Name</th>
                         <th scope="col">Request Date</th>
                         <th scope="col">Phone</th>

@@ -33,6 +33,10 @@ const TeamDeliveries = (props) => {
     )
       .then((response) => response.json())
       .then((teamdeliveries) => {
+        teamdeliveries = teamdeliveries.map((item) => {
+          const i = teamdeliveries.indexOf(item);
+          return { ...item, id: i + 1 };
+        });
         let filterdeliveries = teamdeliveries.filter(function (e) {
           return e.status === null || e.status === "";
         });
