@@ -150,7 +150,7 @@ const CardProject = (props) => {
       <Col xl="6" sm="6">
         <Card>
           <CardBody>
-            <CardTitle className="mb-4">Team Request</CardTitle>
+            <CardTitle className="mb-4">ID: {teamdeliveries.id}</CardTitle>
             <div className="text-center">
               <div className="mb-4"></div>
               <h3>{teamdeliveries.fullnames}</h3>

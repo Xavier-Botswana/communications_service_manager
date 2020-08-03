@@ -68,7 +68,7 @@ export default function SinglePayment(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-    //    console.log(data);
+        //    console.log(data);
         const index = withdrawals.indexOf(withdrawal);
         if (index > -1) {
           setWithdrawal(
@@ -79,13 +79,14 @@ export default function SinglePayment(props) {
         }
       })
       .catch((error) => {
-       // console.log(error);
+        // console.log(error);
       });
   };
 
   return (
     <React.Fragment>
       <tr>
+        <td>{withdrawal.id}</td>
         <td>{withdrawal.Username}</td>
         <td>{withdrawal.phone}</td>
         <td>{withdrawal.date}</td>

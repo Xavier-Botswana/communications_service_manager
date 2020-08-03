@@ -93,7 +93,7 @@ const CardShop = (props) => {
   const handleAccept = () => {
     // Change status to accepted
     PATCH_URL = `${PATCH_URL}${withdrawal.Username}*`;
-  //  console.log(`Processing request: ${withdrawal.Username}`);
+    //  console.log(`Processing request: ${withdrawal.Username}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -109,11 +109,11 @@ const CardShop = (props) => {
         //console.log(data);
       })
       .catch((error) => {
-       // console.log(error);
+        // console.log(error);
       });
 
     // Add amount to pay (Converted from USD to BWP)
-   // console.log(`Adding amount: ${amount * 12} for ${withdrawal.Username}`);
+    // console.log(`Adding amount: ${amount * 12} for ${withdrawal.Username}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -126,7 +126,7 @@ const CardShop = (props) => {
     })
       .then((r) => r.json())
       .then((data) => {
-      //  console.log(data);
+        //  console.log(data);
         const index = withdrawals.indexOf(withdrawal);
         if (index > -1) {
           setWithdrawal(
@@ -137,7 +137,7 @@ const CardShop = (props) => {
         }
       })
       .catch((error) => {
-       // console.log(error);
+        // console.log(error);
       });
 
     const message = `Dear ${withdrawal.Username}, your withdrawal request has been approved. You will receive your payment in the next 3 working days.`;
@@ -160,7 +160,7 @@ const CardShop = (props) => {
     })
       .then((r) => r.json())
       .then((data) => {
-      //  console.log(data);
+        //  console.log(data);
         const index = withdrawals.indexOf(withdrawal);
         if (index > -1) {
           setWithdrawal(
@@ -171,7 +171,7 @@ const CardShop = (props) => {
         }
       })
       .catch((error) => {
-      //  console.log(error);
+        //  console.log(error);
       });
 
     const message = `Dear ${withdrawal.Username}, your withdrawal request has been denied. Kindly contact support for mmore details.`;
@@ -188,11 +188,11 @@ const CardShop = (props) => {
                 <CardBody>
                   <CardTitle className="mb-4 text-black">
                     <i className="mdi mdi-alert-circle-outline mr-3"></i>
-                    Withdrawal Request
+                    ID: {withdrawal.id}
                   </CardTitle>
                   <CardText>Username: {withdrawal.Username}</CardText>
                   <CardText>Phone Number: {withdrawal.phone}</CardText>
-                  <CardText>withdrawal Date: {withdrawal.requestdate}</CardText>
+                  <CardText>Date: {withdrawal.requestdate}</CardText>
                   <Input
                     onChange={onChangeHandler}
                     type="number"

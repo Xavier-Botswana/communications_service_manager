@@ -36,10 +36,14 @@ const EcommerceShops = (props) => {
         }
       })
       .then((withdrawal) => {
+        withdrawal = withdrawal.map((item) => {
+          const i = withdrawal.indexOf(item);
+          return { ...item, id: i + 1 };
+        });
         let filterwithdrawal = withdrawal.filter(function (e) {
           return e.status === null || e.status === "";
         });
-      //  console.log(filterwithdrawal);
+        //  console.log(filterwithdrawal);
         setWithdrawal(filterwithdrawal);
       })
       .catch((error) => {
@@ -52,9 +56,7 @@ const EcommerceShops = (props) => {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumbs
-            title="Withdrawal Requests"
-          />
+          <Breadcrumbs title="Withdrawal Requests" />
           <Row>
             {withdrawal.map((item, key) => (
               <CardShop

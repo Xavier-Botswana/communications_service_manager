@@ -43,10 +43,14 @@ const EcommerceCustomers = (props) => {
         }
       })
       .then((emoney) => {
+        emoney = emoney.map((item) => {
+          const i = emoney.indexOf(item);
+          return { ...item, id: i + 1 };
+        });
         let filteredemoney = emoney.filter(function (e) {
           return e.status === "accepted";
         });
-      //  console.log(filteredemoney);
+        //  console.log(filteredemoney);
         setEmoney(filteredemoney);
       })
       .catch((error) => {
@@ -89,6 +93,7 @@ const EcommerceCustomers = (props) => {
                     <Table className="table-centered table-nowrap">
                       <thead>
                         <tr>
+                          <th>ID</th>
                           <th>Sponsor Username</th>
                           <th>Sponsor #</th>
                           <th>Phone</th>
