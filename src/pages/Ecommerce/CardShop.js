@@ -79,8 +79,9 @@ const CardShop = (props) => {
 
   /******************************************************************** */
 
-  let PATCH_URL =
-    "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal/Username/*";
+  let PATCH_URL = `https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal/${
+    withdrawal.id - 1
+  }`;
 
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
@@ -92,8 +93,6 @@ const CardShop = (props) => {
 
   const handleAccept = () => {
     // Change status to accepted
-    PATCH_URL = `${PATCH_URL}${withdrawal.Username}*`;
-    //  console.log(`Processing request: ${withdrawal.Username}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -102,31 +101,12 @@ const CardShop = (props) => {
       },
       body: JSON.stringify({
         status: "accepted",
-      }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        //console.log(data);
-      })
-      .catch((error) => {
-        // console.log(error);
-      });
-
-    // Add amount to pay (Converted from USD to BWP)
-    // console.log(`Adding amount: ${amount * 12} for ${withdrawal.Username}`);
-    fetch(PATCH_URL, {
-      method: "PATCH",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
         amount: amount * 12,
       }),
     })
       .then((r) => r.json())
       .then((data) => {
-        //  console.log(data);
+        //console.log(data);
         const index = withdrawals.indexOf(withdrawal);
         if (index > -1) {
           setWithdrawal(
@@ -146,8 +126,6 @@ const CardShop = (props) => {
 
   const handleDeny = () => {
     // Change status to declined
-    PATCH_URL = `${PATCH_URL}${withdrawal.Username}*`;
-    //console.log(`Processing request: ${withdrawal.Username}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -208,7 +186,11 @@ const CardShop = (props) => {
                         color="dark"
                         className="btn btn-link waves-effect"
                       >
-                        <a href={withdrawal.Proof_Of_Payment}  download target="_blank">
+                        <a
+                          href={withdrawal.Proof_Of_Payment}
+                          download
+                          target="_blank"
+                        >
                           <i className="bx bx-file-blank"> </i>
                         </a>
                       </Button>

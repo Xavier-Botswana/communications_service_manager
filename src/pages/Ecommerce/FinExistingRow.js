@@ -49,7 +49,7 @@ export default function FinExistingRow(props) {
     // Action
     setConfirm_both(false);
     setSuccess_dlg(true);
-    setDynamic_title("Request approved");
+    setDynamic_title("Payment made");
     setDynamic_description("Notification message sent.");
     // Proceed to accept
     transact();
@@ -65,14 +65,12 @@ export default function FinExistingRow(props) {
 
   /******************************************************************** */
 
-  let PATCH_URL =
-    "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing/phone/*";
+  const PATCH_URL = `https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing/${
+    request.id - 1
+  }`;
 
   const transact = () => {
     // Change status to paid
-    PATCH_URL = `${PATCH_URL}${request.phone}*`;
-    //console.log(`Processing request: ${request.phone}`);
-
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -116,7 +114,7 @@ export default function FinExistingRow(props) {
         </td>
 
         <td>{request.date} </td>
-        <td>{request.amount} </td>
+        <td>{Number(request.amount).toFixed(2)} </td>
 
         <td>
           <button

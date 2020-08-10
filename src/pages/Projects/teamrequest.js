@@ -54,8 +54,8 @@ const TeamDeliveries = (props) => {
         <Container fluid>
           {/* Render Breadcrumbs */}
           <Teamcrumb
-            title="Team Delivery Requests"
-            breadcrumbItem="Individual Delivery Requests"
+            title="Team Requests"
+            breadcrumbItem="Individual Requests"
           />
 
           <Row>

@@ -60,8 +60,9 @@ export default function NewRequest(props) {
 
   /******************************************************************** */
 
-  let PATCH_URL =
-    "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new/phone/*";
+  let PATCH_URL = `https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new/${
+    request.id - 1
+  }`;
 
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
@@ -74,8 +75,6 @@ export default function NewRequest(props) {
   const handleAccept = () => {
     setIsLoading(true);
     // Change status to accepted
-    PATCH_URL = `${PATCH_URL}${request.phone}*`;
-    //console.log(`Processing request: ${request.phone}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -84,25 +83,6 @@ export default function NewRequest(props) {
       },
       body: JSON.stringify({
         status: "accepted",
-      }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        // console.log(data);
-      })
-      .catch((error) => {
-        // console.log(error);
-      });
-
-    // Add amount of e-money (Converted from BWP to USD)
-    //console.log(`Adding amount: ${amount / 14} for ${request.phone}`);
-    fetch(PATCH_URL, {
-      method: "PATCH",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
         amount: amount / 14,
       }),
     })
@@ -130,8 +110,6 @@ export default function NewRequest(props) {
 
   const handleDeny = () => {
     // Change status to deny
-    PATCH_URL = `${PATCH_URL}${request.phone}*`;
-    //console.log(`Processing request: ${request.phone}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",

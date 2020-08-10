@@ -65,14 +65,12 @@ export default function FinNewRow(props) {
 
   /******************************************************************** */
 
-  let PATCH_URL =
-    "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new/phone/*";
+  const PATCH_URL = `https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new/${
+    request.id - 1
+  }`;
 
   const transact = () => {
     // Change status to paid
-    PATCH_URL = `${PATCH_URL}${request.phone}*`;
-    //console.log(`Processing request: ${request.phone}`);
-
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -116,7 +114,7 @@ export default function FinNewRow(props) {
           </a>
         </td>
         <td>{request.date} </td>
-        <td>{request.amount} </td>
+        <td>{Number(request.amount).toFixed(2)} </td>
 
         <td>
           <button

@@ -68,13 +68,12 @@ const CardProject = (props) => {
 
   /******************************************************************** */
 
-  let PATCH_URL =
-    "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/individualsdeliveries/phone/*";
+  const PATCH_URL = `https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/individualsdeliveries/${
+    indeliveries.id - 1
+  }`;
 
   const handleDispatch = () => {
     // Dispatch delivery
-    PATCH_URL = `${PATCH_URL}${indeliveries.phone}*`;
-    //  console.log(`Processing request: ${indeliveries.phone}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -108,8 +107,6 @@ const CardProject = (props) => {
 
   const handleDecline = () => {
     // Deny delivery
-    PATCH_URL = `${PATCH_URL}${indeliveries.phone}*`;
-    // console.log(`Processing request: ${indeliveries.phone}`);
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",

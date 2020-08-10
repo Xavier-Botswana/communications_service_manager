@@ -48,14 +48,12 @@ export default function SinglePayment(props) {
 
   /******************************************************************** */
 
-  let PATCH_URL =
-    "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal/Username/*";
+  const PATCH_URL = `https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal/${
+    withdrawal.id - 1
+  }`;
 
   const transact = () => {
     // Change status to paid
-    PATCH_URL = `${PATCH_URL}${withdrawal.Username}*`;
-    //console.log(`Processing request: ${withdrawal.Username}`);
-
     fetch(PATCH_URL, {
       method: "PATCH",
       mode: "cors",
@@ -90,10 +88,10 @@ export default function SinglePayment(props) {
         <td>{withdrawal.Username}</td>
         <td>{withdrawal.phone}</td>
         <td>{withdrawal.date}</td>
-        <td>{withdrawal.amount}</td>
+        <td>{Number(withdrawal.amount).toFixed(2)}</td>
         <td>{withdrawal.method_payment}</td>
         <td>
-          <a href={withdrawal.proof_of_payment}  download target="_blank">
+          <a href={withdrawal.proof_of_payment} download target="_blank">
             <Badge color="success">
               <i className="mdi mdi-star mr-1"></i> Click To View Payment
             </Badge>
