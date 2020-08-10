@@ -1,7 +1,25 @@
 import React, { useState, useCallback, useContext, useEffect } from "react";
 
 import { Link } from "react-router-dom";
-import { Container, Row, Col, Table } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Table,
+  Label,
+  Input,
+  Button,
+  Badge,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+} from "reactstrap";
 
 import Layout from "../../components/HorizontalLayout";
 
@@ -17,6 +35,7 @@ const EmoneyNew = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
   const [emoney, setEmoney] = useState([]);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -40,6 +59,10 @@ const EmoneyNew = (props) => {
         });
         //console.log(filteredemoney);
         setEmoney(filteredemoney);
+        setIsLoading(false);
+        if (filteredemoney.length === 0) {
+          setMessage("No results to show");
+        }
       })
       .catch((error) => {
         setErrors(error);
@@ -50,55 +73,88 @@ const EmoneyNew = (props) => {
     <Layout>
       <div className="page-content">
         <Container fluid>
-          {/* Render Breadcrumbs */}
           <Breadcrumbs title="New Users" breadcrumbItem="Existing Users" />
 
           <Row>
-            <Col lg="12">
-              <div className="">
-                <div className="table-responsive">
-                  <Table className="project-list-table table-nowrap table-centered table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Sponsor Username</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Sponsor #</th>
-                        <th scope="col">Date</th>
-
-                        <th scope="col">Proof of Payment</th>
-                        <th scope="col">Amount</th>
-
-                        <th scope="col">Action</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      {emoney.map((item, i) => {
-                        return (
-                          <NewRequest
-                            key={i}
-                            request={item}
-                            emoney={emoney}
-                            setEmoney={setEmoney}
-                          />
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                </div>
-              </div>
-            </Col>
-          </Row>
-
-          <Row>
             <Col xs="12">
-              <div className="text-center my-3">
-                <Link to="#" className="text-success">
-                  <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
-                  Load more{" "}
-                </Link>
-              </div>
+              <Card>
+                <CardBody>
+                  <Row className="mb-2">
+                    <Col sm="4">
+                      <div className="search-box mr-2 mb-2 d-inline-block">
+                        <div className="position-relative">
+                          <Input
+                            type="text"
+                            className="form-control"
+                            placeholder="Search..."
+                          />
+                          <i className="bx bx-search-alt search-icon"></i>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col sm="8">
+                      <div className="text-sm-right"></div>
+                    </Col>
+                  </Row>
+
+                  <div className="table-responsive">
+                    <Table className="project-list-table table-nowrap table-centered table-borderless">
+                      <thead>
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Sponsor Username</th>
+                          <th scope="col">Phone</th>
+                          <th scope="col">Sponsor #</th>
+                          <th scope="col">Date</th>
+
+                          <th scope="col">Proof of Payment</th>
+                          <th scope="col">Amount</th>
+
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        {emoney.map((item, i) => {
+                          return (
+                            <NewRequest
+                              key={i}
+                              request={item}
+                              emoney={emoney}
+                              setEmoney={setEmoney}
+                            />
+                          );
+                        })}
+                      </tbody>
+                    </Table>
+                  </div>
+                  {isLoading ? (
+                    <Row>
+                      <Col xs="12">
+                        <div className="text-center my-3">
+                          <Link to="#" className="text-success">
+                            <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
+                            Load more{" "}
+                          </Link>
+                        </div>
+                      </Col>
+                    </Row>
+                  ) : null}
+
+                  {message ? (
+                    <Row>
+                      <Col xs="12">
+                        <div
+                          style={{ color: "#a6b0cf" }}
+                          className="text-center my-3"
+                        >
+                          {message}{" "}
+                        </div>
+                      </Col>
+                    </Row>
+                  ) : null}
+                </CardBody>
+              </Card>
             </Col>
           </Row>
         </Container>

@@ -44,8 +44,7 @@ class Layout extends Component {
     const title = this.props.location.pathname;
     let currentage = title.charAt(1).toUpperCase() + title.slice(2);
 
-    document.title =
-      currentage + " | Admin - Ag Nutrtion Botswana";
+    document.title = currentage + " | Admin - Ag Nutrtion Botswana";
 
     this.props.changeLayout("horizontal");
     if (this.props.topbarTheme) {
@@ -86,7 +85,7 @@ class Layout extends Component {
           />
           {/** Conditional Navbar depending on user type */}
 
-          <Navbar />
+          <Navbar2 />
 
           {/** *******************************************/}
           <div className="main-content">{this.props.children}</div>

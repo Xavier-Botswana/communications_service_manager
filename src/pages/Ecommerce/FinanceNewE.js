@@ -29,6 +29,7 @@ const EcommerceCustomers = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
   const [emoney, setEmoney] = useState([]);
+  const [message, setMessage] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -52,6 +53,10 @@ const EcommerceCustomers = (props) => {
         });
         //  console.log(filteredemoney);
         setEmoney(filteredemoney);
+        setIsLoading(false);
+        if (filteredemoney.length === 0) {
+          setMessage("No results to show");
+        }
       })
       .catch((error) => {
         setErrors(error);
@@ -117,16 +122,31 @@ const EcommerceCustomers = (props) => {
                       </tbody>
                     </Table>
                   </div>
-                  <Row>
-                    <Col xs="12">
-                      <div className="text-center my-3">
-                        <Link to="#" className="text-success">
-                          <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
-                          Load more{" "}
-                        </Link>
-                      </div>
-                    </Col>
-                  </Row>
+                  {isLoading ? (
+                    <Row>
+                      <Col xs="12">
+                        <div className="text-center my-3">
+                          <Link to="#" className="text-success">
+                            <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
+                            Load more{" "}
+                          </Link>
+                        </div>
+                      </Col>
+                    </Row>
+                  ) : null}
+
+                  {message ? (
+                    <Row>
+                      <Col xs="12">
+                        <div
+                          style={{ color: "#a6b0cf" }}
+                          className="text-center my-3"
+                        >
+                          {message}{" "}
+                        </div>
+                      </Col>
+                    </Row>
+                  ) : null}
                 </CardBody>
               </Card>
             </Col>

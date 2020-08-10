@@ -40,6 +40,7 @@ const EcommerceOrders = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
   const [withdrawal, setWithdrawal] = useState([]);
+  const [message, setMessage] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -62,6 +63,10 @@ const EcommerceOrders = (props) => {
           return e.status === "accepted";
         });
         setWithdrawal(filteredwithdrawal);
+        setIsLoading(false);
+        if (filteredwithdrawal.length === 0) {
+          setMessage("No results to show");
+        }
       })
       .catch((error) => {
         setErrors(error);
@@ -175,11 +180,28 @@ const EcommerceOrders = (props) => {
       <div className="page-content">
         <Container fluid>
           <Breadcrumbs title="Reward Payments" />
+
           <Row>
             <Col xs="12">
               <Card>
                 <CardBody>
-                  <Row className="mb-2"></Row>
+                  <Row className="mb-2">
+                    <Col sm="4">
+                      <div className="search-box mr-2 mb-2 d-inline-block">
+                        <div className="position-relative">
+                          <Input
+                            type="text"
+                            className="form-control"
+                            placeholder="Search..."
+                          />
+                          <i className="bx bx-search-alt search-icon"></i>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col sm="8">
+                      <div className="text-sm-right"></div>
+                    </Col>
+                  </Row>
 
                   <div className="table-responsive">
                     <Table className="table table-centered table-nowrap">
@@ -208,128 +230,37 @@ const EcommerceOrders = (props) => {
                       </tbody>
                     </Table>
                   </div>
+                  {isLoading ? (
+                    <Row>
+                      <Col xs="12">
+                        <div className="text-center my-3">
+                          <Link to="#" className="text-success">
+                            <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
+                            Load more{" "}
+                          </Link>
+                        </div>
+                      </Col>
+                    </Row>
+                  ) : null}
 
-                  <Row>
-                    <Col xs="12">
-                      <div className="text-center my-3">
-                        <Link to="#" className="text-success">
-                          <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
-                          Load more{" "}
-                        </Link>
-                      </div>
-                    </Col>
-                  </Row>
+                  {message ? (
+                    <Row>
+                      <Col xs="12">
+                        <div
+                          style={{ color: "#a6b0cf" }}
+                          className="text-center my-3"
+                        >
+                          {message}{" "}
+                        </div>
+                      </Col>
+                    </Row>
+                  ) : null}
                 </CardBody>
               </Card>
             </Col>
           </Row>
         </Container>
       </div>
-
-      <Modal
-        isOpen={modal}
-        role="dialog"
-        autoFocus={true}
-        centered={true}
-        className="exampleModal"
-        tabindex="-1"
-        toggle={() => {
-          setmodal(!modal);
-        }}
-      >
-        <div className="modal-content">
-          <ModalHeader
-            toggle={() => {
-              setmodal(!modal);
-            }}
-          >
-            Order Details
-          </ModalHeader>
-          <ModalBody>
-            <p className="mb-2">
-              Product id: <span className="text-primary">#SK2540</span>
-            </p>
-            <p className="mb-4">
-              Billing Name: <span className="text-primary">Neal Matthews</span>
-            </p>
-
-            <div className="table-responsive">
-              <Table className="table table-centered table-nowrap">
-                <thead>
-                  <tr>
-                    <th scope="col">Product</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">
-                      <div>
-                        <img src={img7} alt="" className="avatar-sm" />
-                      </div>
-                    </th>
-                    <td>
-                      <div>
-                        <h5 className="text-truncate font-size-14">
-                          Wireless Headphone (Black)
-                        </h5>
-                        <p className="text-muted mb-0">$ 225 x 1</p>
-                      </div>
-                    </td>
-                    <td>$ 255</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <div>
-                        <img src={img4} alt="" className="avatar-sm" />
-                      </div>
-                    </th>
-                    <td>
-                      <div>
-                        <h5 className="text-truncate font-size-14">
-                          Hoodie (Blue)
-                        </h5>
-                        <p className="text-muted mb-0">$ 145 x 1</p>
-                      </div>
-                    </td>
-                    <td>$ 145</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">
-                      <h6 className="m-0 text-right">Sub Total:</h6>
-                    </td>
-                    <td>$ 400</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">
-                      <h6 className="m-0 text-right">Shipping:</h6>
-                    </td>
-                    <td>Free</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">
-                      <h6 className="m-0 text-right">Total:</h6>
-                    </td>
-                    <td>$ 400</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              type="button"
-              color="secondary"
-              onClick={() => {
-                setmodal(!modal);
-              }}
-            >
-              Close
-            </Button>
-          </ModalFooter>
-        </div>
-      </Modal>
     </Layout>
   );
 };
