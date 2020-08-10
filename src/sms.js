@@ -1,20 +1,11 @@
+const axios = require("axios");
+
 const sendSMS = (to, body) => {
   to = `+267${to}`;
-
-  fetch("http://localhost:5000/sms", {
-    method: "POST",
-    mode:"cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ to: to, body: body }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-     // console.log("Success:", data);
-    })
+  axios
+    .post("http://localhost:5000/sms", { to: to, body: body })
     .catch((error) => {
-    //  console.error("Error:", error);
+      console.log(error);
     });
 };
 
