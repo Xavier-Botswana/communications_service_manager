@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import sendSMS from "../../sms.js";
 
 import { Input } from "reactstrap";
@@ -6,7 +6,11 @@ import { Input } from "reactstrap";
 //SweetAlert
 import SweetAlert from "react-bootstrap-sweetalert";
 
+import { AuthContext } from "../../AuthProvider";
+import firebase from "../../firebase";
+
 export default function ExistingRequest(props) {
+  const { currentUser } = useContext(AuthContext);
   const { request, emoney, setEmoney } = props;
   const [amount, setAmount] = useState(0);
   const [reason, setReason] = useState("");
@@ -108,6 +112,10 @@ export default function ExistingRequest(props) {
     // Send SMS confirmation
     const message = `Dear AG Nutrition sponsor ${request.username}, your e-money request has been approved. Kindly visit the portal to confirm account credit.`;
     sendSMS(request.phone, message);
+    firebase.logAction(
+      currentUser.email,
+      `Accepted existing user e-money request from ${request.username}`
+    );
   };
 
   const handleDeny = () => {
@@ -142,6 +150,10 @@ export default function ExistingRequest(props) {
     // Send SMS confirmation
     const message = `Dear AG Nutrition sponsor ${request.username}, your e-money request has been declined. Kindly contact support for more details.`;
     sendSMS(request.phone, message);
+    firebase.logAction(
+      currentUser.email,
+      `Declined existing user e-money request from ${request.username}`
+    );
   };
 
   return (

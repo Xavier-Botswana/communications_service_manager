@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../AuthProvider";
+import firebase from "../../firebase";
 import { Button, Badge } from "reactstrap";
 
 //SweetAlert
 import SweetAlert from "react-bootstrap-sweetalert";
 
 export default function SinglePayment(props) {
+  const { currentUser } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   let { withdrawal, withdrawals, setWithdrawal } = props;
 
@@ -79,6 +82,11 @@ export default function SinglePayment(props) {
       .catch((error) => {
         // console.log(error);
       });
+
+    firebase.logAction(
+      currentUser.email,
+      `Paid reward for user ${withdrawal.Username}`
+    );
   };
 
   return (

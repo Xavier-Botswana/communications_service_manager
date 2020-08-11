@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../AuthProvider";
+import firebase from "../../firebase";
 import {
   Container,
   Row,
@@ -23,6 +25,7 @@ import {
 import SweetAlert from "react-bootstrap-sweetalert";
 
 export default function FinNewRow(props) {
+  const { currentUser } = useContext(AuthContext);
   const { request, emoney, setEmoney } = props;
 
   /**SWEET ALERT */
@@ -96,6 +99,10 @@ export default function FinNewRow(props) {
       .catch((error) => {
         //console.log(error);
       });
+    firebase.logAction(
+      currentUser.email,
+      `Credited e-money for user ${request.sponsor_username}`
+    );
   };
 
   return (

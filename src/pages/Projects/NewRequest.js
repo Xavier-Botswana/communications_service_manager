@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import sendSMS from "../../sms";
 import { Input } from "reactstrap";
-
+import { AuthContext } from "../../AuthProvider";
 //SweetAlert
 import SweetAlert from "react-bootstrap-sweetalert";
+import firebase from "../../firebase";
 
 export default function NewRequest(props) {
+  const { currentUser } = useContext(AuthContext);
   const { request, emoney, setEmoney } = props;
   const [amount, setAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -109,6 +111,10 @@ export default function NewRequest(props) {
     // Send SMS confirmation
     const message = `Dear AG Nutrition sponsor ${request.sponsor_username}, your e-money request has been approved. Kindly visit the portal to register new user.`;
     sendSMS(request.phone, message);
+    firebase.logAction(
+      currentUser.email,
+      `Accepted new user e-money request from ${request.sponsor_username}`
+    );
   };
 
   const handleDeny = () => {
@@ -143,6 +149,10 @@ export default function NewRequest(props) {
     // Send SMS confirmation
     const message = `Dear AG Nutrition sponsor ${request.sponsor_username}, your e-money request has been declined. Kindly contact support for more details.`;
     sendSMS(request.phone, message);
+    firebase.logAction(
+      currentUser.email,
+      `Declined new user e-money request from ${request.sponsor_username}`
+    );
   };
 
   return (

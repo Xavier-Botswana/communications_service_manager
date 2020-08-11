@@ -25,7 +25,7 @@ class Firebase {
       if (user) {
         //console.log("The user is logged in");
       } else {
-        //console.log("The user is not logged in");
+        //console.log("The user is not logged in");firebase.database.ServerValue.TIMESTAMP
       }
     });
   }
@@ -35,6 +35,37 @@ class Firebase {
   }
 
   addUser(email, password) {}
+
+  logAction(email, action) {
+    const currentdate = new Date();
+    const datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
+    // Firestore function to activity by user:
+    this.db
+      .collection("activity_log")
+      .doc()
+      .set({
+        user: email,
+        action: action,
+        time: datetime,
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  }
 
   logout() {
     return this.auth.signOut();

@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../AuthProvider";
+import firebase from "../../firebase";
 import { Link } from "react-router-dom";
 import {
   Col,
@@ -25,6 +27,7 @@ import sendSMS from "../../sms";
 import SweetAlert from "react-bootstrap-sweetalert";
 
 const CardShop = (props) => {
+  const { currentUser } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const { withdrawal, withdrawals, setWithdrawal } = props;
   const [amount, setAmount] = useState(0);
@@ -126,6 +129,10 @@ const CardShop = (props) => {
 
     const message = `Dear ${withdrawal.Username}, your withdrawal request has been approved. You will receive your payment in the next 3 working days.`;
     sendSMS(withdrawal.phone, message);
+    firebase.logAction(
+      currentUser.email,
+      `Accepted withdrawal request from ${withdrawal.Username}`
+    );
   };
 
   const handleDeny = () => {
@@ -159,6 +166,10 @@ const CardShop = (props) => {
 
     const message = `Dear ${withdrawal.Username}, your withdrawal request has been denied. Kindly contact support for mmore details.`;
     sendSMS(withdrawal.phone, message);
+    firebase.logAction(
+      currentUser.email,
+      `Declined withdrawal request from ${withdrawal.Username}`
+    );
   };
 
   return (

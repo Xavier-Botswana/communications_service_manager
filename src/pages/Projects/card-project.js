@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../AuthProvider";
+import firebase from "../../firebase";
 import { Link } from "react-router-dom";
 import sendSMS from "../../sms.js";
 import {
@@ -15,6 +17,7 @@ import {
 import SweetAlert from "react-bootstrap-sweetalert";
 
 const CardProject = (props) => {
+  const { currentUser } = useContext(AuthContext);
   const { indeliveries, indeliveriesArr, setDeliveries } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [reason, setReason] = useState("");
@@ -112,6 +115,10 @@ const CardProject = (props) => {
     // Send SMS confirmation
     const message = `Dear AG Nutrition user ${indeliveries.username}, your order has been dispatched for delivery.`;
     sendSMS(indeliveries.phone, message);
+    firebase.logAction(
+      currentUser.email,
+      `Dispatched individual delivery request from ${indeliveries.username}`
+    );
   };
 
   const handleDecline = () => {
@@ -146,6 +153,10 @@ const CardProject = (props) => {
     // Send SMS confirmation
     const message = `Dear AG Nutrition ${indeliveries.username}, your order request has been declined. Kindly contact support for more details.`;
     sendSMS(indeliveries.phone, message);
+    firebase.logAction(
+      currentUser.email,
+      `Declined individual delivery request from ${indeliveries.username}`
+    );
   };
 
   return (
