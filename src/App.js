@@ -40,6 +40,7 @@ import EmoneyNew from "./pages/Projects/emoneynew";
 import TeamDeliveries from "./pages/Projects/teamrequest";
 import EcommerceCustomers from "./pages/Ecommerce/FinanceNewE";
 import FinanceEmoneyExisting from "./pages/Ecommerce/FinanceNewExis";
+import DatatableTables from "./pages/Projects/declinerequests";
 
 const App = (props) => {
   const Layout = HorizontalLayout;
@@ -53,6 +54,11 @@ const App = (props) => {
             exact
             path="/emoney-requests"
             component={ProjectsList}
+          />
+          <PrivateRoute
+            exact
+            path="/declinedrequests"
+            component={DatatableTables}
           />
           <PrivateRoute exact path="/emoneynew" component={EmoneyNew} />
           <PrivateRoute
