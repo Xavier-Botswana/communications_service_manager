@@ -12,7 +12,7 @@ const Breadcrumb = (props) => {
                              <ol className="breadcrumb m-0">
                                      
                                     <BreadcrumbItem active>
-                                        <Link to="/declineddeliveries">{props.breadcrumbItem}</Link>
+                                        <Link to="/declinedwithdrawals">{props.breadcrumbItem}</Link>
                                     </BreadcrumbItem>
                             </ol>
                             </div>

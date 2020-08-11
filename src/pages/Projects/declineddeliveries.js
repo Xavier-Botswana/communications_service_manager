@@ -3,26 +3,26 @@ import { MDBDataTable } from "mdbreact";
 import { Row, Col, Card, CardBody, CardTitle, CardSubtitle } from "reactstrap";
 
 //Import Breadcrumb
-import Breadcrumbs from '../../components/Common/declinedemoney';
+import Breadcrumbs from '../../components/Common/declineddeliveries';
 import "./datatables.scss";
 import Layout from "../../components/HorizontalLayout";
 
 
-const DatatableTables = (props) => {
+const DeclinedDeliveries = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setErrors] = useState(false);
-  const [emoneynew,setEmoneyNew] = useState([]);
-  const [emoneyexist,setEmoneyExist] = useState([]);
+  const [individualdel,setIndividualDel] = useState([]);
+  const [teamdel,setTeamDel] = useState([]);
 
   const [message, setMessage] = useState(null);
-  let filteredemoneynew;
-  let filteredemoneyexist;
+  let filteredindividualdel;
+  let filteredteamdel;
 
 
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new",
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/individualsdeliveries",
       {
         mode: "cors",
       }
@@ -34,12 +34,12 @@ const DatatableTables = (props) => {
           throw Error("Error fetching data.");
         }
       })
-      .then((emoneynew) => {
+      .then((individualdel) => {
 
-        filteredemoneynew = emoneynew.filter(function (e) {
+        filteredindividualdel = individualdel.filter(function (e) {
          return e.status === "denied";
         });
-        setEmoneyNew(filteredemoneynew);
+        setIndividualDel(filteredindividualdel);
         setIsLoading(false);
         
       })
@@ -48,7 +48,7 @@ const DatatableTables = (props) => {
       });
   }, []);
 
- fetch("https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing",
+ fetch("https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/leadsdeliveries",
  {
   mode: "cors",
 }
@@ -59,12 +59,12 @@ const DatatableTables = (props) => {
     throw Error("Error fetching data.");
   }
   })
- .then((emoneyexist) => {
+ .then((teamdel) => {
 
-  filteredemoneyexist = emoneyexist.filter(function (e) {
+  filteredteamdel = teamdel.filter(function (e) {
    return e.status === "denied";
   });
-  setEmoneyExist(filteredemoneyexist);
+  setTeamDel(filteredteamdel);
   setIsLoading(false);
   
  }) .catch((error) => {
@@ -78,14 +78,14 @@ const DatatableTables = (props) => {
    const data = {
       columns: [
         {
-          label: "sponsor_username",
-          field: "sponsor_username",
+          label: "username",
+          field: "username",
           sort: "asc",
           width: 100
         },
         {
-          label: "sponsor_contact",
-          field: "sponsor_contact",
+          label: "fullnames",
+          field: "fullnames",
           sort: "asc",
           width: 100
         },
@@ -96,20 +96,44 @@ const DatatableTables = (props) => {
           width: 100
         },
         {
-          label: "proof_of_payment",
-          field: "proof_of_payment",
+          label: "address",
+          field: "address",
           sort: "asc",
           width: 100
         },
         {
-          label: "status",
-          field: "status",
+          label: "omang",
+          field: "omang",
+          sort: "asc",
+          width: 100
+        },
+        {
+          label: "type",
+          field: "type",
+          sort: "asc",
+          width: 100
+        },
+        {
+          label: "location",
+          field: "location",
+          sort: "asc",
+          width: 100
+        },
+        {
+          label: "team_members",
+          field: "team_members",
           sort: "asc",
           width: 100
         },
         {
           label: "date",
           field: "date",
+          sort: "asc",
+          width: 100
+        },
+        {
+          label: "status",
+          field: "status",
           sort: "asc",
           width: 100
         },
@@ -121,7 +145,7 @@ const DatatableTables = (props) => {
         }
       ],
       
-      rows: emoneynew
+      rows: teamdel
         };
 
 
@@ -134,26 +158,50 @@ const DatatableTables = (props) => {
               width: 100
             },
             {
+              label: "fullnames",
+              field: "fullnames",
+              sort: "asc",
+              width: 100
+            },
+            {
               label: "phone",
               field: "phone",
               sort: "asc",
               width: 100
             },
             {
-              label: "proof",
-              field: "proof",
+              label: "address",
+              field: "address",
               sort: "asc",
               width: 100
             },
             {
-              label: "status",
-              field: "status",
+              label: "omang",
+              field: "omang",
+              sort: "asc",
+              width: 100
+            },
+            {
+              label: "type",
+              field: "type",
+              sort: "asc",
+              width: 100
+            },
+            {
+              label: "location",
+              field: "location",
               sort: "asc",
               width: 100
             },
             {
               label: "date",
               field: "date",
+              sort: "asc",
+              width: 100
+            },
+            {
+              label: "status",
+              field: "status",
               sort: "asc",
               width: 100
             },
@@ -166,23 +214,23 @@ const DatatableTables = (props) => {
             }
           ],
           
-          rows: emoneyexist
+          rows: individualdel
             };
     return (
       <Layout>
         <div className="page-content">
           <div className="container-fluid">
 
-            <Breadcrumbs title="Emoney Request"  breadcrumbItem="View Deliveries" />
+            <Breadcrumbs title="Delivery Request"  breadcrumbItem="View Withdrawals" />
 
             <Row>
               <Col className="col-12">
                 <Card>
                   <CardBody>
-                    <CardTitle>Declined New Emoney Request </CardTitle>
+                    <CardTitle>Declined Individual Request </CardTitle>
                    
 
-                    <MDBDataTable responsive bordered data={data} />
+                    <MDBDataTable responsive bordered data={data2} />
 
 
                   </CardBody>
@@ -194,10 +242,10 @@ const DatatableTables = (props) => {
               <Col className="col-12">
                 <Card>
                   <CardBody>
-                    <CardTitle>Declined Existing Emoney Request</CardTitle>
+                    <CardTitle>Declined Team Request</CardTitle>
                    
 
-                    <MDBDataTable responsive striped bordered data={data2} />
+                    <MDBDataTable  responsive striped bordered data={data} />
 
                   </CardBody>
                 </Card>
@@ -209,4 +257,4 @@ const DatatableTables = (props) => {
       );
     };
 
-export default DatatableTables;
+export default DeclinedDeliveries;

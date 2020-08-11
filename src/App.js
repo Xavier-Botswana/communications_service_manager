@@ -41,6 +41,8 @@ import TeamDeliveries from "./pages/Projects/teamrequest";
 import EcommerceCustomers from "./pages/Ecommerce/FinanceNewE";
 import FinanceEmoneyExisting from "./pages/Ecommerce/FinanceNewExis";
 import DatatableTables from "./pages/Projects/declinerequests";
+import DeclinedDeliveries from "./pages/Projects/declineddeliveries";
+import DeclinedWithdrawals from "./pages/Projects/declinedwithdrawals";
 
 const App = (props) => {
   const Layout = HorizontalLayout;
@@ -90,7 +92,16 @@ const App = (props) => {
             exact
             path="/finemoneynew"
             component={EcommerceCustomers}
-          />
+          /><PrivateRoute
+          exact
+          path="/declineddeliveries"
+          component={DeclinedDeliveries}
+        />
+        <PrivateRoute
+          exact
+          path="/declinedwithdrawals"
+          component={DeclinedWithdrawals}
+        />
           <PrivateRoute
             exact
             path="/finemoneyexist"
