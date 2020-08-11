@@ -66,7 +66,8 @@ const TeamDeliveries = (props) => {
             breadcrumbItem="Individual Requests"
           />
 
-          <Row className="mb-2">
+          {/**
+           <Row className="mb-2">
             <Col sm="4">
               <div className="search-box mr-2 mb-2 d-inline-block">
                 <div className="position-relative">
@@ -83,6 +84,7 @@ const TeamDeliveries = (props) => {
               <div className="text-sm-right"></div>
             </Col>
           </Row>
+           */}
 
           <Row>
             {/* Import Cards */}

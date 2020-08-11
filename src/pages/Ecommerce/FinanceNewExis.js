@@ -76,7 +76,8 @@ const FinanceEmoneyExisting = (props) => {
             <Col xs="12">
               <Card>
                 <CardBody>
-                  <Row className="mb-2">
+                  {/**
+                   <Row className="mb-2">
                     <Col sm="4">
                       <div className="search-box mr-2 mb-2 d-inline-block">
                         <div className="position-relative">
@@ -93,6 +94,7 @@ const FinanceEmoneyExisting = (props) => {
                       <div className="text-sm-right"></div>
                     </Col>
                   </Row>
+                   */}
 
                   <div className="table-responsive">
                     <Table className="table-centered table-nowrap">

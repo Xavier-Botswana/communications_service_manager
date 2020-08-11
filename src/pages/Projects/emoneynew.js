@@ -40,7 +40,8 @@ const EmoneyNew = (props) => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new",{
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new",
+      {
         mode: "cors",
       }
     )
@@ -81,7 +82,8 @@ const EmoneyNew = (props) => {
             <Col xs="12">
               <Card>
                 <CardBody>
-                  <Row className="mb-2">
+                  {/**
+                   <Row className="mb-2">
                     <Col sm="4">
                       <div className="search-box mr-2 mb-2 d-inline-block">
                         <div className="position-relative">
@@ -98,6 +100,7 @@ const EmoneyNew = (props) => {
                       <div className="text-sm-right"></div>
                     </Col>
                   </Row>
+                   */}
 
                   <div className="table-responsive">
                     <Table className="project-list-table table-nowrap table-centered table-borderless">
