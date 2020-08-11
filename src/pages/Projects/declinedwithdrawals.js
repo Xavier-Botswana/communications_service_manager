@@ -21,10 +21,7 @@ const DeclinedWithdrawals = (props) => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal",
-      {
-        mode: "cors",
-      }
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal"
     )
       .then((response) => {
         if (response.ok) {
