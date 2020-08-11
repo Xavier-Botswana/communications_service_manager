@@ -17,6 +17,15 @@ import SweetAlert from "react-bootstrap-sweetalert";
 const CardProject = (props) => {
   const { indeliveries, indeliveriesArr, setDeliveries } = props;
   const [isLoading, setIsLoading] = useState(false);
+  const [reason, setReason] = useState("");
+
+  const onChangeHandler = (event) => {
+    const { name, value } = event.currentTarget;
+
+    if (name === "reason") {
+      setReason(value);
+    }
+  };
 
   /**SWEET ALERT */
 
@@ -115,6 +124,7 @@ const CardProject = (props) => {
       },
       body: JSON.stringify({
         status: "denied",
+        decline_reason: reason,
       }),
     })
       .then((r) => r.json())
@@ -261,7 +271,15 @@ const CardProject = (props) => {
           onConfirm={confirmActionDeny}
           onCancel={cancelActionDeny}
         >
-          Decline dispatch for user {indeliveries.username}?
+          Enter reason for declining user {indeliveries.username} dispatch:
+          <br />
+          <input
+            onChange={onChangeHandler}
+            type="text"
+            name="reason"
+            id="reason"
+            value={reason}
+          />
         </SweetAlert>
       ) : null}
 

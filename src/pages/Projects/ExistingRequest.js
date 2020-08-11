@@ -120,6 +120,7 @@ export default function ExistingRequest(props) {
       },
       body: JSON.stringify({
         status: "denied",
+        decline_reason: reason,
       }),
     })
       .then((r) => r.json())
@@ -210,12 +211,11 @@ export default function ExistingRequest(props) {
           onConfirm={confirmActionDeny}
           onCancel={cancelActionDeny}
         >
-          Decline user {request.username} e-money request?
+          Enter reason for declining user {request.username} e-money request:
           <br />
           <input
             onChange={onChangeHandler}
             type="text"
-            placeholder="Enter reason..."
             name="reason"
             id="reason"
             value={reason}

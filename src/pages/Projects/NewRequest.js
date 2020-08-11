@@ -9,6 +9,7 @@ export default function NewRequest(props) {
   const { request, emoney, setEmoney } = props;
   const [amount, setAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [reason, setReason] = useState("");
 
   /**SWEET ALERT */
 
@@ -70,6 +71,9 @@ export default function NewRequest(props) {
     if (name === "amount") {
       setAmount(value);
     }
+    if (name === "reason") {
+      setReason(value);
+    }
   };
 
   const handleAccept = () => {
@@ -117,6 +121,7 @@ export default function NewRequest(props) {
       },
       body: JSON.stringify({
         status: "denied",
+        decline_reason: reason,
       }),
     })
       .then((r) => r.json())
@@ -215,7 +220,16 @@ export default function NewRequest(props) {
           onConfirm={confirmActionDeny}
           onCancel={cancelActionDeny}
         >
-          Decline user {request.sponsor_username} e-money request?
+          Enter reason for declining user {request.sponsor_username} e-money
+          request:
+          <br />
+          <input
+            onChange={onChangeHandler}
+            type="text"
+            name="reason"
+            id="reason"
+            value={reason}
+          />
         </SweetAlert>
       ) : null}
 

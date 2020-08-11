@@ -28,6 +28,7 @@ const CardShop = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const { withdrawal, withdrawals, setWithdrawal } = props;
   const [amount, setAmount] = useState(0);
+  const [reason, setReason] = useState("");
 
   /**SWEET ALERT */
 
@@ -89,6 +90,9 @@ const CardShop = (props) => {
     if (name === "amount") {
       setAmount(value);
     }
+    if (name === "reason") {
+      setReason(value);
+    }
   };
 
   const handleAccept = () => {
@@ -134,6 +138,7 @@ const CardShop = (props) => {
       },
       body: JSON.stringify({
         status: "denied",
+        decline_reason: reason,
       }),
     })
       .then((r) => r.json())
@@ -241,7 +246,15 @@ const CardShop = (props) => {
           onConfirm={confirmActionDeny}
           onCancel={cancelActionDeny}
         >
-          Decline withdarwal request from user {withdrawal.Username}?
+          Enter reason for declining {withdrawal.Username} withdrawal request:
+          <br />
+          <input
+            onChange={onChangeHandler}
+            type="text"
+            name="reason"
+            id="reason"
+            value={reason}
+          />
         </SweetAlert>
       ) : null}
 

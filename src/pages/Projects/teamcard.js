@@ -21,6 +21,15 @@ import sendSMS from "../../sms.js";
 const CardProject = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const { teamdeliveries, teamdeliveriesArr, setDeliveries } = props;
+  const [reason, setReason] = useState("");
+
+  const onChangeHandler = (event) => {
+    const { name, value } = event.currentTarget;
+
+    if (name === "reason") {
+      setReason(value);
+    }
+  };
 
   /**SWEET ALERT */
 
@@ -119,6 +128,7 @@ const CardProject = (props) => {
       },
       body: JSON.stringify({
         status: "denied",
+        decline_reason: reason,
       }),
     })
       .then((r) => r.json())
@@ -272,7 +282,15 @@ const CardProject = (props) => {
           onConfirm={confirmActionDeny}
           onCancel={cancelActionDeny}
         >
-          Decline dispatch for user {teamdeliveries.username}?
+          Enter reason for declining user {teamdeliveries.username} dispatch:
+          <br />
+          <input
+            onChange={onChangeHandler}
+            type="text"
+            name="reason"
+            id="reason"
+            value={reason}
+          />
         </SweetAlert>
       ) : null}
 
