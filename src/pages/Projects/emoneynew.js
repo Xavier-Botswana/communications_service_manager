@@ -40,7 +40,9 @@ const EmoneyNew = (props) => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new"
+      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new",{
+        mode: "cors",
+      }
     )
       .then((response) => {
         if (response.ok) {
