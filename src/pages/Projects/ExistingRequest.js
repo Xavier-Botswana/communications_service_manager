@@ -9,7 +9,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 export default function ExistingRequest(props) {
   const { request, emoney, setEmoney } = props;
   const [amount, setAmount] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [reason, setReason] = useState("");
 
   /**SWEET ALERT */
 
@@ -70,6 +70,9 @@ export default function ExistingRequest(props) {
 
     if (name === "amount") {
       setAmount(value);
+    }
+    if (name === "reason") {
+      setReason(value);
     }
   };
 
@@ -208,6 +211,15 @@ export default function ExistingRequest(props) {
           onCancel={cancelActionDeny}
         >
           Decline user {request.username} e-money request?
+          <br />
+          <input
+            onChange={onChangeHandler}
+            type="text"
+            placeholder="Enter reason..."
+            name="reason"
+            id="reason"
+            value={reason}
+          />
         </SweetAlert>
       ) : null}
 

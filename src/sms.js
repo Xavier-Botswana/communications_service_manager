@@ -1,21 +1,22 @@
-const sendSMS = (to, body) => {
+import axios from "axios";
+
+async function sendSMS(to, body) {
   to = `+267${to}`;
 
-  fetch("http://localhost:5000/sms", {
-    method: "POST",
-    mode:"cors",
+  const headers = {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/vnd.example.v1+json",
     },
-    body: JSON.stringify({ to: to, body: body }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-     // console.log("Success:", data);
+  };
+
+  await axios
+    .post("http://localhost:5000/sms", { to: to, body: body }, headers)
+    .then((response) => {
+      console.log(response);
     })
     .catch((error) => {
-    //  console.error("Error:", error);
+      console.log(error);
     });
-};
+}
 
 export default sendSMS;

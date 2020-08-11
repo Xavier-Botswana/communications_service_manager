@@ -104,7 +104,6 @@ export default function NewRequest(props) {
 
     // Send SMS confirmation
     const message = `Dear AG Nutrition sponsor ${request.sponsor_username}, your e-money request has been approved. Kindly visit the portal to register new user.`;
-
     sendSMS(request.phone, message);
   };
 
@@ -138,7 +137,6 @@ export default function NewRequest(props) {
 
     // Send SMS confirmation
     const message = `Dear AG Nutrition sponsor ${request.sponsor_username}, your e-money request has been declined. Kindly contact support for more details.`;
-
     sendSMS(request.phone, message);
   };
 
