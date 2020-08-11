@@ -125,13 +125,14 @@ const Navbar2 = (props) => {
                     <span> {props.t("Approved E-money Requests")}</span>
                   </Link>
                 </li>
-
                 <li>
-                  <Link to="/add-users" className="dropdown-item">
-                    <i className="bx bx-user"></i>
-                    <span> {props.t("Add Users")}</span>
+                  <Link to="/declinedrequests" className="dropdown-item">
+                    <i className="bx bx-money"></i>
+                    <span> {props.t("Declines")}</span>
                   </Link>
                 </li>
+               
+               
               </ul>
             </Collapse>
           </nav>
