@@ -67,6 +67,8 @@ class Firebase {
       });
   }
 
+  
+
   logout() {
     return this.auth.signOut();
   }
@@ -100,6 +102,7 @@ class Firebase {
       .catch((error) => {
         console.log(error);
       });
+    // Firestore function to fetch log data:
 
     // Firestore function to save user details:
     this.db
@@ -117,6 +120,8 @@ class Firebase {
       .catch((error) => {
         console.error("Error writing document: ", error);
       });
+
+   
 
     // Alert refresh to confirm action
   }

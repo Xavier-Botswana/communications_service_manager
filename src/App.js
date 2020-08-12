@@ -43,6 +43,7 @@ import FinanceEmoneyExisting from "./pages/Ecommerce/FinanceNewExis";
 import DatatableTables from "./pages/Projects/declinerequests";
 import DeclinedDeliveries from "./pages/Projects/declineddeliveries";
 import DeclinedWithdrawals from "./pages/Projects/declinedwithdrawals";
+import SystemLogs from "./pages/Projects/systemlog";
 
 const App = (props) => {
   const Layout = HorizontalLayout;
@@ -56,6 +57,11 @@ const App = (props) => {
             exact
             path="/emoney-requests"
             component={ProjectsList}
+          />
+          <PrivateRoute
+            exact
+            path="/systemlogs"
+            component={SystemLogs}
           />
           <PrivateRoute
             exact
