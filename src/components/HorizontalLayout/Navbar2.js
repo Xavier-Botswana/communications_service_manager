@@ -92,9 +92,23 @@ const Navbar2 = (props) => {
                 </li>
 
                 <li>
+                  <Link to="/user-queries" className="dropdown-item">
+                    <i className="mdi mdi-comment-question"></i>
+                    <span> {props.t("User Queries")}</span>
+                  </Link>
+                </li>
+
+                <li>
                   <Link to="/emoney-requests" className="dropdown-item">
                     <i className="bx bx-money"></i>
                     <span> {props.t("E-money Requests")}</span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/finemoneynew" className="dropdown-item">
+                    <i className="bx bx-money"></i>
+                    <span> {props.t("Approved E-money Requests")}</span>
                   </Link>
                 </li>
 
@@ -120,19 +134,11 @@ const Navbar2 = (props) => {
                 </li>
 
                 <li>
-                  <Link to="/finemoneynew" className="dropdown-item">
-                    <i className="bx bx-money"></i>
-                    <span> {props.t("Approved E-money Requests")}</span>
-                  </Link>
-                </li>
-                <li>
                   <Link to="/declinedrequests" className="dropdown-item">
-                    <i className="bx bx-money"></i>
+                    <i className="bx bxs-message-square-x"></i>
                     <span> {props.t("Declines")}</span>
                   </Link>
                 </li>
-               
-               
               </ul>
             </Collapse>
           </nav>

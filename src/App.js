@@ -43,7 +43,7 @@ import FinanceEmoneyExisting from "./pages/Ecommerce/FinanceNewExis";
 import DatatableTables from "./pages/Projects/declinerequests";
 import DeclinedDeliveries from "./pages/Projects/declineddeliveries";
 import DeclinedWithdrawals from "./pages/Projects/declinedwithdrawals";
-import SystemLogs from "./pages/Projects/systemlog";
+import Queries from "./pages/Projects/queries";
 
 const App = (props) => {
   const Layout = HorizontalLayout;
@@ -58,11 +58,7 @@ const App = (props) => {
             path="/emoney-requests"
             component={ProjectsList}
           />
-          <PrivateRoute
-            exact
-            path="/systemlogs"
-            component={SystemLogs}
-          />
+          <PrivateRoute exact path="/user-queries" component={Queries} />
           <PrivateRoute
             exact
             path="/declinedrequests"
@@ -98,16 +94,17 @@ const App = (props) => {
             exact
             path="/finemoneynew"
             component={EcommerceCustomers}
-          /><PrivateRoute
-          exact
-          path="/declineddeliveries"
-          component={DeclinedDeliveries}
-        />
-        <PrivateRoute
-          exact
-          path="/declinedwithdrawals"
-          component={DeclinedWithdrawals}
-        />
+          />
+          <PrivateRoute
+            exact
+            path="/declineddeliveries"
+            component={DeclinedDeliveries}
+          />
+          <PrivateRoute
+            exact
+            path="/declinedwithdrawals"
+            component={DeclinedWithdrawals}
+          />
           <PrivateRoute
             exact
             path="/finemoneyexist"

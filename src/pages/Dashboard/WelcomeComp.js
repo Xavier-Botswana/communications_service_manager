@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../AuthProvider";
 import { Row, Col, Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,8 @@ import avatar1 from "../../assets/images/profile.png";
 import profileImg from "../../assets/images/profile-img.png";
 
 const WelcomeComp = (props) => {
-  const { currentUser, userDetails } = props;
+  const { currentUser } = useContext(AuthContext);
+  const { userDetails } = props;
 
   return (
     <React.Fragment>
@@ -35,7 +36,9 @@ const WelcomeComp = (props) => {
                   className="img-thumbnail rounded-circle"
                 />
               </div>
-              <h5 className="font-size-15 text-truncate">{userDetails.name}</h5>
+              <h5 className="font-size-15 text-truncate">
+                {currentUser.email}
+              </h5>
               <p className="text-muted mb-0 text-truncate">
                 {userDetails.userType}
               </p>
