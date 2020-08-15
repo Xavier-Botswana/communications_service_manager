@@ -70,6 +70,10 @@ const Navbar2 = (props) => {
     return false;
   }
 
+  const linkStyle = {
+    maxWidth: "14em",
+  };
+
   return (
     <React.Fragment>
       <div className="topnav">
@@ -84,56 +88,56 @@ const Navbar2 = (props) => {
               id="topnav-menu-content"
             >
               <ul className="navbar-nav">
-                <li>
+                <li style={linkStyle}>
                   <Link to="/" className="dropdown-item">
                     <i className="bx bx-calendar"></i>
                     <span> {props.t("Dashboard")}</span>
                   </Link>
                 </li>
 
-                <li>
+                <li style={linkStyle}>
                   <Link to="/user-queries" className="dropdown-item">
                     <i className="mdi mdi-comment-question"></i>
-                    <span> {props.t("User Queries")}</span>
+                    <span> {props.t("Pending Queries")}</span>
                   </Link>
                 </li>
 
-                <li>
+                <li style={linkStyle}>
                   <Link to="/emoney-requests" className="dropdown-item">
                     <i className="bx bx-money"></i>
                     <span> {props.t("E-money Requests")}</span>
                   </Link>
                 </li>
 
-                <li>
+                <li style={linkStyle}>
                   <Link to="/finemoneynew" className="dropdown-item">
                     <i className="bx bx-money"></i>
-                    <span> {props.t("Approved E-money Requests")}</span>
+                    <span> {props.t("Approved E-money")}</span>
                   </Link>
                 </li>
 
-                <li>
+                <li style={linkStyle}>
                   <Link to="/delivery-requests" className="dropdown-item">
                     <i className="bx bxs-truck"></i>
                     <span> {props.t("Delivery Requests")}</span>
                   </Link>
                 </li>
 
-                <li>
+                <li style={linkStyle}>
                   <Link to="/withdrawal-requests" className="dropdown-item">
                     <i className="bx bx-money"></i>
                     <span> {props.t("Withdrawal Requests")}</span>
                   </Link>
                 </li>
 
-                <li>
+                <li style={linkStyle}>
                   <Link to="/reward-payments" className="dropdown-item">
                     <i className="bx bx-money"></i>
                     <span> {props.t("Reward Payments")}</span>
                   </Link>
                 </li>
 
-                <li>
+                <li style={linkStyle}>
                   <Link to="/declinedrequests" className="dropdown-item">
                     <i className="bx bxs-message-square-x"></i>
                     <span> {props.t("Declines")}</span>

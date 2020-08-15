@@ -42,7 +42,7 @@ export default function OneQuery(props) {
     // Action
     setConfirm_both(false);
     setSuccess_dlg(true);
-    setDynamic_title("Payment made");
+    setDynamic_title("Query Resolved");
     setDynamic_description("Notification message sent.");
     // Proceed to accept
     resolve();
@@ -71,7 +71,7 @@ export default function OneQuery(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        status: "resolve",
+        status: "resolved",
       }),
     })
       .then((r) => r.json())
@@ -97,67 +97,38 @@ export default function OneQuery(props) {
 
   return (
     <React.Fragment>
-      <Col xl="12" sm="6">
+      <Col xl="6" sm="6">
         <Card>
           <CardBody>
             <CardTitle className="mb-4">ID: {enquiry.id}</CardTitle>
             <div className="text-center">
-              <div className="mb-4"></div>
+              <div className="mb-4">{enquiry.date}</div>
             </div>
 
             <div className="table-responsive mt-4">
               <table className="table table-centered table-nowrap mb-2">
                 <tbody>
-                  <tr>
-                    <td style={{ width: "30%" }}>
-                      <p className="mb-0">Username: </p>
-                    </td>
-                    <td style={{ width: "25%" }}>
-                      <h5 className="mb-0">{enquiry.username}</h5>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{ width: "30%" }}>
-                      <p className="mb-0">Date: </p>
-                    </td>
-                    <td style={{ width: "25%" }}>
-                      <h5 className="mb-0">{enquiry.date}</h5>
-                    </td>
-                  </tr>
+                  <h5 className="mb-0">
+                    {enquiry.username} - {enquiry.phone}
+                  </h5>
 
-                  <tr>
-                    <td style={{ width: "30%" }}>
-                      <p className="mb-0">Phone Number: </p>
-                    </td>
-                    <td style={{ width: "25%" }}>
-                      <h5 className="mb-0">{enquiry.phone}</h5>
-                    </td>
-                  </tr>
+                  <hr />
 
-                  <br />
-                  <br />
                   <p className="mb-0">{enquiry.query}</p>
-                  <br />
-                  <tr>
-                    <td>
-                      <button
-                        onClick={openConfirm}
-                        type="button"
-                        className="btn btn-success waves-effect waves-light"
-                      >
-                        <i className=""></i> Resolved
-                      </button>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>
           </CardBody>
-          <CardBody>
-            <Badge className="font-size-14" color="warning">
-              Pending
-            </Badge>
-          </CardBody>
+          <CardFooter>
+            <button
+              onClick={openConfirm}
+              type="button"
+              className="btn btn-success waves-effect waves-light"
+            >
+              <i className="bx bx-check-double font-size-16 align-middle mr-2"></i>{" "}
+              Resolved
+            </button>
+          </CardFooter>
         </Card>
       </Col>
       {confirm_both ? (
