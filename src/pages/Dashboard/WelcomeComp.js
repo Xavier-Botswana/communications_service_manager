@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../../AuthProvider";
-import { Row, Col, Card, CardBody } from "reactstrap";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from 'react'
+import { AuthContext } from '../../AuthProvider'
+import { Row, Col, Card, CardBody } from 'reactstrap'
+import { Link } from 'react-router-dom'
 
-import avatar1 from "../../assets/images/profile.png";
-import profileImg from "../../assets/images/profile-img.png";
+import avatar1 from '../../assets/images/profile.png'
+import profileImg from '../../assets/images/profile-img.png'
 
 const WelcomeComp = (props) => {
-  const { currentUser } = useContext(AuthContext);
-  const { userDetails } = props;
+  const { currentUser } = useContext(AuthContext)
+  const { userDetails } = props
 
   return (
     <React.Fragment>
@@ -28,7 +28,7 @@ const WelcomeComp = (props) => {
         </div>
         <CardBody className="pt-0">
           <Row>
-            <Col sm="4">
+            <Col sm="6">
               <div className="avatar-md profile-user-wid mb-4">
                 <img
                   src={avatar1}
@@ -44,32 +44,31 @@ const WelcomeComp = (props) => {
               </p>
             </Col>
 
-            <Col sm="8">
+            <Col sm="6">
               <div className="pt-4">
                 <Row>
                   <Col xs="6">
-                    <h5 className="font-size-15">125</h5>
-                    <p className="text-muted mb-0">Leads</p>
+                    {/* <h5 className="font-size-15">125</h5>
+                    <p className="text-muted mb-0">Leads</p> */}
+                    <Link
+                      to=""
+                      className="btn btn-primary waves-effect waves-light btn-sm"
+                    >
+                      View Profile <i className="mdi mdi-arrow-right ml-1"></i>
+                    </Link>
                   </Col>
                   <Col xs="6">
-                    <h5 className="font-size-15">1245</h5>
+                    <h5 className="font-size-15">{}</h5>
                     <p className="text-muted mb-0">System Users</p>
                   </Col>
                 </Row>
-                <div className="mt-4">
-                  <Link
-                    to=""
-                    className="btn btn-primary waves-effect waves-light btn-sm"
-                  >
-                    View Profile <i className="mdi mdi-arrow-right ml-1"></i>
-                  </Link>
-                </div>
+                <div className="mt-4"></div>
               </div>
             </Col>
           </Row>
         </CardBody>
       </Card>
     </React.Fragment>
-  );
-};
-export default WelcomeComp;
+  )
+}
+export default WelcomeComp

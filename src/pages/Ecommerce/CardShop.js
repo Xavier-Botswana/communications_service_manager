@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../../AuthProvider";
-import firebase from "../../firebase";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from 'react'
+import { AuthContext } from '../../AuthProvider'
+import firebase from '../../firebase'
+import { Link } from 'react-router-dom'
 import {
   Col,
   Row,
@@ -12,165 +12,165 @@ import {
   CardTitle,
   CardSubtitle,
   Container,
-} from "reactstrap";
+} from 'reactstrap'
 import {
   Button,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
   ButtonDropdown,
-} from "reactstrap";
+} from 'reactstrap'
 
-import sendSMS from "../../sms";
+import sendSMS from '../../sms'
 
 //SweetAlert
-import SweetAlert from "react-bootstrap-sweetalert";
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 const CardShop = (props) => {
-  const { currentUser } = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(false);
-  const { withdrawal, withdrawals, setWithdrawal } = props;
-  const [amount, setAmount] = useState(0);
-  const [reason, setReason] = useState("");
+  const { currentUser } = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState(false)
+  const { withdrawal, withdrawals, setWithdrawal } = props
+  const [amount, setAmount] = useState(0)
+  const [reason, setReason] = useState('')
 
   /**SWEET ALERT */
 
-  const [confirm_both, setConfirm_both] = useState(false);
-  const [confirm_both_deny, setConfirm_both_deny] = useState(false);
-  const [success_dlg, setSuccess_dlg] = useState(false);
-  const [dynamic_title, setDynamic_title] = useState("");
-  const [dynamic_description, setDynamic_description] = useState("false");
+  const [confirm_both, setConfirm_both] = useState(false)
+  const [confirm_both_deny, setConfirm_both_deny] = useState(false)
+  const [success_dlg, setSuccess_dlg] = useState(false)
+  const [dynamic_title, setDynamic_title] = useState('')
+  const [dynamic_description, setDynamic_description] = useState('false')
 
   const openConfirm = () => {
-    setConfirm_both(true);
-  };
+    setConfirm_both(true)
+  }
 
   const openConfirmDeny = () => {
-    setConfirm_both_deny(true);
-  };
+    setConfirm_both_deny(true)
+  }
 
   const close_dlg = () => {
-    setSuccess_dlg(false);
-  };
+    setSuccess_dlg(false)
+  }
 
   const confirmAction = () => {
     // Action
-    setConfirm_both(false);
-    setSuccess_dlg(true);
-    setDynamic_title("Request approved");
-    setDynamic_description("Notification message sent.");
+    setConfirm_both(false)
+    setSuccess_dlg(true)
+    setDynamic_title('Request approved')
+    setDynamic_description('Notification message sent.')
     // Proceed to accept
-    handleAccept();
-  };
+    handleAccept()
+  }
 
   const cancelAction = () => {
-    setConfirm_both(false);
-  };
+    setConfirm_both(false)
+  }
 
   const confirmActionDeny = () => {
     // Action
-    setConfirm_both_deny(false);
-    setSuccess_dlg(true);
-    setDynamic_title("Request denied");
-    setDynamic_description("Notification message sent.");
+    setConfirm_both_deny(false)
+    setSuccess_dlg(true)
+    setDynamic_title('Request denied')
+    setDynamic_description('Notification message sent.')
     // Proceed to decline
-    handleDeny();
-  };
+    handleDeny()
+  }
 
   const cancelActionDeny = () => {
-    setConfirm_both_deny(false);
-  };
+    setConfirm_both_deny(false)
+  }
 
   /******************************************************************** */
 
   let PATCH_URL = `https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal/${
     withdrawal.id - 1
-  }`;
+  }`
 
   const onChangeHandler = (event) => {
-    const { name, value } = event.currentTarget;
+    const { name, value } = event.currentTarget
 
-    if (name === "amount") {
-      setAmount(value);
+    if (name === 'amount') {
+      setAmount(value)
     }
-    if (name === "reason") {
-      setReason(value);
+    if (name === 'reason') {
+      setReason(value)
     }
-  };
+  }
 
   const handleAccept = () => {
     // Change status to accepted
     fetch(PATCH_URL, {
-      method: "PATCH",
-      mode: "cors",
+      method: 'PATCH',
+      mode: 'cors',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        status: "accepted",
+        status: 'accepted',
         amount: amount * 12,
       }),
     })
       .then((r) => r.json())
       .then((data) => {
         //console.log(data);
-        const index = withdrawals.indexOf(withdrawal);
+        const index = withdrawals.indexOf(withdrawal)
         if (index > -1) {
           setWithdrawal(
             withdrawals.filter((item) => {
-              return item !== withdrawal;
-            })
-          );
+              return item !== withdrawal
+            }),
+          )
         }
       })
       .catch((error) => {
         // console.log(error);
-      });
+      })
 
-    const message = `Dear ${withdrawal.Username}, your withdrawal request has been approved. You will receive your payment in the next 3 working days.`;
-    sendSMS(withdrawal.phone, message);
+    const message = `Dear ${withdrawal.Username}, your withdrawal request has been approved. You will receive your payment in the next 3 working days.`
+    sendSMS(withdrawal.phone, message)
     firebase.logAction(
       currentUser.email,
-      `Accepted withdrawal request from ${withdrawal.Username}`
-    );
-  };
+      `Accepted withdrawal request from ${withdrawal.Username}`,
+    )
+  }
 
   const handleDeny = () => {
     // Change status to declined
     fetch(PATCH_URL, {
-      method: "PATCH",
-      mode: "cors",
+      method: 'PATCH',
+      mode: 'cors',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        status: "denied",
+        status: 'denied',
         decline_reason: reason,
       }),
     })
       .then((r) => r.json())
       .then((data) => {
         //  console.log(data);
-        const index = withdrawals.indexOf(withdrawal);
+        const index = withdrawals.indexOf(withdrawal)
         if (index > -1) {
           setWithdrawal(
             withdrawals.filter((item) => {
-              return item !== withdrawal;
-            })
-          );
+              return item !== withdrawal
+            }),
+          )
         }
       })
       .catch((error) => {
         //  console.log(error);
-      });
+      })
 
-    const message = `Dear ${withdrawal.Username}, your withdrawal request has been denied. Kindly contact support for mmore details.`;
-    sendSMS(withdrawal.phone, message);
+    const message = `Dear ${withdrawal.Username}, your withdrawal request has been denied. Kindly contact support for mmore details.`
+    sendSMS(withdrawal.phone, message)
     firebase.logAction(
       currentUser.email,
-      `Declined withdrawal request from ${withdrawal.Username}`
-    );
-  };
+      `Declined withdrawal request from ${withdrawal.Username}`,
+    )
+  }
 
   return (
     <React.Fragment>
@@ -186,7 +186,14 @@ const CardShop = (props) => {
                   </CardTitle>
                   <CardText>Username: {withdrawal.Username}</CardText>
                   <CardText>Phone Number: {withdrawal.phone}</CardText>
-                  <CardText>Date: {withdrawal.requestdate}</CardText>
+                  <CardText>
+                    Paymemt Method: {withdrawal.method_payment}
+                  </CardText>
+                  <CardText>
+                    Payment Details: {withdrawal.payment_details}
+                  </CardText>
+                  <CardText>Date: {withdrawal.date}</CardText>
+                  <CardText>Enter Amount:</CardText>
                   <Input
                     onChange={onChangeHandler}
                     type="number"
@@ -275,7 +282,7 @@ const CardShop = (props) => {
         </SweetAlert>
       ) : null}
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default CardShop;
+export default CardShop

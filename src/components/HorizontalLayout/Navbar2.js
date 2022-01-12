@@ -1,78 +1,78 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Collapse } from "reactstrap";
-import { Link, withRouter } from "react-router-dom";
-import classname from "classnames";
+import React, { useState, useEffect } from 'react'
+import { Row, Col, Collapse } from 'reactstrap'
+import { Link, withRouter } from 'react-router-dom'
+import classname from 'classnames'
 
 //i18n
-import { withNamespaces } from "react-i18next";
+import { withNamespaces } from 'react-i18next'
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux'
 
 const Navbar2 = (props) => {
-  const [dashboard, setdashboard] = useState(false);
-  const [ui, setui] = useState(false);
-  const [app, setapp] = useState(false);
-  const [email, setemail] = useState(false);
-  const [ecommerce, setecommerce] = useState(false);
-  const [crypto, setcrypto] = useState(false);
-  const [project, setproject] = useState(false);
-  const [task, settask] = useState(false);
-  const [contact, setcontact] = useState(false);
-  const [component, setcomponent] = useState(false);
-  const [form, setform] = useState(false);
-  const [table, settable] = useState(false);
-  const [chart, setchart] = useState(false);
-  const [icon, seticon] = useState(false);
-  const [map, setmap] = useState(false);
-  const [extra, setextra] = useState(false);
-  const [invoice, setinvoice] = useState(false);
-  const [auth, setauth] = useState(false);
-  const [utility, setutility] = useState(false);
+  const [dashboard, setdashboard] = useState(false)
+  const [ui, setui] = useState(false)
+  const [app, setapp] = useState(false)
+  const [email, setemail] = useState(false)
+  const [ecommerce, setecommerce] = useState(false)
+  const [crypto, setcrypto] = useState(false)
+  const [project, setproject] = useState(false)
+  const [task, settask] = useState(false)
+  const [contact, setcontact] = useState(false)
+  const [component, setcomponent] = useState(false)
+  const [form, setform] = useState(false)
+  const [table, settable] = useState(false)
+  const [chart, setchart] = useState(false)
+  const [icon, seticon] = useState(false)
+  const [map, setmap] = useState(false)
+  const [extra, setextra] = useState(false)
+  const [invoice, setinvoice] = useState(false)
+  const [auth, setauth] = useState(false)
+  const [utility, setutility] = useState(false)
 
   useEffect(() => {
-    var matchingMenuItem = null;
-    var ul = document.getElementById("navigation");
-    var items = ul.getElementsByTagName("a");
+    var matchingMenuItem = null
+    var ul = document.getElementById('navigation')
+    var items = ul.getElementsByTagName('a')
     for (var i = 0; i < items.length; ++i) {
       if (props.location.pathname === items[i].pathname) {
-        matchingMenuItem = items[i];
-        break;
+        matchingMenuItem = items[i]
+        break
       }
     }
     if (matchingMenuItem) {
-      activateParentDropdown(matchingMenuItem);
+      activateParentDropdown(matchingMenuItem)
     }
-  });
+  })
   function activateParentDropdown(item) {
-    item.classList.add("active");
-    const parent = item.parentElement;
+    item.classList.add('active')
+    const parent = item.parentElement
     if (parent) {
-      parent.classList.add("active"); // li
-      const parent2 = parent.parentElement;
-      parent2.classList.add("active"); // li
-      const parent3 = parent2.parentElement;
+      parent.classList.add('active') // li
+      const parent2 = parent.parentElement
+      parent2.classList.add('active') // li
+      const parent3 = parent2.parentElement
       if (parent3) {
-        parent3.classList.add("active"); // li
-        const parent4 = parent3.parentElement;
+        parent3.classList.add('active') // li
+        const parent4 = parent3.parentElement
         if (parent4) {
-          parent4.classList.add("active"); // li
-          const parent5 = parent4.parentElement;
+          parent4.classList.add('active') // li
+          const parent5 = parent4.parentElement
           if (parent5) {
-            parent5.classList.add("active"); // li
-            const parent6 = parent5.parentElement;
+            parent5.classList.add('active') // li
+            const parent6 = parent5.parentElement
             if (parent6) {
-              parent6.classList.add("active"); // li
+              parent6.classList.add('active') // li
             }
           }
         }
       }
     }
-    return false;
+    return false
   }
 
   const linkStyle = {
-    maxWidth: "14em",
-  };
+    maxWidth: '14em',
+  }
 
   return (
     <React.Fragment>
@@ -91,18 +91,18 @@ const Navbar2 = (props) => {
                 <li style={linkStyle}>
                   <Link to="/" className="dropdown-item">
                     <i className="bx bx-calendar"></i>
-                    <span> {props.t("Dashboard")}</span>
+                    <span> {props.t('Dashboard')}</span>
                   </Link>
                 </li>
 
                 <li style={linkStyle}>
                   <Link to="/user-queries" className="dropdown-item">
                     <i className="mdi mdi-comment-question"></i>
-                    <span> {props.t("Pending Queries")}</span>
+                    <span> {props.t('Pending Queries')}</span>
                   </Link>
                 </li>
 
-                <li style={linkStyle}>
+                {/* <li style={linkStyle}>
                   <Link to="/emoney-requests" className="dropdown-item">
                     <i className="bx bx-money"></i>
                     <span> {props.t("E-money Requests")}</span>
@@ -114,33 +114,33 @@ const Navbar2 = (props) => {
                     <i className="bx bx-money"></i>
                     <span> {props.t("Approved E-money")}</span>
                   </Link>
-                </li>
+                </li> */}
 
                 <li style={linkStyle}>
                   <Link to="/delivery-requests" className="dropdown-item">
                     <i className="bx bxs-truck"></i>
-                    <span> {props.t("Delivery Requests")}</span>
+                    <span> {props.t('Delivery Requests')}</span>
                   </Link>
                 </li>
 
                 <li style={linkStyle}>
                   <Link to="/withdrawal-requests" className="dropdown-item">
                     <i className="bx bx-money"></i>
-                    <span> {props.t("Withdrawal Requests")}</span>
+                    <span> {props.t('Withdrawal Requests')}</span>
                   </Link>
                 </li>
 
                 <li style={linkStyle}>
                   <Link to="/reward-payments" className="dropdown-item">
                     <i className="bx bx-money"></i>
-                    <span> {props.t("Reward Payments")}</span>
+                    <span> {props.t('Reward Payments')}</span>
                   </Link>
                 </li>
 
                 <li style={linkStyle}>
-                  <Link to="/declinedrequests" className="dropdown-item">
+                  <Link to="/declineddeliveries" className="dropdown-item">
                     <i className="bx bxs-message-square-x"></i>
-                    <span> {props.t("Declines")}</span>
+                    <span> {props.t('Declines')}</span>
                   </Link>
                 </li>
               </ul>
@@ -149,14 +149,14 @@ const Navbar2 = (props) => {
         </div>
       </div>
     </React.Fragment>
-  );
-};
+  )
+}
 
 const mapStatetoProps = (state) => {
-  const { leftMenu } = state.Layout;
-  return { leftMenu };
-};
+  const { leftMenu } = state.Layout
+  return { leftMenu }
+}
 
 export default withRouter(
-  connect(mapStatetoProps, {})(withNamespaces()(Navbar2))
-);
+  connect(mapStatetoProps, {})(withNamespaces()(Navbar2)),
+)
