@@ -30,34 +30,77 @@ app.use(bodyParser.json())
 
 app.get('/test', (req, res) => res.send('Backend reached.'))
 
-app.put('/clear-logs', async (req, res) => {
+// app.put('/clear-logs', async (req, res) => {
+//   try {
+//     let query = db.collection('activity_log')
+//     let response = []
+//     await query.get().then((querySnapshot) => {
+//       let docs = querySnapshot.docs
+//       for (let doc of docs) {
+//         const selectedItem = {
+//           id: doc.id,
+//           ...doc.data(),
+//         }
+//         response.push(selectedItem)
+//       }
+//     })
+
+//     // response = response.filter((item) => {
+//     //   return item.time.substring(5, 9) !== '2022'
+//     // })
+
+//     // for (let i = 0; i < response.length; i++) {
+//     //   let document = db.collection('activity_log').doc(response[i].id)
+//     //   await document.delete()
+//     // }
+
+//     return res.status(200).send({ length: response.length })
+//   } catch (error) {
+//     console.log(error)
+//     return res.status(500).send(error)
+//   }
+// })
+
+app.post('/user', async (req, res) => {
   try {
-    let query = db.collection('activity_log')
-    let response = []
-    await query.get().then((querySnapshot) => {
-      let docs = querySnapshot.docs
-      for (let doc of docs) {
-        const selectedItem = {
-          id: doc.id,
-          ...doc.data(),
-        }
-        response.push(selectedItem)
-      }
+    const { email, fullName, userType, area } = req.body
+
+    await db.collection('users').doc(email).set({
+      fullName: fullName,
+      userType: userType,
+      area: area,
     })
 
-    // response = response.filter((item) => {
-    //   return item.time.substring(5, 9) !== '2022'
-    // })
-
-    // for (let i = 0; i < response.length; i++) {
-    //   let document = db.collection('activity_log').doc(response[i].id)
-    //   await document.delete()
-    // }
-
-    return res.status(200).send({ length: response.length })
+    return res.status(200).json({
+      res: `User successfully created.`,
+    })
   } catch (error) {
-    console.log(error)
-    return res.status(500).send(error)
+    console.clear()
+    return res.status(500).json({ res: error.message })
+  }
+})
+
+app.get('/user/:email', async (req, res) => {
+  try {
+    let { email } = req.params
+    let query = db.collection('users').doc(email)
+    let response = {}
+    await query.get().then((querySnapshot) => {
+      let doc = querySnapshot
+      const selectedItem = {
+        id: doc.id,
+        ...doc.data(),
+      }
+      response = selectedItem
+      return res.status(200).json({ data: response })
+    })
+    // .catch((error) => {
+    //   console.log(error.message)
+    //   return res.status(500).json({ error: error.message })
+    // })
+  } catch (error) {
+    console.clear()
+    return res.status(500).json({ error: error.message })
   }
 })
 

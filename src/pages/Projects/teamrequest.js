@@ -1,11 +1,11 @@
-import React, { useState, useCallback, useContext, useEffect } from "react";
+import React, { useState, useCallback, useContext, useEffect } from 'react'
 
-import Layout from "../../components/HorizontalLayout";
+import Layout from '../../components/HorizontalLayout'
 
-import firebase from "../../firebase";
-import { Link } from "react-router-dom";
+import firebase from '../../firebase'
+import { Link } from 'react-router-dom'
 
-import { AuthContext } from "../../AuthProvider";
+import { AuthContext } from '../../AuthProvider'
 
 import {
   Container,
@@ -15,46 +15,70 @@ import {
   Input,
   PaginationItem,
   PaginationLink,
-} from "reactstrap";
+} from 'reactstrap'
 
 //Import Breadcrumb
 
 //Import Cards
-import TeamCard from "./teamcard";
-import Teamcrumb from "../../components/Common/Teamreq";
+import TeamCard from './teamcard'
+import Teamcrumb from '../../components/Common/Teamreq'
 
 const TeamDeliveries = (props) => {
-  const [teamdeliveries, setDeliveries] = useState([]);
+  const [teamdeliveries, setDeliveries] = useState([])
 
-  const [hasError, setErrors] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState(null);
+  const [hasError, setErrors] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true)
     fetch(
-      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/leadsdeliveries"
+      'https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/leadsdeliveries',
     )
       .then((response) => response.json())
       .then((teamdeliveries) => {
-        teamdeliveries = teamdeliveries.map((item) => {
-          const i = teamdeliveries.indexOf(item);
-          return { ...item, id: i + 1 };
-        });
-        let filterdeliveries = teamdeliveries.filter(function (e) {
-          return e.status === null || e.status === "";
-        });
-        //console.log(filterdeliveries);
-        setDeliveries(filterdeliveries);
-        setIsLoading(false);
-        if (filterdeliveries.length === 0) {
-          setMessage("No results to show");
-        }
+        const email = firebase.auth.currentUser.email
+        //
+        fetch(
+          `https://us-central1-ag-nutrition-hctrhq.cloudfunctions.net/app/user/${email}`,
+        )
+          .then((response) => response.json())
+          .then((response) => {
+            // console.log(`USER:`)
+            const userDetails = response.data
+            const typeMap = new Map()
+            typeMap.set('Gaborone', '1')
+            typeMap.set('Francistown', '2')
+            typeMap.set('Maun', '3')
+
+            teamdeliveries = teamdeliveries.map((item) => {
+              const i = teamdeliveries.indexOf(item)
+              return { ...item, id: i + 1 }
+            })
+            let filterdeliveries = teamdeliveries.filter(function (e) {
+              return e.status === null || e.status === ''
+            })
+            filterdeliveries = filterdeliveries.filter((item) => {
+              return (
+                item.type.toLowerCase() === userDetails.area.toLowerCase() ||
+                item.type === typeMap.get(userDetails.area)
+              )
+            })
+            setDeliveries(filterdeliveries)
+            setIsLoading(false)
+            if (filterdeliveries.length === 0) {
+              setMessage('No results to show')
+            }
+          })
+          .catch((error) => {
+            setErrors(error)
+          })
+        //
       })
       .catch((error) => {
-        setErrors(error);
-      });
-  }, []);
+        setErrors(error)
+      })
+  }, [])
 
   return (
     <Layout>
@@ -97,7 +121,7 @@ const TeamDeliveries = (props) => {
                   teamdeliveriesArr={teamdeliveries}
                   setDeliveries={setDeliveries}
                 />
-              );
+              )
             })}
           </Row>
 
@@ -106,8 +130,8 @@ const TeamDeliveries = (props) => {
               <Col xs="12">
                 <div className="text-center my-3">
                   <Link to="#" className="text-success">
-                    <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{" "}
-                    Load more{" "}
+                    <i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i>{' '}
+                    Load more{' '}
                   </Link>
                 </div>
               </Col>
@@ -117,8 +141,8 @@ const TeamDeliveries = (props) => {
           {message ? (
             <Row>
               <Col xs="12">
-                <div style={{ color: "#a6b0cf" }} className="text-center my-3">
-                  {message}{" "}
+                <div style={{ color: '#a6b0cf' }} className="text-center my-3">
+                  {message}{' '}
                 </div>
               </Col>
             </Row>
@@ -126,7 +150,7 @@ const TeamDeliveries = (props) => {
         </Container>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default TeamDeliveries;
+export default TeamDeliveries
