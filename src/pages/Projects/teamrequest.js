@@ -50,6 +50,7 @@ const TeamDeliveries = (props) => {
             typeMap.set('Gaborone', '1')
             typeMap.set('Francistown', '2')
             typeMap.set('Maun', '3')
+            typeMap.set('Kang', '4')
 
             teamdeliveries = teamdeliveries.map((item) => {
               const i = teamdeliveries.indexOf(item)

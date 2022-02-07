@@ -54,6 +54,7 @@ const ProjectsGrid = (props) => {
             typeMap.set('Gaborone', '1')
             typeMap.set('Francistown', '2')
             typeMap.set('Maun', '3')
+            typeMap.set('Kang', '4')
 
             indeliveries = indeliveries.map((item) => {
               const i = indeliveries.indexOf(item)
