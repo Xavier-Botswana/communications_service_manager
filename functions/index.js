@@ -169,7 +169,7 @@ app.get('/api/enquiries', (req, res) => {
 
 //Update Enquiry Status
 app.put('/api/enquiry/:id', (req, res) => {
-  ;(async () => {
+  (async () => {
     // console.log(req.body)
     try {
       let id = req.params.id
