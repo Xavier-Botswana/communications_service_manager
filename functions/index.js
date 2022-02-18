@@ -233,7 +233,7 @@ app.get('/api/feedbacks', (req, res) => {
   })()
 })
 
-// Get specific Enquiry
+// Get specific Feedback
 app.get('/api/feedback/:id', (req, res) => {
   ;(async () => {
     try {
