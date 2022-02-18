@@ -164,6 +164,31 @@ app.get('/api/enquiries', (req, res) => {
     }
   })()
 })
+
+// Get specific Enquiry
+app.get('/api/enquiry/:id', (req, res) => {
+  ;(async () => {
+    try {
+      let id = req.params.id
+      let query = db.collection('Enquiries').doc(id)
+      let response = {}
+      await query.get().then((querySnapshot) => {
+        let doc = querySnapshot
+        const selectedItem = {
+          id: doc.id,
+          ...doc.data(),
+        }
+        response = selectedItem
+      })
+      return res.status(200).send(response)
+    } catch (error) {
+      console.clear();
+      return res.status(500).send(error)
+    }
+  })()
+})
+
+
 app.get('/user/:email', async (req, res) => {
   try {
     let { email } = req.params

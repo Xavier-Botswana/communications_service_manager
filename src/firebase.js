@@ -2,15 +2,14 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-firestore";
 
-const config = {
-  apiKey: "AIzaSyAV0mAIEqA8mxM2fJJJLAlrFr1k8HjTBEw",
-  authDomain: "ag-nutrition-hctrhq.firebaseapp.com",
-  databaseURL: "https://ag-nutrition-hctrhq.firebaseio.com",
-  projectId: "ag-nutrition-hctrhq",
-  storageBucket: "ag-nutrition-hctrhq.appspot.com",
-  messagingSenderId: "634728987448",
-  appId: "1:634728987448:web:c92a906056c2f591e19fcd",
-  measurementId: "G-TMWHSQX9CZ",
+const firebaseConfig = {
+  apiKey: "AIzaSyC9FmuEVhMdo-h-NKvefj0Nl3RO7APPaAQ",
+  authDomain: "gov-communications.firebaseapp.com",
+  projectId: "gov-communications",
+  storageBucket: "gov-communications.appspot.com",
+  messagingSenderId: "419061628722",
+  appId: "1:419061628722:web:3002d28e550f531f9be12b",
+  measurementId: "G-NFP49YJ1P6"
 };
 
 class Firebase {
