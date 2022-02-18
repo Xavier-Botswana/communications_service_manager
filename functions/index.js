@@ -132,6 +132,7 @@ app.post('/api/enquiry', (req, res) => {
       await db.collection('Enquiries').add({
         phoneNumber: req.body.phoneNumber,
         enquiry: req.body.enquiry,
+        ministryCode: req.body.ministryCode,
         id_Number: req.body. id_Number,
         status: "Pending",
         fileLinks: req.body.fileLinks,
