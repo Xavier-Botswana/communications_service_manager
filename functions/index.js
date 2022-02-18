@@ -188,6 +188,27 @@ app.get('/api/enquiry/:id', (req, res) => {
   })()
 })
 
+// Send Enquiry
+app.post('/api/feedback', (req, res) => {
+  ; (async () => {
+    try {
+      await db.collection('Feedbacks').add({
+        phoneNumber: req.body.phoneNumber,
+        ministry: req.body.ministry,
+        serviceName: req.body.serviceName,
+        qualityOfService:req.body.qualityOfService,
+        rating:req.body.rating,
+        location:req.body.location,
+
+      })
+      return res.status(200).json({ res: 'success' })
+    } catch (error) {
+      console.clear();
+      return res.status(500).send(error)
+    }
+  })()
+})
+
 
 app.get('/user/:email', async (req, res) => {
   try {
