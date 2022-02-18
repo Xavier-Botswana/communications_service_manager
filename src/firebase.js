@@ -1,22 +1,22 @@
-import app from "firebase/app";
-import "firebase/auth";
-import "firebase/firebase-firestore";
+import app from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firebase-firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC9FmuEVhMdo-h-NKvefj0Nl3RO7APPaAQ",
-  authDomain: "gov-communications.firebaseapp.com",
-  projectId: "gov-communications",
-  storageBucket: "gov-communications.appspot.com",
-  messagingSenderId: "419061628722",
-  appId: "1:419061628722:web:3002d28e550f531f9be12b",
-  measurementId: "G-NFP49YJ1P6"
-};
+  apiKey: 'AIzaSyC9FmuEVhMdo-h-NKvefj0Nl3RO7APPaAQ',
+  authDomain: 'gov-communications.firebaseapp.com',
+  projectId: 'gov-communications',
+  storageBucket: 'gov-communications.appspot.com',
+  messagingSenderId: '419061628722',
+  appId: '1:419061628722:web:3002d28e550f531f9be12b',
+  measurementId: 'G-NFP49YJ1P6',
+}
 
 class Firebase {
   constructor() {
-    app.initializeApp(config);
-    this.auth = app.auth();
-    this.db = app.firestore();
+    app.initializeApp(firebaseConfig)
+    this.auth = app.auth()
+    this.db = app.firestore()
   }
 
   onAuthStateChange() {
@@ -26,32 +26,32 @@ class Firebase {
       } else {
         //console.log("The user is not logged in");firebase.database.ServerValue.TIMESTAMP
       }
-    });
+    })
   }
 
   login(email, password) {
-    return this.auth.signInWithEmailAndPassword(email, password);
+    return this.auth.signInWithEmailAndPassword(email, password)
   }
 
   addUser(email, password) {}
 
   logAction(email, action) {
-    const currentdate = new Date();
+    const currentdate = new Date()
     const datetime =
       currentdate.getDate() +
-      "/" +
+      '/' +
       (currentdate.getMonth() + 1) +
-      "/" +
+      '/' +
       currentdate.getFullYear() +
-      " @ " +
+      ' @ ' +
       currentdate.getHours() +
-      ":" +
+      ':' +
       currentdate.getMinutes() +
-      ":" +
-      currentdate.getSeconds();
+      ':' +
+      currentdate.getSeconds()
     // Firestore function to activity by user:
     this.db
-      .collection("activity_log")
+      .collection('activity_log')
       .doc()
       .set({
         user: email,
@@ -59,17 +59,15 @@ class Firebase {
         time: datetime,
       })
       .then(() => {
-        console.log("Document successfully written!");
+        console.log('Document successfully written!')
       })
       .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
+        console.error('Error writing document: ', error)
+      })
   }
 
-  
-
   logout() {
-    return this.auth.signOut();
+    return this.auth.signOut()
   }
 
   async register(
@@ -79,33 +77,33 @@ class Firebase {
     password,
     userType,
     phoneNumber,
-    imageURL
+    imageURL,
   ) {
     // Firebase auth to save email and password:
     this.auth
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        console.log("Added user auth details.");
+        console.log('Added user auth details.')
         // Update displayName
         this.auth.currentUser
           .updateProfile({
             displayName: `${firstName} ${lastName}`,
           })
           .then(() => {
-            console.log("Updated user auth details.");
+            console.log('Updated user auth details.')
           })
           .catch((error) => {
-            console.log(error);
-          });
+            console.log(error)
+          })
       })
       .catch((error) => {
-        console.log(error);
-      });
+        console.log(error)
+      })
     // Firestore function to fetch log data:
 
     // Firestore function to save user details:
     this.db
-      .collection("users")
+      .collection('users')
       .doc(email)
       .set({
         name: `${firstName} ${lastName}`,
@@ -114,16 +112,14 @@ class Firebase {
         imageURL: imageURL,
       })
       .then(() => {
-        console.log("Document successfully written!");
+        console.log('Document successfully written!')
       })
       .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
-
-   
+        console.error('Error writing document: ', error)
+      })
 
     // Alert refresh to confirm action
   }
 }
 
-export default new Firebase();
+export default new Firebase()
