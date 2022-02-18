@@ -80,30 +80,6 @@ app.post('/user', async (req, res) => {
   }
 })
 
-app.get('/user/:email', async (req, res) => {
-  try {
-    let { email } = req.params
-    let query = db.collection('users').doc(email)
-    let response = {}
-    await query.get().then((querySnapshot) => {
-      let doc = querySnapshot
-      const selectedItem = {
-        id: doc.id,
-        ...doc.data(),
-      }
-      response = selectedItem
-      return res.status(200).json({ data: response })
-    })
-    // .catch((error) => {
-    //   console.log(error.message)
-    //   return res.status(500).json({ error: error.message })
-    // })
-  } catch (error) {
-    console.clear()
-    return res.status(500).json({ error: error.message })
-  }
-})
-
 app.post('/sms', (req, res) => {
   let username = 'xavier_africa'
   let password = '@Xav!er123'
@@ -112,6 +88,8 @@ app.post('/sms', (req, res) => {
     to: req.body.to,
     body: req.body.body,
   })
+
+
 
   let options = {
     hostname: 'api.bulksms.com',
@@ -144,5 +122,71 @@ app.post('/sms', (req, res) => {
   req.write(postData)
   req.end()
 })
+
+// Send Enquiry
+app.post('/api/enquiry', (req, res) => {
+  ; (async () => {
+    try {
+      await db.collection('Enquiries').add({
+        phoneNumber: req.body.phoneNumber,
+        enquiry: req.body.enquiry,
+        fileLinks: req.body.fileLinks,
+
+      })
+      return res.status(200).json({ res: 'success' })
+    } catch (error) {
+      console.clear();
+      return res.status(500).send(error)
+    }
+  })()
+})
+
+//get Enquiries
+app.get('/api/enquiries', (req, res) => {
+  ;(async () => {
+    try {
+      let query = db.collection('Enquiries')
+      let response = []
+      await query.get().then((querySnapshot) => {
+        let docs = querySnapshot.docs
+        for (let doc of docs) {
+          const selectedItem = {
+            id: doc.id,
+            ...doc.data(),
+          }
+          response.push(selectedItem)
+        }
+      })
+      return res.status(200).send(response)
+    } catch (error) {
+      console.clear();
+      return res.status(500).send(error)
+    }
+  })()
+})
+app.get('/user/:email', async (req, res) => {
+  try {
+    let { email } = req.params
+    let query = db.collection('users').doc(email)
+    let response = {}
+    await query.get().then((querySnapshot) => {
+      let doc = querySnapshot
+      const selectedItem = {
+        id: doc.id,
+        ...doc.data(),
+      }
+      response = selectedItem
+      return res.status(200).json({ data: response })
+    })
+    // .catch((error) => {
+    //   console.log(error.message)
+    //   return res.status(500).json({ error: error.message })
+    // })
+  } catch (error) {
+    console.clear()
+    return res.status(500).json({ error: error.message })
+  }
+})
+
 
 exports.app = functions.https.onRequest(app)
