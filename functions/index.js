@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const https = require('https')
 
 const admin = require('firebase-admin')
+require('dotenv').config()
 
 const serviceAccount = require('./serviceAccountKey.json')
 
@@ -84,12 +85,13 @@ app.post('/sms', (req, res) => {
   let username = 'xavier_africa'
   let password = '@Xav!er123'
 
+  // user: process.env.EMAIL,
+  // pass: process.env.PASSWORD,
+
   let postData = JSON.stringify({
     to: req.body.to,
     body: req.body.body,
   })
-
-
 
   let options = {
     hostname: 'api.bulksms.com',
@@ -125,7 +127,7 @@ app.post('/sms', (req, res) => {
 
 // Send Enquiry
 app.post('/api/enquiry', (req, res) => {
-  ; (async () => {
+  ;(async () => {
     try {
       await db.collection('Enquiries').add({
         phoneNumber: req.body.phoneNumber,
@@ -133,11 +135,10 @@ app.post('/api/enquiry', (req, res) => {
         id_Number: req.body. id_Number,
         status: "Pending",
         fileLinks: req.body.fileLinks,
-
       })
       return res.status(200).json({ res: 'success' })
     } catch (error) {
-      console.clear();
+      console.clear()
       return res.status(500).send(error)
     }
   })()
@@ -161,7 +162,7 @@ app.get('/api/enquiries', (req, res) => {
       })
       return res.status(200).send(response)
     } catch (error) {
-      console.clear();
+      console.clear()
       return res.status(500).send(error)
     }
   })()
@@ -219,7 +220,7 @@ app.get('/api/enquiry/:id', (req, res) => {
       })
       return res.status(200).send(response)
     } catch (error) {
-      console.clear();
+      console.clear()
       return res.status(500).send(error)
     }
   })()
@@ -233,14 +234,13 @@ app.post('/api/feedback', (req, res) => {
         phoneNumber: req.body.phoneNumber,
         ministry: req.body.ministry,
         serviceName: req.body.serviceName,
-        qualityOfService:req.body.qualityOfService,
-        rating:req.body.rating,
-        location:req.body.location,
-
+        qualityOfService: req.body.qualityOfService,
+        rating: req.body.rating,
+        location: req.body.location,
       })
       return res.status(200).json({ res: 'success' })
     } catch (error) {
-      console.clear();
+      console.clear()
       return res.status(500).send(error)
     }
   })()
@@ -264,7 +264,7 @@ app.get('/api/feedbacks', (req, res) => {
       })
       return res.status(200).send(response)
     } catch (error) {
-      console.clear();
+      console.clear()
       return res.status(500).send(error)
     }
   })()
@@ -287,7 +287,7 @@ app.get('/api/feedback/:id', (req, res) => {
       })
       return res.status(200).send(response)
     } catch (error) {
-      console.clear();
+      console.clear()
       return res.status(500).send(error)
     }
   })()
@@ -316,6 +316,5 @@ app.get('/user/:email', async (req, res) => {
     return res.status(500).json({ error: error.message })
   }
 })
-
 
 exports.app = functions.https.onRequest(app)
