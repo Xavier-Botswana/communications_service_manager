@@ -29,6 +29,7 @@ import sendSMS from '../../sms'
 import SweetAlert from 'react-bootstrap-sweetalert'
 
 const CardShop = (props) => {
+  const baseurl = `https://us-central1-gov-communications.cloudfunctions.net/app`
   const { currentUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
   const { enquiry, enquiries, setEnquiries } = props
@@ -74,8 +75,8 @@ const CardShop = (props) => {
     // Action
     setConfirm_both_deny(false)
     setSuccess_dlg(true)
-    setDynamic_title('Request denied')
-    setDynamic_description('Notification message sent.')
+    setDynamic_title('Success')
+    setDynamic_description('Enquiry moved to revisit later.')
     // Proceed to decline
     handleDeny()
   }
@@ -99,36 +100,35 @@ const CardShop = (props) => {
   }
 
   const handleAccept = () => {
-    // Change status to accepted
-    // fetch(PATCH_URL, {
-    //   method: 'PATCH',
-    //   mode: 'cors',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     status: 'accepted',
-    //     amount: amount * 12,
-    //   }),
-    // })
-    //   .then((r) => r.json())
-    //   .then((data) => {
-    //     //console.log(data);
-    //     const index = enquiries.indexOf(enquiry)
-    //     if (index > -1) {
-    //       setEnquiries(
-    //         enquiries.filter((item) => {
-    //           return item !== enquiry
-    //         }),
-    //       )
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     // console.log(error);
-    //   })
+    // Change status
+    fetch(`${baseurl}/api/enquiry/${enquiry.id}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        status: 'Resolved',
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        //console.log(data);
+        const index = enquiries.indexOf(enquiry)
+        if (index > -1) {
+          setEnquiries(
+            enquiries.filter((item) => {
+              return item !== enquiry
+            }),
+          )
+        }
+      })
+      .catch((error) => {
+        // console.log(error);
+      })
 
     // const message = `Dear ${enquiry.Username}, your enquiry request has been approved. You will receive your payment in the next 3 working days.`
-    sendSMS(`+${enquiry.phoneNumber}`, message)
+    // sendSMS(`+${enquiry.phoneNumber}`, message)
     firebase.logAction(
       currentUser.email,
       `Resolved enquiry for oomang ID ${enquiry.id_Number}`,
@@ -138,15 +138,14 @@ const CardShop = (props) => {
 
   const handleDeny = () => {
     // Change status to declined
-    fetch(PATCH_URL, {
-      method: 'PATCH',
+    fetch(`${baseurl}/api/enquiry/${enquiry.id}`, {
+      method: 'PUT',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        status: 'denied',
-        decline_reason: reason,
+        status: 'Revisit',
       }),
     })
       .then((r) => r.json())
@@ -165,11 +164,9 @@ const CardShop = (props) => {
         //  console.log(error);
       })
 
-    const message = `Dear ${enquiry.Username}, your enquiry request has been denied. Kindly contact support for mmore details.`
-    sendSMS(enquiry.phone, message)
     firebase.logAction(
       currentUser.email,
-      `Declined enquiry request from ${enquiry.Username}`,
+      `Revisit enquiry from ${enquiry.id_Number}`,
     )
   }
 
@@ -196,7 +193,6 @@ const CardShop = (props) => {
                       </a>
                     </Button>
                   </CardText>
-                  <CardText></CardText>
 
                   <textarea
                     onChange={onChangeHandler}
@@ -205,6 +201,7 @@ const CardShop = (props) => {
                     id="example-textarea"
                     rows="4"
                     placeholder="Enter Response..."
+                    required
                   ></textarea>
 
                   <CardBody>

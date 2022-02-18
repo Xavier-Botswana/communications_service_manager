@@ -58,7 +58,7 @@ const App = (props) => {
             path="/emoney-requests"
             component={ProjectsList}
           />
-          <PrivateRoute exact path="/feedback" component={Queries} />
+          <PrivateRoute exact path="/feedback" component={DeclinedDeliveries} />
           <PrivateRoute
             exact
             path="/declinedrequests"

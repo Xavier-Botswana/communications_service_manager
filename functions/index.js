@@ -62,14 +62,14 @@ app.get('/test', (req, res) => res.send('Backend reached.'))
 //   }
 // })
 
-app.post('/user', async (req, res) => {
+app.post('/api/user', async (req, res) => {
   try {
-    const { email, fullName, userType, area } = req.body
+    const { email, ministryCode, ministry, department } = req.body
 
     await db.collection('users').doc(email).set({
-      fullName: fullName,
-      userType: userType,
-      area: area,
+      ministryCode: ministryCode,
+      ministry: ministry,
+      department: department,
     })
 
     return res.status(200).json({
@@ -133,8 +133,8 @@ app.post('/api/enquiry', (req, res) => {
         phoneNumber: req.body.phoneNumber,
         enquiry: req.body.enquiry,
         ministryCode: req.body.ministryCode,
-        id_Number: req.body. id_Number,
-        status: "Pending",
+        id_Number: req.body.id_Number,
+        status: 'Pending',
         fileLinks: req.body.fileLinks,
       })
       return res.status(200).json({ res: 'success' })
@@ -294,7 +294,7 @@ app.get('/api/feedback/:id', (req, res) => {
   })()
 })
 
-app.get('/user/:email', async (req, res) => {
+app.get('/api/user/:email', async (req, res) => {
   try {
     let { email } = req.params
     let query = db.collection('users').doc(email)
@@ -308,10 +308,6 @@ app.get('/user/:email', async (req, res) => {
       response = selectedItem
       return res.status(200).json({ data: response })
     })
-    // .catch((error) => {
-    //   console.log(error.message)
-    //   return res.status(500).json({ error: error.message })
-    // })
   } catch (error) {
     console.clear()
     return res.status(500).json({ error: error.message })

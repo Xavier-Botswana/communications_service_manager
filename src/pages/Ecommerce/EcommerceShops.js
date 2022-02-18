@@ -20,6 +20,7 @@ import CardShop from './CardShop'
 import FirebaseLoader from '../../components/Loader/FirebaseLoader'
 
 const EcommerceShops = (props) => {
+  const baseurl = `https://us-central1-gov-communications.cloudfunctions.net/app`
   const [isLoading, setIsLoading] = useState(false)
   const [hasError, setErrors] = useState(false)
   const [enquiries, setEnquiries] = useState([])
@@ -27,9 +28,7 @@ const EcommerceShops = (props) => {
 
   useEffect(() => {
     setIsLoading(true)
-    fetch(
-      'https://us-central1-gov-communications.cloudfunctions.net/app/api/enquiries',
-    )
+    fetch(`${baseurl}/api/enquiries`)
       .then((response) => {
         if (response.ok) {
           return response.json()
@@ -38,12 +37,30 @@ const EcommerceShops = (props) => {
         }
       })
       .then((res) => {
-        // console.log(res)
-        setEnquiries(res)
-        setIsLoading(false)
-        if (enquiries.length === 0) {
-          setMessage('No results to show.')
-        }
+        const email = firebase.auth.currentUser.email
+
+        //
+        fetch(`${baseurl}/api/user/${email}`)
+          .then((response) => response.json())
+          .then((response) => {
+            const userDetails = response.data
+            console.log(userDetails)
+            let pendingEnquiries = res.filter((item) => {
+              return (
+                item.status === 'Pending' &&
+                item.ministryCode === userDetails.ministryCode
+              )
+            })
+            setEnquiries(pendingEnquiries)
+            setIsLoading(false)
+            if (enquiries.length === 0) {
+              setMessage('No results to show.')
+            }
+            //////////////////////////////
+          })
+          .catch((error) => {
+            setErrors(error)
+          })
       })
       .catch((error) => {
         setErrors(error)

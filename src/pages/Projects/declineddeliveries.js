@@ -8,10 +8,12 @@ import './datatables.scss'
 import Layout from '../../components/HorizontalLayout'
 
 const DeclinedDeliveries = (props) => {
+  const baseurl = `https://us-central1-gov-communications.cloudfunctions.net/app`
   const [isLoading, setIsLoading] = useState(false)
   const [hasError, setErrors] = useState(false)
   const [individualdel, setIndividualDel] = useState([])
   const [teamdel, setTeamDel] = useState([])
+  const [feedback, setFeedback] = useState([])
 
   const [message, setMessage] = useState(null)
   let filteredindividualdel
@@ -19,12 +21,9 @@ const DeclinedDeliveries = (props) => {
 
   useEffect(() => {
     setIsLoading(true)
-    fetch(
-      'https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/individualsdeliveries',
-      {
-        mode: 'cors',
-      },
-    )
+    fetch(`${baseurl}/api/feedbacks`, {
+      mode: 'cors',
+    })
       .then((response) => {
         if (response.ok) {
           return response.json()
@@ -32,11 +31,8 @@ const DeclinedDeliveries = (props) => {
           throw Error('Error fetching data.')
         }
       })
-      .then((individualdel) => {
-        filteredindividualdel = individualdel.filter(function (e) {
-          return e.status === 'denied'
-        })
-        setIndividualDel(filteredindividualdel)
+      .then((res) => {
+        setFeedback(res)
         setIsLoading(false)
       })
       .catch((error) => {
@@ -71,20 +67,20 @@ const DeclinedDeliveries = (props) => {
   const data = {
     columns: [
       {
-        label: 'username',
-        field: 'username',
+        label: 'Location',
+        field: 'location',
         sort: 'asc',
         width: 100,
       },
       {
-        label: 'fullnames',
-        field: 'fullnames',
+        label: 'Ministry',
+        field: 'ministry',
         sort: 'asc',
         width: 100,
       },
       {
-        label: 'phone',
-        field: 'phone',
+        label: 'Service Name',
+        field: 'serviceName',
         sort: 'asc',
         width: 100,
       },
@@ -95,50 +91,20 @@ const DeclinedDeliveries = (props) => {
         width: 100,
       },
       {
-        label: 'omang',
-        field: 'omang',
+        label: 'Quality of Service',
+        field: 'qualityOfService',
         sort: 'asc',
         width: 100,
       },
       {
-        label: 'type',
-        field: 'type',
+        label: 'Rating',
+        field: 'rating',
         sort: 'asc',
         width: 100,
-      },
-      {
-        label: 'location',
-        field: 'location',
-        sort: 'asc',
-        width: 100,
-      },
-      {
-        label: 'team_members',
-        field: 'team_members',
-        sort: 'asc',
-        width: 100,
-      },
-      {
-        label: 'date',
-        field: 'date',
-        sort: 'asc',
-        width: 100,
-      },
-      {
-        label: 'status',
-        field: 'status',
-        sort: 'asc',
-        width: 100,
-      },
-      {
-        label: 'decline_reason',
-        field: 'decline_reason',
-        sort: 'asc',
-        width: 270,
       },
     ],
 
-    rows: teamdel,
+    rows: feedback,
   }
 
   const data2 = {
@@ -218,21 +184,9 @@ const DeclinedDeliveries = (props) => {
             <Col className="col-12">
               <Card>
                 <CardBody>
-                  <CardTitle>Declined Individual Request </CardTitle>
+                  <CardTitle>Service Feedback </CardTitle>
 
-                  <MDBDataTable responsive bordered data={data2} />
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col className="col-12">
-              <Card>
-                <CardBody>
-                  <CardTitle>Declined Team Request</CardTitle>
-
-                  <MDBDataTable responsive striped bordered data={data} />
+                  <MDBDataTable responsive bordered data={data} />
                 </CardBody>
               </Card>
             </Col>
