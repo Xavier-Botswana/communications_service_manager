@@ -188,7 +188,7 @@ app.get('/api/enquiry/:id', (req, res) => {
   })()
 })
 
-// Send Enquiry
+// Send Feedback
 app.post('/api/feedback', (req, res) => {
   ; (async () => {
     try {
@@ -209,6 +209,52 @@ app.post('/api/feedback', (req, res) => {
   })()
 })
 
+//get Feedbacks
+app.get('/api/feedbacks', (req, res) => {
+  ;(async () => {
+    try {
+      let query = db.collection('Feedbacks')
+      let response = []
+      await query.get().then((querySnapshot) => {
+        let docs = querySnapshot.docs
+        for (let doc of docs) {
+          const selectedItem = {
+            id: doc.id,
+            ...doc.data(),
+          }
+          response.push(selectedItem)
+        }
+      })
+      return res.status(200).send(response)
+    } catch (error) {
+      console.clear();
+      return res.status(500).send(error)
+    }
+  })()
+})
+
+// Get specific Enquiry
+app.get('/api/feedback/:id', (req, res) => {
+  ;(async () => {
+    try {
+      let id = req.params.id
+      let query = db.collection('Feedbacks').doc(id)
+      let response = {}
+      await query.get().then((querySnapshot) => {
+        let doc = querySnapshot
+        const selectedItem = {
+          id: doc.id,
+          ...doc.data(),
+        }
+        response = selectedItem
+      })
+      return res.status(200).send(response)
+    } catch (error) {
+      console.clear();
+      return res.status(500).send(error)
+    }
+  })()
+})
 
 app.get('/user/:email', async (req, res) => {
   try {
