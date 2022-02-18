@@ -1,52 +1,52 @@
-import React from "react";
+import React from 'react'
 
 import {
   Route,
   Redirect,
   Switch,
   BrowserRouter as Router,
-} from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
-import { connect } from "react-redux";
+} from 'react-router-dom'
+import PrivateRoute from './PrivateRoute'
+import { connect } from 'react-redux'
 
 // Import Routes all
-import { userRoutes, authRoutes } from "./routes/allRoutes";
+import { userRoutes, authRoutes } from './routes/allRoutes'
 
 // Import all middleware
-import Authmiddleware from "./routes/middleware/Authmiddleware";
+import Authmiddleware from './routes/middleware/Authmiddleware'
 
 // layouts Format
-import VerticalLayout from "./components/VerticalLayout/";
-import HorizontalLayout from "./components/HorizontalLayout/";
-import NonAuthLayout from "./components/NonAuthLayout";
+import VerticalLayout from './components/VerticalLayout/'
+import HorizontalLayout from './components/HorizontalLayout/'
+import NonAuthLayout from './components/NonAuthLayout'
 
 // Import scss
-import "./assets/scss/theme.scss";
+import './assets/scss/theme.scss'
 
-import Header from "./components/HorizontalLayout/Header";
-import Dashboard from "./pages/Dashboard/index";
-import ProjectsList from "./pages/Projects/projects-list";
-import ProjectsGrid from "./pages/Projects/projects-grid";
-import EcommerceShops from "./pages/Ecommerce/EcommerceShops";
-import EcommerceAddProduct from "./pages/Ecommerce/EcommerceAddProduct";
-import EcommerceOrders from "./pages/Ecommerce/EcommerceOrders";
-import Login from "./pages/Authentication/Login";
-import Logout from "./pages/Authentication/Logout";
-import Error404 from "./pages/Utility/pages-404";
-import Footer from "./components/HorizontalLayout/Footer";
+import Header from './components/HorizontalLayout/Header'
+import Dashboard from './pages/Dashboard/index'
+import ProjectsList from './pages/Projects/projects-list'
+import ProjectsGrid from './pages/Projects/projects-grid'
+import EcommerceShops from './pages/Ecommerce/EcommerceShops'
+import EcommerceAddProduct from './pages/Ecommerce/EcommerceAddProduct'
+import EcommerceOrders from './pages/Ecommerce/EcommerceOrders'
+import Login from './pages/Authentication/Login'
+import Logout from './pages/Authentication/Logout'
+import Error404 from './pages/Utility/pages-404'
+import Footer from './components/HorizontalLayout/Footer'
 
-import AuthProvider from "./AuthProvider";
-import EmoneyNew from "./pages/Projects/emoneynew";
-import TeamDeliveries from "./pages/Projects/teamrequest";
-import EcommerceCustomers from "./pages/Ecommerce/FinanceNewE";
-import FinanceEmoneyExisting from "./pages/Ecommerce/FinanceNewExis";
-import DatatableTables from "./pages/Projects/declinerequests";
-import DeclinedDeliveries from "./pages/Projects/declineddeliveries";
-import DeclinedWithdrawals from "./pages/Projects/declinedwithdrawals";
-import Queries from "./pages/Projects/queries";
+import AuthProvider from './AuthProvider'
+import EmoneyNew from './pages/Projects/emoneynew'
+import TeamDeliveries from './pages/Projects/teamrequest'
+import EcommerceCustomers from './pages/Ecommerce/FinanceNewE'
+import FinanceEmoneyExisting from './pages/Ecommerce/FinanceNewExis'
+import DatatableTables from './pages/Projects/declinerequests'
+import DeclinedDeliveries from './pages/Projects/declineddeliveries'
+import DeclinedWithdrawals from './pages/Projects/declinedwithdrawals'
+import Queries from './pages/Projects/queries'
 
 const App = (props) => {
-  const Layout = HorizontalLayout;
+  const Layout = HorizontalLayout
 
   return (
     <AuthProvider>
@@ -58,7 +58,7 @@ const App = (props) => {
             path="/emoney-requests"
             component={ProjectsList}
           />
-          <PrivateRoute exact path="/user-queries" component={Queries} />
+          <PrivateRoute exact path="/feedback" component={Queries} />
           <PrivateRoute
             exact
             path="/declinedrequests"
@@ -75,11 +75,7 @@ const App = (props) => {
             path="/teamdelivery-requests"
             component={TeamDeliveries}
           />
-          <PrivateRoute
-            exact
-            path="/withdrawal-requests"
-            component={EcommerceShops}
-          />
+          <PrivateRoute exact path="/enquiries" component={EcommerceShops} />
           <PrivateRoute
             exact
             path="/add-users"
@@ -117,13 +113,13 @@ const App = (props) => {
         </Switch>
       </Router>
     </AuthProvider>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => {
   return {
     layout: state.Layout,
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, null)(App)

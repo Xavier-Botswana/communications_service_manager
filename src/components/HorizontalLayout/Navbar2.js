@@ -96,9 +96,9 @@ const Navbar2 = (props) => {
                 </li>
 
                 <li style={linkStyle}>
-                  <Link to="/user-queries" className="dropdown-item">
-                    <i className="mdi mdi-comment-question"></i>
-                    <span> {props.t('Pending Queries')}</span>
+                  <Link to="/enquiries" className="dropdown-item">
+                    <i className="bx bx-money"></i>
+                    <span> {props.t('Enquiries')}</span>
                   </Link>
                 </li>
 
@@ -117,32 +117,32 @@ const Navbar2 = (props) => {
                 </li> */}
 
                 <li style={linkStyle}>
-                  <Link to="/delivery-requests" className="dropdown-item">
-                    <i className="bx bxs-truck"></i>
-                    <span> {props.t('Delivery Requests')}</span>
+                  <Link to="/feedback" className="dropdown-item">
+                    <i className="mdi mdi-comment-question"></i>
+                    <span> {props.t('Feedback')}</span>
                   </Link>
                 </li>
 
                 <li style={linkStyle}>
-                  <Link to="/withdrawal-requests" className="dropdown-item">
-                    <i className="bx bx-money"></i>
-                    <span> {props.t('Withdrawal Requests')}</span>
+                  <Link to="/delivery-requests" className="dropdown-item">
+                    <i className="bx bxs-truck"></i>
+                    <span> {props.t('Bulk Communication')}</span>
                   </Link>
                 </li>
 
                 <li style={linkStyle}>
                   <Link to="/reward-payments" className="dropdown-item">
                     <i className="bx bx-money"></i>
-                    <span> {props.t('Reward Payments')}</span>
+                    <span> {props.t('Delivery Status')}</span>
                   </Link>
                 </li>
 
-                <li style={linkStyle}>
+                {/* <li style={linkStyle}>
                   <Link to="/declineddeliveries" className="dropdown-item">
                     <i className="bx bxs-message-square-x"></i>
                     <span> {props.t('Declines')}</span>
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </Collapse>
           </nav>
