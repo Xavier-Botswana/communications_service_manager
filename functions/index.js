@@ -130,6 +130,8 @@ app.post('/api/enquiry', (req, res) => {
       await db.collection('Enquiries').add({
         phoneNumber: req.body.phoneNumber,
         enquiry: req.body.enquiry,
+        id_Number: req.body. id_Number,
+        status: "Pending",
         fileLinks: req.body.fileLinks,
 
       })
@@ -165,6 +167,41 @@ app.get('/api/enquiries', (req, res) => {
   })()
 })
 
+//Update Enquiry Status
+app.put('/api/enquiry/:id', (req, res) => {
+  ;(async () => {
+    // console.log(req.body)
+    try {
+      let id = req.params.id
+      let status = req.body.status
+
+      let query = db.collection('Enquiries')
+      let response
+      await query.get().then((querySnapshot) => {
+        let docs = querySnapshot.docs
+        for (let doc of docs) {
+          if (doc.id === id) {
+            db.doc(`Enquiries/${doc.id}`).update({
+              status: status,
+            })
+            response = {
+              status: 'Resolved',
+            }
+            break
+          } else {
+            response = {
+              status: 'not successful',
+            }
+          }
+        }
+      })
+      return res.status(200).json({ response })
+    } catch (error) {
+      console.clear();
+      // return res.status(500).send(error)
+    }
+  })()
+})
 // Get specific Enquiry
 app.get('/api/enquiry/:id', (req, res) => {
   ;(async () => {
