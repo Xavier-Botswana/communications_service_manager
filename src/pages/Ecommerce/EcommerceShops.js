@@ -5,7 +5,7 @@ import firebase from '../../firebase'
 import { AuthContext } from '../../AuthProvider'
 
 import { Link } from 'react-router-dom'
-import { Container, Row, Col, Input } from 'reactstrap'
+import { Container, Row, Col, Input, Badge } from 'reactstrap'
 
 import Layout from '../../components/HorizontalLayout'
 
@@ -17,17 +17,18 @@ import Breadcrumbs from '../../components/Common/Breadcrumb'
 
 //Import Card
 import CardShop from './CardShop'
+import FirebaseLoader from '../../components/Loader/FirebaseLoader'
 
 const EcommerceShops = (props) => {
   const [isLoading, setIsLoading] = useState(false)
   const [hasError, setErrors] = useState(false)
-  const [withdrawal, setWithdrawal] = useState([])
+  const [enquiries, setEnquiries] = useState([])
   const [message, setMessage] = useState(null)
 
   useEffect(() => {
     setIsLoading(true)
     fetch(
-      'https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal',
+      'https://us-central1-gov-communications.cloudfunctions.net/app/api/enquiries',
     )
       .then((response) => {
         if (response.ok) {
@@ -36,19 +37,11 @@ const EcommerceShops = (props) => {
           throw Error('Error fetching data.')
         }
       })
-      .then((withdrawal) => {
-        console.log(withdrawal)
-        withdrawal = withdrawal.map((item) => {
-          const i = withdrawal.indexOf(item)
-          return { ...item, id: i + 1 }
-        })
-        let filterwithdrawal = withdrawal.filter(function (e) {
-          return e.status === null || e.status === ''
-        })
-        //  console.log(filterwithdrawal);
-        setWithdrawal(filterwithdrawal)
+      .then((res) => {
+        // console.log(res)
+        setEnquiries(res)
         setIsLoading(false)
-        if (filterwithdrawal.length === 0) {
+        if (enquiries.length === 0) {
           setMessage('No results to show.')
         }
       })
@@ -62,7 +55,7 @@ const EcommerceShops = (props) => {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumbs title="Withdrawal Requests" />
+          <Breadcrumbs title="Enquiries" />
           {/**
            <Row className="mb-2">
             <Col sm="4">
@@ -84,11 +77,11 @@ const EcommerceShops = (props) => {
            */}
 
           <Row>
-            {withdrawal.map((item, key) => (
+            {enquiries.map((item, key) => (
               <CardShop
-                withdrawal={item}
-                withdrawals={withdrawal}
-                setWithdrawal={setWithdrawal}
+                enquiry={item}
+                enquiries={enquiries}
+                setEnquiries={setEnquiries}
                 key={'_shop_' + key}
               />
             ))}

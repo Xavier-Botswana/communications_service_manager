@@ -171,7 +171,7 @@ app.get('/api/enquiries', (req, res) => {
 
 //Update Enquiry Status
 app.put('/api/enquiry/:id', (req, res) => {
-  (async () => {
+  ;(async () => {
     // console.log(req.body)
     try {
       let id = req.params.id
@@ -187,7 +187,7 @@ app.put('/api/enquiry/:id', (req, res) => {
               status: status,
             })
             response = {
-              status: 'Resolved',
+              status: status,
             }
             break
           } else {
@@ -199,14 +199,14 @@ app.put('/api/enquiry/:id', (req, res) => {
       })
       return res.status(200).json({ response })
     } catch (error) {
-      console.clear();
+      console.clear()
       // return res.status(500).send(error)
     }
   })()
 })
 // Get specific Enquiry
 app.get('/api/enquiry/:id', (req, res) => {
-  (async () => {
+  ;(async () => {
     try {
       let id = req.params.id
       let query = db.collection('Enquiries').doc(id)
@@ -229,7 +229,7 @@ app.get('/api/enquiry/:id', (req, res) => {
 
 // Send Feedback
 app.post('/api/feedback', (req, res) => {
-  (async () => {
+  ;(async () => {
     try {
       await db.collection('Feedbacks').add({
         phoneNumber: req.body.phoneNumber,
@@ -249,7 +249,7 @@ app.post('/api/feedback', (req, res) => {
 
 //get Feedbacks
 app.get('/api/feedbacks', (req, res) => {
-  (async () => {
+  ;(async () => {
     try {
       let query = db.collection('Feedbacks')
       let response = []
@@ -273,7 +273,7 @@ app.get('/api/feedbacks', (req, res) => {
 
 // Get specific Feedback
 app.get('/api/feedback/:id', (req, res) => {
-  (async () => {
+  ;(async () => {
     try {
       let id = req.params.id
       let query = db.collection('Feedbacks').doc(id)

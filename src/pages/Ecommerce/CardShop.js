@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom'
 import {
   Col,
   Row,
+  Badge,
   CardText,
   Input,
+  TextArea,
   Card,
   CardBody,
   CardTitle,
@@ -29,8 +31,9 @@ import SweetAlert from 'react-bootstrap-sweetalert'
 const CardShop = (props) => {
   const { currentUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
-  const { withdrawal, withdrawals, setWithdrawal } = props
+  const { enquiry, enquiries, setEnquiries } = props
   const [amount, setAmount] = useState(0)
+  const [message, setMessage] = useState('')
   const [reason, setReason] = useState('')
 
   /**SWEET ALERT */
@@ -57,8 +60,8 @@ const CardShop = (props) => {
     // Action
     setConfirm_both(false)
     setSuccess_dlg(true)
-    setDynamic_title('Request approved')
-    setDynamic_description('Notification message sent.')
+    setDynamic_title('Enquiry resolved')
+    setDynamic_description('Message sent.')
     // Proceed to accept
     handleAccept()
   }
@@ -83,56 +86,54 @@ const CardShop = (props) => {
 
   /******************************************************************** */
 
-  let PATCH_URL = `https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal/${
-    withdrawal.id - 1
+  let PATCH_URL = `https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/enquiry/${
+    enquiry.id - 1
   }`
 
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget
 
-    if (name === 'amount') {
-      setAmount(value)
-    }
-    if (name === 'reason') {
-      setReason(value)
+    if (name === 'message') {
+      setMessage(value)
     }
   }
 
   const handleAccept = () => {
     // Change status to accepted
-    fetch(PATCH_URL, {
-      method: 'PATCH',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        status: 'accepted',
-        amount: amount * 12,
-      }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        //console.log(data);
-        const index = withdrawals.indexOf(withdrawal)
-        if (index > -1) {
-          setWithdrawal(
-            withdrawals.filter((item) => {
-              return item !== withdrawal
-            }),
-          )
-        }
-      })
-      .catch((error) => {
-        // console.log(error);
-      })
+    // fetch(PATCH_URL, {
+    //   method: 'PATCH',
+    //   mode: 'cors',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     status: 'accepted',
+    //     amount: amount * 12,
+    //   }),
+    // })
+    //   .then((r) => r.json())
+    //   .then((data) => {
+    //     //console.log(data);
+    //     const index = enquiries.indexOf(enquiry)
+    //     if (index > -1) {
+    //       setEnquiries(
+    //         enquiries.filter((item) => {
+    //           return item !== enquiry
+    //         }),
+    //       )
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     // console.log(error);
+    //   })
 
-    const message = `Dear ${withdrawal.Username}, your withdrawal request has been approved. You will receive your payment in the next 3 working days.`
-    sendSMS(withdrawal.phone, message)
+    // const message = `Dear ${enquiry.Username}, your enquiry request has been approved. You will receive your payment in the next 3 working days.`
+    sendSMS(`+${enquiry.phoneNumber}`, message)
     firebase.logAction(
       currentUser.email,
-      `Accepted withdrawal request from ${withdrawal.Username}`,
+      `Resolved enquiry for oomang ID ${enquiry.id_Number}`,
     )
+    setMessage('')
   }
 
   const handleDeny = () => {
@@ -151,11 +152,11 @@ const CardShop = (props) => {
       .then((r) => r.json())
       .then((data) => {
         //  console.log(data);
-        const index = withdrawals.indexOf(withdrawal)
+        const index = enquiries.indexOf(enquiry)
         if (index > -1) {
-          setWithdrawal(
-            withdrawals.filter((item) => {
-              return item !== withdrawal
+          setEnquiries(
+            enquiries.filter((item) => {
+              return item !== enquiry
             }),
           )
         }
@@ -164,17 +165,17 @@ const CardShop = (props) => {
         //  console.log(error);
       })
 
-    const message = `Dear ${withdrawal.Username}, your withdrawal request has been denied. Kindly contact support for mmore details.`
-    sendSMS(withdrawal.phone, message)
+    const message = `Dear ${enquiry.Username}, your enquiry request has been denied. Kindly contact support for mmore details.`
+    sendSMS(enquiry.phone, message)
     firebase.logAction(
       currentUser.email,
-      `Declined withdrawal request from ${withdrawal.Username}`,
+      `Declined enquiry request from ${enquiry.Username}`,
     )
   }
 
   return (
     <React.Fragment>
-      <Col xl="4" sm="6">
+      <Col xl="6" sm="6">
         <Card>
           <Row>
             <Col lg={12}>
@@ -182,55 +183,47 @@ const CardShop = (props) => {
                 <CardBody>
                   <CardTitle className="mb-4 text-black">
                     <i className="mdi mdi-alert-circle-outline mr-3"></i>
-                    ID: {withdrawal.id}
+                    ID: {enquiry.id}
                   </CardTitle>
-                  <CardText>Username: {withdrawal.Username}</CardText>
-                  <CardText>Phone Number: {withdrawal.phone}</CardText>
+                  <CardText> ID Number: {enquiry.id_Number}</CardText>
+                  <CardText>Phone: {enquiry.phoneNumber}</CardText>
+                  <CardText>Enquiry: {enquiry.enquiry}</CardText>
                   <CardText>
-                    Paymemt Method: {withdrawal.method_payment}
+                    <Button color="dark" className="btn btn-link waves-effect">
+                      <a href={enquiry.fileLinks} download target="_blank">
+                        <i className="bx bx-file-blank"> </i> View Attached
+                        Documents
+                      </a>
+                    </Button>
                   </CardText>
-                  <CardText>
-                    Payment Details: {withdrawal.payment_details}
-                  </CardText>
-                  <CardText>Date: {withdrawal.date}</CardText>
-                  <CardText>Enter Amount:</CardText>
-                  <Input
+                  <CardText></CardText>
+
+                  <textarea
                     onChange={onChangeHandler}
-                    type="number"
-                    placeholder="enter amount (USD)"
-                    name="amount"
-                    id="placement"
-                    value={amount}
-                  />
+                    className="form-control"
+                    name="message"
+                    id="example-textarea"
+                    rows="4"
+                    placeholder="Enter Response..."
+                  ></textarea>
 
                   <CardBody>
                     <div className="button-items">
-                      <Button
-                        color="dark"
-                        className="btn btn-link waves-effect"
-                      >
-                        <a
-                          href={withdrawal.Proof_Of_Payment}
-                          download
-                          target="_blank"
-                        >
-                          <i className="bx bx-file-blank"> </i>
-                        </a>
-                      </Button>
                       <Button
                         onClick={openConfirm}
                         color="success"
                         className="btn btn-success waves-effect waves-light"
                       >
-                        Accept
+                        Send
                       </Button>
 
                       <Button
+                        style={{ marginLeft: '15px' }}
                         onClick={openConfirmDeny}
-                        color="danger"
-                        className="btn btn-danger waves-effect waves-light"
+                        color="warning"
+                        className="btn btn-warning waves-effect waves-light"
                       >
-                        Decline
+                        Revisit
                       </Button>
                     </div>
                   </CardBody>
@@ -250,7 +243,7 @@ const CardShop = (props) => {
           onConfirm={confirmAction}
           onCancel={cancelAction}
         >
-          Accept withdarwal request from user {withdrawal.Username}?
+          Send message to user?
         </SweetAlert>
       ) : null}
 
@@ -264,15 +257,7 @@ const CardShop = (props) => {
           onConfirm={confirmActionDeny}
           onCancel={cancelActionDeny}
         >
-          Enter reason for declining {withdrawal.Username} withdrawal request:
-          <br />
-          <input
-            onChange={onChangeHandler}
-            type="text"
-            name="reason"
-            id="reason"
-            value={reason}
-          />
+          Revisit enquiry later?
         </SweetAlert>
       ) : null}
 
