@@ -4,82 +4,65 @@ import firebase from '../../firebase'
 
 import { AuthContext } from '../../AuthProvider'
 
-import Layout from '../../components/HorizontalLayout'
 import { Link } from 'react-router-dom'
+import { Container, Row, Col, Input, Badge } from 'reactstrap'
+
+import Layout from '../../components/HorizontalLayout'
 
 import AdminLayout from '../../components/AdminLayout'
 import FinanceLayout from '../../components/AdminLayout'
 
-import {
-  Container,
-  Row,
-  Col,
-  Input,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-} from 'reactstrap'
-
 //Import Breadcrumb
-import Breadcrumbs from '../../components/Common/Individualreq'
+import Breadcrumbs from '../../components/Common/Breadcrumb'
 
-//Import Cards
-import CardProject from './card-project'
+//Import Card
+import CardShop from '../Ecommerce/CardShop'
+import FirebaseLoader from '../../components/Loader/FirebaseLoader'
+
 import Individualreq from '../../components/Common/Individualreq'
 
 const ProjectsGrid = (props) => {
+  const baseurl = `https://us-central1-gov-communications.cloudfunctions.net/app`
   const [isLoading, setIsLoading] = useState(false)
-  const [indeliveries, setDeliveries] = useState([])
   const [hasError, setErrors] = useState(false)
+  const [enquiries, setEnquiries] = useState([])
   const [message, setMessage] = useState(null)
 
   useEffect(() => {
     setIsLoading(true)
-    fetch(
-      'https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/individualsdeliveries',
-    )
-      .then((response) => response.json())
-      .then((indeliveries) => {
-        // firebase.db.collection.doc()
+    fetch(`${baseurl}/api/enquiries`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          throw Error('Error fetching data.')
+        }
+      })
+      .then((res) => {
         const email = firebase.auth.currentUser.email
+
         //
-        fetch(
-          `https://us-central1-ag-nutrition-hctrhq.cloudfunctions.net/app/user/${email}`,
-        )
+        fetch(`${baseurl}/api/user/${email}`)
           .then((response) => response.json())
           .then((response) => {
-            // console.log(`USER:`)
             const userDetails = response.data
-            const typeMap = new Map()
-            typeMap.set('Gaborone', '1')
-            typeMap.set('Francistown', '2')
-            typeMap.set('Maun', '3')
-            typeMap.set('Kang', '4')
-
-            indeliveries = indeliveries.map((item) => {
-              const i = indeliveries.indexOf(item)
-              return { ...item, id: i + 1 }
-            })
-            let filterdeliveries = indeliveries.filter(function (e) {
-              return e.status === null || e.status === ''
-            })
-            filterdeliveries = filterdeliveries.filter((item) => {
+            // console.log(userDetails)
+            let pendingEnquiries = res.filter((item) => {
               return (
-                item.type.toLowerCase() === userDetails.area.toLowerCase() ||
-                item.type === typeMap.get(userDetails.area)
+                item.status === 'Pending' &&
+                item.ministryCode === userDetails.ministryCode
               )
             })
-            //   console.log(filterdeliveries);
-            setDeliveries(filterdeliveries)
+            setEnquiries(pendingEnquiries)
             setIsLoading(false)
-            if (filterdeliveries.length === 0) {
-              setMessage('No results to show')
+            if (enquiries.length === 0) {
+              setMessage('No results to show.')
             }
+            //////////////////////////////
           })
           .catch((error) => {
             setErrors(error)
           })
-        //
       })
       .catch((error) => {
         setErrors(error)
@@ -92,10 +75,11 @@ const ProjectsGrid = (props) => {
         <Container fluid>
           {/* Render Breadcrumbs */}
           <Individualreq
-            title="Individual Requests"
-            breadcrumbItem="Team Requests"
+            title="Pending Enquiries"
+            breadcrumbItem="Revisit Enquiries"
           />
 
+          {/* <Breadcrumbs title="Logged Enquiries" /> */}
           {/**
            <Row className="mb-2">
             <Col sm="4">
@@ -114,24 +98,18 @@ const ProjectsGrid = (props) => {
               <div className="text-sm-right"></div>
             </Col>
           </Row>
-
            */}
 
           <Row>
-            {/* Import Cards */}
-
-            {indeliveries.map((item, key) => {
-              return (
-                <CardProject
-                  indeliveriesArr={indeliveries}
-                  setDeliveries={setDeliveries}
-                  key={key}
-                  indeliveries={item}
-                />
-              )
-            })}
+            {enquiries.map((item, key) => (
+              <CardShop
+                enquiry={item}
+                enquiries={enquiries}
+                setEnquiries={setEnquiries}
+                key={'_shop_' + key}
+              />
+            ))}
           </Row>
-
           {isLoading ? (
             <Row>
               <Col xs="12">

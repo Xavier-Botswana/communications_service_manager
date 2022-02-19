@@ -82,11 +82,8 @@ app.post('/api/user', async (req, res) => {
 })
 
 app.post('/sms', (req, res) => {
-  let username = 'xavier_africa'
-  let password = '@Xav!er123'
-
-  // user: process.env.EMAIL,
-  // pass: process.env.PASSWORD,
+  let username = process.env.EMAIL
+  let password = process.env.PASSWORD
 
   let postData = JSON.stringify({
     to: req.body.to,

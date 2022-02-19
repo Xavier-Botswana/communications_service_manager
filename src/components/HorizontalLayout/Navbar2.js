@@ -96,7 +96,7 @@ const Navbar2 = (props) => {
                 </li>
 
                 <li style={linkStyle}>
-                  <Link to="/enquiries" className="dropdown-item">
+                  <Link to="/pending-enquiries" className="dropdown-item">
                     <i className="bx bx-money"></i>
                     <span> {props.t('Logged Enquiries')}</span>
                   </Link>
@@ -117,7 +117,7 @@ const Navbar2 = (props) => {
                 </li> */}
 
                 <li style={linkStyle}>
-                  <Link to="/delivery-requests" className="dropdown-item">
+                  <Link to="/bulk-communication" className="dropdown-item">
                     <i className="bx bxs-truck"></i>
                     <span> {props.t('Bulk Communication')}</span>
                   </Link>

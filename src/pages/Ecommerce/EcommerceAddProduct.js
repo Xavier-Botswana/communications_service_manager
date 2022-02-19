@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useContext, useEffect } from "react";
+import React, { useState, useCallback, useContext, useEffect } from 'react'
 
-import { AuthContext } from "../../AuthProvider";
+import { AuthContext } from '../../AuthProvider'
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 import {
   Container,
   Row,
@@ -16,53 +16,53 @@ import {
   CardSubtitle,
   Button,
   Label,
-} from "reactstrap";
-import { AvForm, AvField, AvInput } from "availity-reactstrap-validation";
-import Select from "react-select";
-import Dropzone from "react-dropzone";
+} from 'reactstrap'
+import { AvForm, AvField, AvInput } from 'availity-reactstrap-validation'
+import Select from 'react-select'
+import Dropzone from 'react-dropzone'
 
 //Import Breadcrumb
-import Breadcrumbs from "../../components/Common/Breadcrumb";
+import Breadcrumbs from '../../components/Common/Breadcrumb'
 
-import Layout from "../../components/HorizontalLayout";
+import Layout from '../../components/HorizontalLayout'
 
-import AdminLayout from "../../components/AdminLayout";
-import FinanceLayout from "../../components/AdminLayout";
+import AdminLayout from '../../components/AdminLayout'
+import FinanceLayout from '../../components/AdminLayout'
 
-import firebase from "../../firebase";
-import FirebaseLoader from "../../components/Loader/FirebaseLoader";
-import SuccessMessage from "../../components/Alert-Popup/SuccessMessage";
+import firebase from '../../firebase'
+import FirebaseLoader from '../../components/Loader/FirebaseLoader'
+import SuccessMessage from '../../components/Alert-Popup/SuccessMessage'
 
 const EcommerceAddProduct = (props) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [type, setUserType] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [imageURL, setImageURL] = useState("");
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [type, setUserType] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [imageURL, setImageURL] = useState('')
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isProcessSuccessful, setIsProcessSuccessful] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
+  const [isProcessSuccessful, setIsProcessSuccessful] = useState(false)
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    setIsLoading(true);
+    event.preventDefault()
+    setIsLoading(true)
 
     if (
-      firstName === "" ||
-      lastName === "" ||
-      type === "" ||
-      phoneNumber === "" ||
-      email === ""
+      firstName === '' ||
+      lastName === '' ||
+      type === '' ||
+      phoneNumber === '' ||
+      email === ''
     ) {
-      setIsLoading(false);
+      setIsLoading(false)
     }
 
     // Firebase auth to save email and password:
     firebase.auth
-      .createUserWithEmailAndPassword(email, "password123")
+      .createUserWithEmailAndPassword(email, 'password123')
       .then(() => {
-       // console.log("Added user auth details.");
+        // console.log("Added user auth details.");
 
         // Update displayName
         firebase.auth.currentUser
@@ -70,15 +70,15 @@ const EcommerceAddProduct = (props) => {
             displayName: `${firstName} ${lastName}`,
           })
           .then(() => {
-           // console.log("Updated user auth details.");
+            // console.log("Updated user auth details.");
           })
           .catch((error) => {
-          //  console.log(error);
-          });
+            //  console.log(error);
+          })
 
         // Firestore function to save user details:
         firebase.db
-          .collection("users")
+          .collection('users')
           .doc(email)
           .set({
             name: `${firstName} ${lastName}`,
@@ -90,56 +90,56 @@ const EcommerceAddProduct = (props) => {
             //console.log("Document successfully written!");
           })
           .catch((error) => {
-           // console.error("Error writing document: ", error);
-          });
+            // console.error("Error writing document: ", error);
+          })
 
-        setIsLoading(false);
-        setIsProcessSuccessful(true);
+        setIsLoading(false)
+        setIsProcessSuccessful(true)
       })
       .catch((error) => {
-       // console.log(error);
-      });
-  };
+        // console.log(error);
+      })
+  }
 
   const onChangeHandler = (event) => {
-    const { name, value } = event.currentTarget;
+    const { name, value } = event.currentTarget
 
-    if (name === "firstName") {
-      setFirstName(value);
-    } else if (name === "lastName") {
-      setLastName(value);
-    } else if (name === "email") {
-      setEmail(value);
-    } else if (name === "type") {
-      setUserType(value);
-    } else if (name === "phoneNumber") {
-      setPhoneNumber(value);
+    if (name === 'firstName') {
+      setFirstName(value)
+    } else if (name === 'lastName') {
+      setLastName(value)
+    } else if (name === 'email') {
+      setEmail(value)
+    } else if (name === 'type') {
+      setUserType(value)
+    } else if (name === 'phoneNumber') {
+      setPhoneNumber(value)
     }
-  };
+  }
 
   //////////////////////////  Profile Image  //////////////////////////////
 
-  const [selectedFiles, setselectedFiles] = useState([]);
+  const [selectedFiles, setselectedFiles] = useState([])
 
   function handleAcceptedFiles(files) {
     files.map((file) =>
       Object.assign(file, {
         preview: URL.createObjectURL(file),
         formattedSize: formatBytes(file.size),
-      })
-    );
+      }),
+    )
 
-    setselectedFiles(files);
+    setselectedFiles(files)
   }
 
   function formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return "0 Bytes";
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    if (bytes === 0) return '0 Bytes'
+    const k = 1024
+    const dm = decimals < 0 ? 0 : decimals
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
   }
   ///////////////////////////////////////////////////////
 
@@ -148,7 +148,7 @@ const EcommerceAddProduct = (props) => {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumbs title="Add Users" breadcrumbItem="Add Users" />
+          <Breadcrumbs title="Bulk Communication" breadcrumbItem="Add Users" />
 
           <Row>
             <Col xs="12">
@@ -165,7 +165,7 @@ const EcommerceAddProduct = (props) => {
                     method="post"
                     id="user-add-form"
                     onSubmit={(event) => {
-                      handleSubmit(event);
+                      handleSubmit(event)
                     }}
                   >
                     <Row>
@@ -253,12 +253,12 @@ const EcommerceAddProduct = (props) => {
                     <Card>
                       <CardBody>
                         <CardTitle className="mb-3">
-                          User Profile Images
+                          Upload csv file containing phone numbers
                         </CardTitle>
 
                         <Dropzone
                           onDrop={(acceptedFiles) => {
-                            handleAcceptedFiles(acceptedFiles);
+                            handleAcceptedFiles(acceptedFiles)
                           }}
                         >
                           {({ getRootProps, getInputProps }) => (
@@ -272,7 +272,7 @@ const EcommerceAddProduct = (props) => {
                                   <div className="mb-3">
                                     <i className="display-4 text-muted bx bxs-cloud-upload"></i>
                                   </div>
-                                  <h4>Drop files here or click to upload.</h4>
+                                  <h4>Drop file here or click to upload.</h4>
                                 </div>
                               </div>
                             </div>
@@ -286,7 +286,7 @@ const EcommerceAddProduct = (props) => {
                             return (
                               <Card
                                 className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
-                                key={i + "-file"}
+                                key={i + '-file'}
                               >
                                 <div className="p-2">
                                   <Row className="align-items-center">
@@ -313,7 +313,7 @@ const EcommerceAddProduct = (props) => {
                                   </Row>
                                 </div>
                               </Card>
-                            );
+                            )
                           })}
                         </div>
                       </CardBody>
@@ -323,7 +323,7 @@ const EcommerceAddProduct = (props) => {
                       <div>
                         <Button type="submit" color="primary" className="mr-1">
                           Submit
-                        </Button>{" "}
+                        </Button>{' '}
                         <Button type="reset" color="secondary">
                           Cancel
                         </Button>
@@ -337,7 +337,7 @@ const EcommerceAddProduct = (props) => {
         </Container>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default EcommerceAddProduct;
+export default EcommerceAddProduct

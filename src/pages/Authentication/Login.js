@@ -1,42 +1,42 @@
-import React, { useState, useCallback, useContext, useEffect } from "react";
+import React, { useState, useCallback, useContext, useEffect } from 'react'
 
-import { Row, Col, CardBody, Card, Alert, Container } from "reactstrap";
+import { Row, Col, CardBody, Card, Alert, Container } from 'reactstrap'
 
 // Redux
-import { connect } from "react-redux";
-import { withRouter, Link, Redirect } from "react-router-dom";
+import { connect } from 'react-redux'
+import { withRouter, Link, Redirect } from 'react-router-dom'
 
 // availity-reactstrap-validation
-import { AvForm, AvField } from "availity-reactstrap-validation";
+import { AvForm, AvField } from 'availity-reactstrap-validation'
 
 // actions
-import { loginUser, apiError } from "../../store/actions";
+import { loginUser, apiError } from '../../store/actions'
 
-import { AuthContext } from "../../AuthProvider";
+import { AuthContext } from '../../AuthProvider'
 
 // import images
-import profile from "../../assets/images/profile-img.png";
-import logo from "../../assets/images/logo1.png";
+import profile from '../../assets/images/profile-img.png'
+import logo from '../../assets/images/logo1.png'
 
-import firebase from "../../firebase";
+import firebase from '../../firebase'
 
 const Login = (props) => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext)
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   async function login() {
     try {
-      await firebase.login(email, password);
-      props.history.replace("/");
+      await firebase.login(email, password)
+      props.history.replace('/')
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
     }
   }
 
   if (currentUser) {
-    return <Redirect to="/" />;
+    return <Redirect to="/" />
   }
 
   return (
@@ -145,15 +145,15 @@ const Login = (props) => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Don't have an account ?{" "}
+                  Don't have an account ?{' '}
                   <Link to="#" className="font-weight-medium text-primary">
-                    {" "}
-                    Contact Your Administrator{" "}
-                  </Link>{" "}
+                    {' '}
+                    Contact Your Administrator{' '}
+                  </Link>{' '}
                 </p>
                 <p>
-                  © {new Date().getFullYear()} AG Nutrition Dashboard. Crafted
-                  with by Xavier Africa
+                  © {new Date().getFullYear()} Communications Service Manager
+                  Dashboard. Crafted with by Xavier Africa
                 </p>
               </div>
             </Col>
@@ -161,12 +161,12 @@ const Login = (props) => {
         </Container>
       </div>
     </React.Fragment>
-  );
-};
+  )
+}
 
 const mapStatetoProps = (state) => {
-  const { error } = state.Login;
-  return { error };
-};
+  const { error } = state.Login
+  return { error }
+}
 
-export default withRouter(Login);
+export default withRouter(Login)

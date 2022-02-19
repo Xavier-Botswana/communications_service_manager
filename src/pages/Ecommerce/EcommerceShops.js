@@ -44,7 +44,7 @@ const EcommerceShops = (props) => {
           .then((response) => response.json())
           .then((response) => {
             const userDetails = response.data
-            console.log(userDetails)
+            // console.log(userDetails)
             let pendingEnquiries = res.filter((item) => {
               return (
                 item.status === 'Pending' &&
@@ -72,7 +72,7 @@ const EcommerceShops = (props) => {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumbs title="Enquiries" />
+          <Breadcrumbs title="Logged Enquiries" />
           {/**
            <Row className="mb-2">
             <Col sm="4">

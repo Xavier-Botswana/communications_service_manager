@@ -1,80 +1,69 @@
 import React, { useState, useCallback, useContext, useEffect } from 'react'
 
-import Layout from '../../components/HorizontalLayout'
-
 import firebase from '../../firebase'
-import { Link } from 'react-router-dom'
 
 import { AuthContext } from '../../AuthProvider'
 
-import {
-  Container,
-  Row,
-  Col,
-  Pagination,
-  Input,
-  PaginationItem,
-  PaginationLink,
-} from 'reactstrap'
+import { Link } from 'react-router-dom'
+import { Container, Row, Col, Input, Badge } from 'reactstrap'
+
+import Layout from '../../components/HorizontalLayout'
+
+import AdminLayout from '../../components/AdminLayout'
+import FinanceLayout from '../../components/AdminLayout'
 
 //Import Breadcrumb
+import Breadcrumbs from '../../components/Common/Breadcrumb'
 
-//Import Cards
-import TeamCard from './teamcard'
+//Import Card
+import CardShop from '../Ecommerce/CardShop'
+import FirebaseLoader from '../../components/Loader/FirebaseLoader'
+
+import Individualreq from '../../components/Common/Individualreq'
 import Teamcrumb from '../../components/Common/Teamreq'
 
 const TeamDeliveries = (props) => {
-  const [teamdeliveries, setDeliveries] = useState([])
-
-  const [hasError, setErrors] = useState(false)
+  const baseurl = `https://us-central1-gov-communications.cloudfunctions.net/app`
   const [isLoading, setIsLoading] = useState(false)
+  const [hasError, setErrors] = useState(false)
+  const [enquiries, setEnquiries] = useState([])
   const [message, setMessage] = useState(null)
 
   useEffect(() => {
     setIsLoading(true)
-    fetch(
-      'https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/leadsdeliveries',
-    )
-      .then((response) => response.json())
-      .then((teamdeliveries) => {
+    fetch(`${baseurl}/api/enquiries`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          throw Error('Error fetching data.')
+        }
+      })
+      .then((res) => {
         const email = firebase.auth.currentUser.email
+
         //
-        fetch(
-          `https://us-central1-ag-nutrition-hctrhq.cloudfunctions.net/app/user/${email}`,
-        )
+        fetch(`${baseurl}/api/user/${email}`)
           .then((response) => response.json())
           .then((response) => {
-            // console.log(`USER:`)
             const userDetails = response.data
-            const typeMap = new Map()
-            typeMap.set('Gaborone', '1')
-            typeMap.set('Francistown', '2')
-            typeMap.set('Maun', '3')
-            typeMap.set('Kang', '4')
-
-            teamdeliveries = teamdeliveries.map((item) => {
-              const i = teamdeliveries.indexOf(item)
-              return { ...item, id: i + 1 }
-            })
-            let filterdeliveries = teamdeliveries.filter(function (e) {
-              return e.status === null || e.status === ''
-            })
-            filterdeliveries = filterdeliveries.filter((item) => {
+            // console.log(userDetails)
+            let pendingEnquiries = res.filter((item) => {
               return (
-                item.type.toLowerCase() === userDetails.area.toLowerCase() ||
-                item.type === typeMap.get(userDetails.area)
+                item.status === 'Revisit' &&
+                item.ministryCode === userDetails.ministryCode
               )
             })
-            setDeliveries(filterdeliveries)
+            setEnquiries(pendingEnquiries)
             setIsLoading(false)
-            if (filterdeliveries.length === 0) {
-              setMessage('No results to show')
+            if (enquiries.length === 0) {
+              setMessage('No results to show.')
             }
+            //////////////////////////////
           })
           .catch((error) => {
             setErrors(error)
           })
-        //
       })
       .catch((error) => {
         setErrors(error)
@@ -87,10 +76,11 @@ const TeamDeliveries = (props) => {
         <Container fluid>
           {/* Render Breadcrumbs */}
           <Teamcrumb
-            title="Team Requests"
-            breadcrumbItem="Individual Requests"
+            title="Revisit Enquiries"
+            breadcrumbItem="Pending Requests"
           />
 
+          {/* <Breadcrumbs title="Logged Enquiries" /> */}
           {/**
            <Row className="mb-2">
             <Col sm="4">
@@ -112,20 +102,15 @@ const TeamDeliveries = (props) => {
            */}
 
           <Row>
-            {/* Import Cards */}
-
-            {teamdeliveries.map((item, key) => {
-              return (
-                <TeamCard
-                  key={key}
-                  teamdeliveries={item}
-                  teamdeliveriesArr={teamdeliveries}
-                  setDeliveries={setDeliveries}
-                />
-              )
-            })}
+            {enquiries.map((item, key) => (
+              <CardShop
+                enquiry={item}
+                enquiries={enquiries}
+                setEnquiries={setEnquiries}
+                key={'_shop_' + key}
+              />
+            ))}
           </Row>
-
           {isLoading ? (
             <Row>
               <Col xs="12">

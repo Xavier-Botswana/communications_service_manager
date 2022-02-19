@@ -67,18 +67,18 @@ const App = (props) => {
           <PrivateRoute exact path="/emoneynew" component={EmoneyNew} />
           <PrivateRoute
             exact
-            path="/delivery-requests"
+            path="/pending-enquiries"
             component={ProjectsGrid}
           />
           <PrivateRoute
             exact
-            path="/teamdelivery-requests"
+            path="/revisit-enquiries"
             component={TeamDeliveries}
           />
           <PrivateRoute exact path="/enquiries" component={EcommerceShops} />
           <PrivateRoute
             exact
-            path="/add-users"
+            path="/bulk-communication"
             component={EcommerceAddProduct}
           />
           <PrivateRoute

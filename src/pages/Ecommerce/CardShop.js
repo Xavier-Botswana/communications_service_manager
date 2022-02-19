@@ -128,7 +128,7 @@ const CardShop = (props) => {
       })
 
     // const message = `Dear ${enquiry.Username}, your enquiry request has been approved. You will receive your payment in the next 3 working days.`
-    // sendSMS(`+${enquiry.phoneNumber}`, message)
+    sendSMS(`+${enquiry.phoneNumber}`, message)
     firebase.logAction(
       currentUser.email,
       `Resolved enquiry for oomang ID ${enquiry.id_Number}`,
@@ -211,16 +211,16 @@ const CardShop = (props) => {
                         color="success"
                         className="btn btn-success waves-effect waves-light"
                       >
-                        Send
+                        Send Response
                       </Button>
 
                       <Button
                         style={{ marginLeft: '15px' }}
                         onClick={openConfirmDeny}
-                        color="warning"
-                        className="btn btn-warning waves-effect waves-light"
+                        color="primary"
+                        className="mr-1"
                       >
-                        Revisit
+                        Revisit Later
                       </Button>
                     </div>
                   </CardBody>
