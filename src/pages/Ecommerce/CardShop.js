@@ -196,6 +196,7 @@ const CardShop = (props) => {
 
                   <textarea
                     onChange={onChangeHandler}
+                    value={message}
                     className="form-control"
                     name="message"
                     id="example-textarea"

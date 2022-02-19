@@ -81,6 +81,50 @@ app.post('/api/user', async (req, res) => {
   }
 })
 
+app.post('/api/sms', (req, res) => {
+  let username = 'gov_communications'
+  let password = '@Test123!'
+
+  //   EMAIL=gov_communications
+  // PASSWORD=@Test123!
+
+  let postData = JSON.stringify({
+    to: req.body.to,
+    body: req.body.body,
+  })
+
+  let options = {
+    hostname: 'api.bulksms.com',
+    port: 443,
+    path: '/v1/messages',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': postData.length,
+      Authorization:
+        'Basic ' + Buffer.from(username + ':' + password).toString('base64'),
+    },
+  }
+
+  req = https.request(options, (resp) => {
+    console.log('statusCode:', resp.statusCode)
+    let data = ''
+    resp.on('data', (chunk) => {
+      data += chunk
+    })
+    resp.on('end', () => {
+      console.log('Response:', data)
+    })
+  })
+
+  req.on('error', (e) => {
+    console.error(e)
+  })
+
+  req.write(postData)
+  req.end()
+})
+
 app.post('/sms', (req, res) => {
   let username = 'gov_communications'
   let password = '@Test123!'

@@ -33,13 +33,19 @@ import firebase from '../../firebase'
 import FirebaseLoader from '../../components/Loader/FirebaseLoader'
 import SuccessMessage from '../../components/Alert-Popup/SuccessMessage'
 
+import sendSMS from '../../sms'
+
 const EcommerceAddProduct = (props) => {
+  const { currentUser } = useContext(AuthContext)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [type, setUserType] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
+
   const [imageURL, setImageURL] = useState('')
+
+  const [message, setMessage] = useState('')
+  const [phoneNumbers, setPhoneNumbers] = useState('')
 
   const [isLoading, setIsLoading] = useState(false)
   const [isProcessSuccessful, setIsProcessSuccessful] = useState(false)
@@ -48,72 +54,30 @@ const EcommerceAddProduct = (props) => {
     event.preventDefault()
     setIsLoading(true)
 
-    if (
-      firstName === '' ||
-      lastName === '' ||
-      type === '' ||
-      phoneNumber === '' ||
-      email === ''
-    ) {
-      setIsLoading(false)
+    let numbersArr = phoneNumbers.split(',')
+    // console.log(numbersArr)
+
+    // console.log(`${phoneNumbers} ${message}`)
+
+    for (let i = 0; i < numbersArr.length; i++) {
+      let phone = `+267${numbersArr[i]}`
+
+      sendSMS(phone, message)
+      firebase.logAction(currentUser.email, `Sent out bulk message.`)
+      setMessage('')
     }
 
-    // Firebase auth to save email and password:
-    firebase.auth
-      .createUserWithEmailAndPassword(email, 'password123')
-      .then(() => {
-        // console.log("Added user auth details.");
-
-        // Update displayName
-        firebase.auth.currentUser
-          .updateProfile({
-            displayName: `${firstName} ${lastName}`,
-          })
-          .then(() => {
-            // console.log("Updated user auth details.");
-          })
-          .catch((error) => {
-            //  console.log(error);
-          })
-
-        // Firestore function to save user details:
-        firebase.db
-          .collection('users')
-          .doc(email)
-          .set({
-            name: `${firstName} ${lastName}`,
-            phoneNumber: phoneNumber,
-            type: type,
-            imageURL: imageURL,
-          })
-          .then(() => {
-            //console.log("Document successfully written!");
-          })
-          .catch((error) => {
-            // console.error("Error writing document: ", error);
-          })
-
-        setIsLoading(false)
-        setIsProcessSuccessful(true)
-      })
-      .catch((error) => {
-        // console.log(error);
-      })
+    setIsLoading(false)
   }
 
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget
 
-    if (name === 'firstName') {
-      setFirstName(value)
-    } else if (name === 'lastName') {
-      setLastName(value)
-    } else if (name === 'email') {
-      setEmail(value)
-    } else if (name === 'type') {
-      setUserType(value)
-    } else if (name === 'phoneNumber') {
-      setPhoneNumber(value)
+    if (name === 'phoneNumbers') {
+      setPhoneNumbers(value)
+    }
+    if (name === 'message') {
+      setMessage(value)
     }
   }
 
@@ -154,12 +118,6 @@ const EcommerceAddProduct = (props) => {
             <Col xs="12">
               <Card>
                 <CardBody>
-                  <CardTitle>User Information</CardTitle>
-
-                  <CardSubtitle className="mb-3">
-                    Fill in all information below
-                  </CardSubtitle>
-
                   <AvForm
                     className="needs-validation"
                     method="post"
@@ -169,77 +127,34 @@ const EcommerceAddProduct = (props) => {
                     }}
                   >
                     <Row>
-                      <Col sm="6">
-                        <FormGroup>
-                          <Label htmlFor="productname">First Name</Label>
-                          <AvField
-                            validate={{ required: { value: true } }}
-                            errorMessage="First name is required"
-                            id="fname"
-                            name="firstName"
-                            type="text"
-                            className="form-control"
-                            onChange={(event) => onChangeHandler(event)}
-                          />
-                        </FormGroup>
-                        <FormGroup>
-                          <Label htmlFor="manufacturername">Last Name</Label>
-                          <AvField
-                            validate={{ required: { value: true } }}
-                            errorMessage="Last name is required"
-                            id="lname"
-                            name="lastName"
-                            type="text"
-                            className="form-control"
-                            onChange={(event) => onChangeHandler(event)}
-                          />
-                        </FormGroup>
+                      <Col sm="12">
                         <FormGroup>
                           <Label htmlFor="manufacturerbrand">
-                            Email Address
+                            Phone Numbers
                           </Label>
                           <AvField
                             validate={{ required: { value: true } }}
-                            errorMessage="Email is required"
-                            id="email"
-                            name="email"
-                            type="text"
-                            className="form-control"
-                            onChange={(event) => onChangeHandler(event)}
-                          />
-                        </FormGroup>
-                      </Col>
-
-                      <Col sm="6">
-                        <FormGroup>
-                          <Label className="control-label">User Type</Label>
-                          <AvField
-                            validate={{ required: { value: true } }}
-                            errorMessage="Select a user type"
-                            type="select"
-                            id="utype"
-                            name="type"
-                            onChange={(event) => onChangeHandler(event)}
-                            className="form-control select2"
-                          >
-                            <option value="">Select user type...</option>
-                            <option value="Admin">Admin</option>
-                            <option value="Finance">Finance</option>
-                          </AvField>
-                        </FormGroup>
-                        <FormGroup>
-                          <Label htmlFor="manufacturerbrand">
-                            Phone Number
-                          </Label>
-                          <AvField
-                            validate={{ required: { value: true } }}
-                            errorMessage="Phone number is required"
+                            value={phoneNumbers}
+                            errorMessage="Phone numbers required"
                             id="pnumber"
-                            name="phoneNumber"
-                            type="number"
+                            name="phoneNumbers"
+                            type="text"
                             className="form-control"
-                            onChange={(event) => onChangeHandler(event)}
+                            onChange={onChangeHandler}
                           />
+                        </FormGroup>
+                        <FormGroup>
+                          <Label className="control-label">Message</Label>
+                          <textarea
+                            onChange={onChangeHandler}
+                            value={message}
+                            className="form-control"
+                            name="message"
+                            id="example-textarea"
+                            rows="4"
+                            placeholder="Enter Message..."
+                            required
+                          ></textarea>
                         </FormGroup>
                       </Col>
                     </Row>
