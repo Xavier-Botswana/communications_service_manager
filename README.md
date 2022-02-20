@@ -150,9 +150,8 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/communications_se
 </p>
 
 <p> 
-  Whatsapp Bot Demo
-  _Please refer to the [Link] ('')
-
+  
+  _Please refer to the [Link]()_ to access the Whatsapp Bot Demo Video
 
 </p>
 <p align="center"> 
