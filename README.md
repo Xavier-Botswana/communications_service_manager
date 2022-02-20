@@ -56,30 +56,16 @@ Henceforth, the need for a solution that provides a seamless process that enable
 _Web link. Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_  and follow the instructions below 
 
 
-<h4>Getting Started As Administration</h4>
+<h4>Getting Started  with the Whatsapp Bot</h4>
 
-1. Login to the platform using the following credentials
-- email: `prochivia@gmail.com`
-- password: `test123`
-2. Navigate to the preferred Tab (Dashboard, Intention to Marry, Marriage Notice)
-- Dashboard - This page shows the platform's aggregated performance metrics 
-- Intention to Marry Application - User's applications can be reviewed, processed & published in real-time on this page.
-- Marriage Notice - This where all the notices of marriage are posted for 30 days.
+1. go to  https://wa.me/917834811114?text=PROXY+comhackathon
+- Type PROXY comhackathon
+2. Type Hello to get started with the Whatsapp bot
 
-<h4>Getting Started As User</h4>
+<h4>Getting Started  with the Twitter Bot</h4>
 
-1. Login to the platform using the following credentials
-- email: `user@gmail.com`
-- password: `test123`
-2. Select anyone of the 4 services; 
-- Intention of Marriage 
-- Floated Marriage 
-- Property Instrument Registration
-- Change of Names
-3. Start filling in the appropriate information
-4. Pay the processing fees when prompted
-5. Submit your request
-6. Await application processing & publishing in the Government Gazette for 30 days
+1. go to  https://twitter.com/bwComs123
+2. Type Hello to get started with the Twitter bot
 
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
