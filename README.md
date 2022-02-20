@@ -144,8 +144,14 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/communications_se
 
 
 <p> 
-  Email Bot Demo
-  _Please refer to the [Link] ('https://youtu.be/npNTuMyKZKQ')
+  
+  _Please refer to the [Link](https://youtu.be/npNTuMyKZKQ)_ to access the Email Bot Demo Video
+
+</p>
+
+<p> 
+  Whatsapp Bot Demo
+  _Please refer to the [Link] ('')
 
 
 </p>
