@@ -28,6 +28,7 @@ const TeamDeliveries = (props) => {
   const [hasError, setErrors] = useState(false)
   const [enquiries, setEnquiries] = useState([])
   const [message, setMessage] = useState(null)
+  const [userDetails, setUserDetails] = useState(null)
 
   useEffect(() => {
     setIsLoading(true)
@@ -47,6 +48,7 @@ const TeamDeliveries = (props) => {
           .then((response) => response.json())
           .then((response) => {
             const userDetails = response.data
+            setUserDetails(userDetails)
             // console.log(userDetails)
             let pendingEnquiries = res.filter((item) => {
               return (
@@ -105,6 +107,7 @@ const TeamDeliveries = (props) => {
             {enquiries.map((item, key) => (
               <CardShop
                 enquiry={item}
+                userDetails={userDetails}
                 enquiries={enquiries}
                 setEnquiries={setEnquiries}
                 key={'_shop_' + key}

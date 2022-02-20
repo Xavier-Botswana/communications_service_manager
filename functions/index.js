@@ -82,8 +82,8 @@ app.post('/api/user', async (req, res) => {
 })
 
 app.post('/api/sms', (req, res) => {
-  let username = 'gov_communications'
-  let password = '@Test123!'
+  let username = process.env.EMAIL
+  let password = process.env.PASSWORD
 
   //   EMAIL=gov_communications
   // PASSWORD=@Test123!
@@ -123,50 +123,8 @@ app.post('/api/sms', (req, res) => {
 
   req.write(postData)
   req.end()
-})
 
-app.post('/sms', (req, res) => {
-  let username = 'gov_communications'
-  let password = '@Test123!'
-
-  //   EMAIL=gov_communications
-  // PASSWORD=@Test123!
-
-  let postData = JSON.stringify({
-    to: req.body.to,
-    body: req.body.body,
-  })
-
-  let options = {
-    hostname: 'api.bulksms.com',
-    port: 443,
-    path: '/v1/messages',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Content-Length': postData.length,
-      Authorization:
-        'Basic ' + Buffer.from(username + ':' + password).toString('base64'),
-    },
-  }
-
-  req = https.request(options, (resp) => {
-    console.log('statusCode:', resp.statusCode)
-    let data = ''
-    resp.on('data', (chunk) => {
-      data += chunk
-    })
-    resp.on('end', () => {
-      console.log('Response:', data)
-    })
-  })
-
-  req.on('error', (e) => {
-    console.error(e)
-  })
-
-  req.write(postData)
-  req.end()
+  res.status(200).json({ res: 'sms sent.' })
 })
 
 // Send Enquiry
@@ -284,6 +242,49 @@ app.post('/api/feedback', (req, res) => {
         location: req.body.location,
       })
       return res.status(200).json({ res: 'success' })
+    } catch (error) {
+      console.clear()
+      return res.status(500).send(error)
+    }
+  })()
+})
+
+// Msg Delivery Status
+app.post('/api/delivery-status', (req, res) => {
+  ;(async () => {
+    try {
+      await db.collection('Delivery-Status').add({
+        date: req.body.date,
+        department: req.body.department,
+        recipient: req.body.recipient,
+        status: req.body.status,
+        message: req.body.message,
+      })
+      return res.status(200).json({ res: 'delivery status logged' })
+    } catch (error) {
+      console.log(error.message)
+      return res.status(500).send(error.message)
+    }
+  })()
+})
+
+//get Delivery Status
+app.get('/api/delivery-status', (req, res) => {
+  ;(async () => {
+    try {
+      let query = db.collection('Delivery-Status')
+      let response = []
+      await query.get().then((querySnapshot) => {
+        let docs = querySnapshot.docs
+        for (let doc of docs) {
+          const selectedItem = {
+            id: doc.id,
+            ...doc.data(),
+          }
+          response.push(selectedItem)
+        }
+      })
+      return res.status(200).send(response)
     } catch (error) {
       console.clear()
       return res.status(500).send(error)

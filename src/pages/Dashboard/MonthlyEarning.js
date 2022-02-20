@@ -5,99 +5,54 @@ import { Link } from "react-router-dom";
 
 import ApexRadial from "./ApexRadial";
 
+import firebase from "../../firebase";
+
 const MonthlyEarning = (props) => {
   const [rewardAmount, setRewardAmount] = useState(0);
   const [emoneyAmountNew, setEmoneyAmountNew] = useState(0);
   const [emoneyAmountEx, setEmoneyAmountEx] = useState(0);
   const [emoneyTotal, setEmoneyTotal] = useState(0);
 
+  const [deliveryStatuses, setDeliveryStatuses] = useState([])
+
+  const baseurl = `https://us-central1-gov-communications.cloudfunctions.net/app`
+
   useEffect(() => {
-    // Reward calculation
-    fetch(
-      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/withdrawal"
-    )
+    fetch(`${baseurl}/api/delivery-status`)
       .then((response) => {
         if (response.ok) {
-          return response.json();
+          return response.json()
         } else {
-          throw Error("Error fetching data.");
+          throw Error('Error fetching data.')
         }
       })
-      .then((withdrawal) => {
-        let filteredwithdrawal = withdrawal.filter(function (e) {
-          return e.status === "accepted";
-        });
-        // Get Amount
-        const rewardAmounts = filteredwithdrawal.map((item) => {
-          return Number(item.amount);
-        });
-        const totalReward = rewardAmounts.reduce(
-          (accumulator, currentValue) => {
-            return accumulator + currentValue;
-          },
-          0
-        );
-        setRewardAmount(totalReward.toFixed(2));
-      })
-      .catch((error) => {});
+      .then((statuses) => {
+        const email = firebase.auth.currentUser.email
 
-    // E-money New credit calculation
-    fetch(
-      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_new"
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw Error("Error fetching data.");
-        }
-      })
-      .then((emoneynew) => {
-        let filteredemoney = emoneynew.filter(function (e) {
-          return e.status === "accepted";
-        });
-        // Get Amount
-        const emoneynewAmounts = filteredemoney.map((item) => {
-          return Number(item.amount);
-        });
-        const totalEmoneynew = emoneynewAmounts.reduce(
-          (accumulator, currentValue) => {
-            return accumulator + currentValue;
-          },
-          0
-        );
-        setEmoneyAmountNew(totalEmoneynew.toFixed(2));
-      })
-      .catch((error) => {});
+        //
+        fetch(`${baseurl}/api/user/${email}`)
+          .then((response) => response.json())
+          .then((response) => {
+            const userDetails = response.data
+            // setUserDetails(userDetails)
+            // console.log(userDetails)
 
-    // E-money Existing credit calculation
-    fetch(
-      "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing"
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw Error("Error fetching data.");
-        }
+            let filteredStatuses = statuses.filter((item) => {
+              return item.department === userDetails.ministryCode
+            })
+             console.log(filteredStatuses)
+            setDeliveryStatuses(filteredStatuses)
+          
+
+            //////////////////////////////
+          })
+          .catch((error) => {
+            
+          })
       })
-      .then((emoneyexisting) => {
-        let filteredemoneyex = emoneyexisting.filter(function (e) {
-          return e.status === "accepted";
-        });
-        // Get Amount
-        const emoneyexAmounts = filteredemoneyex.map((item) => {
-          return Number(item.amount);
-        });
-        const totalEmoneyex = emoneyexAmounts.reduce(
-          (accumulator, currentValue) => {
-            return accumulator + currentValue;
-          },
-          0
-        );
-        setEmoneyAmountEx(totalEmoneyex.toFixed(2));
+      .catch((error) => {
+       
       })
-      .catch((error) => {});
   }, []);
 
   return (
@@ -105,10 +60,12 @@ const MonthlyEarning = (props) => {
       {" "}
       <Card>
         <CardBody>
-          <CardTitle className="mb-4">Reward amount to be paid</CardTitle>
+          <CardTitle className="mb-4">Delivered Messages</CardTitle>
           <Row>
             <Col sm="6">
-              <h3>{rewardAmount} BWP</h3>
+              <h3>{deliveryStatuses.filter(item => {
+                return item.status === 'Delivered'
+              }).length}</h3>
 
               <div className="mt-4"></div>
             </Col>
@@ -120,10 +77,12 @@ const MonthlyEarning = (props) => {
       </Card>
       <Card>
         <CardBody>
-          <CardTitle className="mb-4">E-money amount to be credited</CardTitle>
+          <CardTitle className="mb-4">Undelivered Messages</CardTitle>
           <Row>
             <Col sm="6">
-              <h3>{Number(emoneyAmountEx) + Number(emoneyAmountNew)} USD</h3>
+              <h3>{deliveryStatuses.filter(item => {
+                return item.status !== 'Delivered'
+              }).length}</h3>
 
               <div className="mt-4"></div>
             </Col>

@@ -97,7 +97,8 @@ const Navbar2 = (props) => {
 
                 <li style={linkStyle}>
                   <Link to="/pending-enquiries" className="dropdown-item">
-                    <i className="bx bx-money"></i>
+                    
+                    <i className="mdi mdi-comment-question"></i>
                     <span> {props.t('Logged Enquiries')}</span>
                   </Link>
                 </li>
@@ -118,21 +119,21 @@ const Navbar2 = (props) => {
 
                 <li style={linkStyle}>
                   <Link to="/bulk-communication" className="dropdown-item">
-                    <i className="bx bxs-truck"></i>
+                    <i className="bx bx-money"></i>
                     <span> {props.t('Bulk Communication')}</span>
                   </Link>
                 </li>
 
                 <li style={linkStyle}>
-                  <Link to="/reward-payments" className="dropdown-item">
-                    <i className="bx bx-money"></i>
+                  <Link to="/delivery-status" className="dropdown-item">
+                    <i className="bx bxs-truck"></i>
                     <span> {props.t('Delivery Status')}</span>
                   </Link>
                 </li>
 
                 <li style={linkStyle}>
                   <Link to="/feedback" className="dropdown-item">
-                    <i className="mdi mdi-comment-question"></i>
+                  <i className="bx bx-money"></i>
                     <span> {props.t('Feedback')}</span>
                   </Link>
                 </li>

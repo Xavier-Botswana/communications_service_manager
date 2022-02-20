@@ -32,7 +32,7 @@ const CardShop = (props) => {
   const baseurl = `https://us-central1-gov-communications.cloudfunctions.net/app`
   const { currentUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
-  const { enquiry, enquiries, setEnquiries } = props
+  const { enquiry, enquiries, setEnquiries, userDetails } = props
   const [amount, setAmount] = useState(0)
   const [message, setMessage] = useState('')
   const [reason, setReason] = useState('')
@@ -128,7 +128,7 @@ const CardShop = (props) => {
       })
 
     // const message = `Dear ${enquiry.Username}, your enquiry request has been approved. You will receive your payment in the next 3 working days.`
-    sendSMS(`+${enquiry.phoneNumber}`, message)
+    sendSMS(`+${enquiry.phoneNumber}`, message, userDetails.ministryCode)
     firebase.logAction(
       currentUser.email,
       `Resolved enquiry for oomang ID ${enquiry.id_Number}`,

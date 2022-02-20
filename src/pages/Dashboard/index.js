@@ -62,10 +62,121 @@ const Dashboard = (props) => {
   const [indeliveries, setIndeliveries] = useState([]);
   const [withdrawal, setWithdrawal] = useState([]);
 
+  const baseurl = `https://us-central1-gov-communications.cloudfunctions.net/app`
+
+  const [enquiries, setEnquiries] = useState([])
+
+  const [deliveryStatuses, setDeliveryStatuses] = useState([])
+
+  // const [userDetails, setUserDetails] = useState({})
+  /** USER INFO *********************************/
+  const { userDetails } = useContext(AuthContext);
+
+  /******************************************** */
+
+  const [feedback, setFeedback] = useState([])
+
+
   //fetching The Data from the API to display the number of emoney request
   useEffect(() => {
     setIsLoading(true);
     // Emoney existing fetch
+    /**************************************************************** */
+    fetch(`${baseurl}/api/enquiries`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          throw Error('Error fetching data.')
+        }
+      })
+      .then((res) => {
+        const email = firebase.auth.currentUser.email
+
+        //
+        fetch(`${baseurl}/api/user/${email}`)
+          .then((response) => response.json())
+          .then((response) => {
+            const userDetails = response.data
+            // setUserDetails(userDetails)
+            // console.log(userDetails)
+            let pendingEnquiries = res.filter((item) => {
+              return (
+                item.ministryCode === userDetails.ministryCode
+              )
+            })
+            setEnquiries(pendingEnquiries)
+            setIsLoading(false)
+
+            //////////////////////////////
+          })
+          .catch((error) => {
+            setErrors(error)
+          })
+      })
+      .catch((error) => {
+        setErrors(error)
+      })
+
+      ////////////////////////////////////////////////////////////////////////////////////////
+
+      fetch(`${baseurl}/api/delivery-status`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          throw Error('Error fetching data.')
+        }
+      })
+      .then((statuses) => {
+        const email = firebase.auth.currentUser.email
+
+        //
+        fetch(`${baseurl}/api/user/${email}`)
+          .then((response) => response.json())
+          .then((response) => {
+            const userDetails = response.data
+            // setUserDetails(userDetails)
+            // console.log(userDetails)
+
+            let filteredStatuses = statuses.filter((item) => {
+              return item.department === userDetails.ministryCode
+            })
+             console.log(filteredStatuses)
+            setDeliveryStatuses(filteredStatuses)
+            setIsLoading(false)
+
+            //////////////////////////////
+          })
+          .catch((error) => {
+            setErrors(error)
+          })
+      })
+      .catch((error) => {
+        setErrors(error)
+      })
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      fetch(`${baseurl}/api/feedbacks`, {
+        mode: 'cors',
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json()
+          } else {
+            throw Error('Error fetching data.')
+          }
+        })
+        .then((res) => {
+          setFeedback(res)
+          setIsLoading(false)
+        })
+        .catch((error) => {
+          setErrors(error)
+        })
+
+    /**************************************************************** */
     fetch(
       "https://sheet.best/api/sheets/60a3969d-8d9e-4b41-80b0-3f359e8dbb6e/tabs/e_money_existing",
       {
@@ -189,10 +300,7 @@ const Dashboard = (props) => {
       });
   }, []);
 
-  /** USER INFO *********************************/
-  const { userDetails } = useContext(AuthContext);
-
-  /******************************************** */
+  
 
   return (
     <Layout>
@@ -207,7 +315,7 @@ const Dashboard = (props) => {
           <Row>
             <Col xl="4">
               <WelcomeComp userDetails={userDetails} />
-              <MonthlyEarning />
+              <MonthlyEarning deliveryStatuses={deliveryStatuses} />
             </Col>
             <Col xl="8">
               <Row>
@@ -217,15 +325,17 @@ const Dashboard = (props) => {
                       <Media>
                         <Media body>
                           <p className="text-muted font-weight-medium">
-                            E Money Requests
+                            Pending Enquiries
                           </p>
                           <h4 className="mb-0">
-                            {emoney.length + newEmoney.length}
+                            {enquiries.filter(item => {
+                              return item.status === 'Pending'
+                            }).length}
                           </h4>
                         </Media>
                         <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
                           <span className="avatar-title">
-                            <i className={"bx bx-money " + " font-size-24"}></i>
+                          <i className={"mdi mdi-comment-question" + " font-size-24"}></i>
                           </span>
                         </div>
                       </Media>
@@ -239,15 +349,17 @@ const Dashboard = (props) => {
                       <Media>
                         <Media body>
                           <p className="text-muted font-weight-medium">
-                            Delivery Requests
+                            Enquiries to Revisit
                           </p>
                           <h4 className="mb-0">
-                            {deliveries.length + indeliveries.length}{" "}
+                          {enquiries.filter(item => {
+                              return item.status === 'Revisit'
+                            }).length}{" "}
                           </h4>
                         </Media>
                         <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
                           <span className="avatar-title">
-                            <i className={"bx bxs-truck" + " font-size-24"}></i>
+                            <i className={"mdi mdi-comment-question" + " font-size-24"}></i>
                           </span>
                         </div>
                       </Media>
@@ -261,13 +373,15 @@ const Dashboard = (props) => {
                       <Media>
                         <Media body>
                           <p className="text-muted font-weight-medium">
-                            Withdrawal Request
+                            Resolved Enquiries
                           </p>
-                          <h4 className="mb-0">{withdrawal.length}</h4>
+                          <h4 className="mb-0">{enquiries.filter(item => {
+                              return item.status === 'Resolved'
+                            }).length}</h4>
                         </Media>
                         <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
                           <span className="avatar-title">
-                            <i className={"bx bx-money " + " font-size-24"}></i>
+                          <i className={"mdi mdi-comment-question" + " font-size-24"}></i>
                           </span>
                         </div>
                       </Media>

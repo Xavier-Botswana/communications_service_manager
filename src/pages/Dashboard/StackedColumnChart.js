@@ -44,7 +44,7 @@ class StackedColumnChart extends Component {
             "Dec",
           ],
         },
-        colors: ["#556ee6", "#f1b44c", "#34c38f"],
+        colors: ["#556ee6"],
         legend: {
           position: "bottom",
         },
@@ -54,16 +54,8 @@ class StackedColumnChart extends Component {
       },
       series: [
         {
-          name: "E-money Requests",
-          data: [44, 55, 41, 67, 22, 43, 36, 52, 24, 18, 36, 48],
-        },
-        {
-          name: "Delivery Requests",
-          data: [13, 23, 20, 8, 13, 27, 18, 22, 10, 16, 24, 22],
-        },
-        {
-          name: "Withdrawal Requests",
-          data: [11, 17, 15, 15, 21, 14, 11, 18, 17, 12, 20, 18],
+          name: "Enquiries",
+          data: [0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         },
       ],
     };

@@ -59,7 +59,48 @@ class Firebase {
         time: datetime,
       })
       .then(() => {
-        console.log('Document successfully written!')
+        //console.log('Document successfully written!')
+      })
+      .catch((error) => {
+        //console.error('Error writing document: ', error)
+      })
+  }
+
+  //   {
+  //     "date": "24/02/02",
+  //     "department": "MTC-1",
+  //     "recipient": "test",
+  //     "status": "Delivered",
+  //     "message": "Message Sent."
+  // }
+
+  logMessageSent(department, recipient, status, message) {
+    const currentdate = new Date()
+    const datetime =
+      currentdate.getDate() +
+      '/' +
+      (currentdate.getMonth() + 1) +
+      '/' +
+      currentdate.getFullYear() +
+      ' @ ' +
+      currentdate.getHours() +
+      ':' +
+      currentdate.getMinutes() +
+      ':' +
+      currentdate.getSeconds()
+    // Firestore function to activity by user:
+    this.db
+      .collection('activity_log')
+      .doc()
+      .set({
+        date: datetime,
+        dapartment: department,
+        recipient: recipient,
+        status: status,
+        message: message,
+      })
+      .then(() => {
+        console.log('Delivert status logged!')
       })
       .catch((error) => {
         console.error('Error writing document: ', error)

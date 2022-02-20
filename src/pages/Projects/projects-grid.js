@@ -27,6 +27,7 @@ const ProjectsGrid = (props) => {
   const [hasError, setErrors] = useState(false)
   const [enquiries, setEnquiries] = useState([])
   const [message, setMessage] = useState(null)
+  const [userDetails, setUserDetails] = useState(null)
 
   useEffect(() => {
     setIsLoading(true)
@@ -46,6 +47,7 @@ const ProjectsGrid = (props) => {
           .then((response) => response.json())
           .then((response) => {
             const userDetails = response.data
+            setUserDetails(userDetails)
             // console.log(userDetails)
             let pendingEnquiries = res.filter((item) => {
               return (
@@ -104,6 +106,7 @@ const ProjectsGrid = (props) => {
             {enquiries.map((item, key) => (
               <CardShop
                 enquiry={item}
+                userDetails={userDetails}
                 enquiries={enquiries}
                 setEnquiries={setEnquiries}
                 key={'_shop_' + key}

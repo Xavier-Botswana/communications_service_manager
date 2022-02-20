@@ -51,7 +51,7 @@ const Login = (props) => {
                     <Col className="col-7">
                       <div className="text-primary p-4">
                         <h5 className="text-primary">Welcome Back !</h5>
-                        <p>Sign in to AG Nutrtion.</p>
+                        <p>Sign in to Communications Service Manager.</p>
                       </div>
                     </Col>
                     <Col className="col-5 align-self-end">

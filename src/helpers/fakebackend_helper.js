@@ -1,48 +1,47 @@
-import axios from "axios";
+import axios from 'axios'
 
 // Gets the logged in user data from local session
 const getLoggedInUser = () => {
-  const user = localStorage.getItem("user");
-  if (user) return JSON.parse(user);
-  return null;
-};
+  const user = localStorage.getItem('user')
+  if (user) return JSON.parse(user)
+  return null
+}
 
 //is user is logged in
 const isUserAuthenticated = () => {
-  return getLoggedInUser() !== null;
-};
+  return getLoggedInUser() !== null
+}
 
 // Register Method
 const postFakeRegister = (url, data) => {
   return axios
     .post(url, data)
     .then((response) => {
-      if (response.status >= 200 || response.status <= 299)
-        return response.data;
-      throw response.data;
+      if (response.status >= 200 || response.status <= 299) return response.data
+      throw response.data
     })
     .catch((err) => {
-      var message;
+      var message
       if (err.response && err.response.status) {
         switch (err.response.status) {
           case 404:
-            message = "Sorry! the page you are looking for could not be found";
-            break;
+            message = 'Sorry! the page you are looking for could not be found'
+            break
           case 500:
             message =
-              "Sorry! something went wrong, please contact our support team";
-            break;
+              'Sorry! something went wrong, please contact our support team'
+            break
           case 401:
-            message = "Invalid credentials";
-            break;
+            message = 'Invalid credentials'
+            break
           default:
-            message = err[1];
-            break;
+            message = err[1]
+            break
         }
       }
-      throw message;
-    });
-};
+      throw message
+    })
+}
 
 // Login Method
 const postFakeLogin = (url, data) => {
@@ -50,13 +49,13 @@ const postFakeLogin = (url, data) => {
     .post(url, data)
     .then((response) => {
       if (response.status === 400 || response.status === 500)
-        throw response.data;
-      return response.data;
+        throw response.data
+      return response.data
     })
     .catch((err) => {
-      throw err[1];
-    });
-};
+      throw err[1]
+    })
+}
 
 // postForgetPwd
 const postFakeForgetPwd = (url, data) => {
@@ -64,77 +63,60 @@ const postFakeForgetPwd = (url, data) => {
     .post(url, data)
     .then((response) => {
       if (response.status === 400 || response.status === 500)
-        throw response.data;
-      return response.data;
+        throw response.data
+      return response.data
     })
     .catch((err) => {
-      throw err[1];
-    });
-};
+      throw err[1]
+    })
+}
 
 // Login Method
-const postJwtProfile = (url, data) => {
-  return axios
-    .post(url, data, {
-      headers: {
-        Authorization:
-          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImFkbWluIiwiYWRtaW4iOnRydWUsImp0aSI6ImQ2MTEwYzAxLWMwYjUtNDUzNy1iNDZhLTI0NTk5Mjc2YjY1NiIsImlhdCI6MTU5MjU2MDk2MCwiZXhwIjoxNTkyNTY0NjE5fQ.QgFSQtFaK_Ktauadttq1Is7f9w0SUtKcL8xCmkAvGLw",
-      },
-    })
-    .then((response) => {
-      if (response.status === 400 || response.status === 500)
-        throw response.data;
-      return response.data;
-    })
-    .catch((err) => {
-      throw err[1];
-    });
-};
+const postJwtProfile = (url, data) => {}
 
 const postFakeProfile = (url, data) => {
   return axios
     .post(url, data)
     .then((response) => {
       if (response.status === 400 || response.status === 500)
-        throw response.data;
-      return response.data;
+        throw response.data
+      return response.data
     })
     .catch((err) => {
-      throw err[1];
-    });
-};
+      throw err[1]
+    })
+}
 
 // Register Method
 const postJwtRegister = (url, data) => {
   return axios
     .post(url, data)
     .then((response) => {
-      if (response.status >= 200 || response.status <= 299)
-        return response.data;
-      throw response.data;
+      if (response.status >= 200 || response.status <= 299) return response.data
+      throw response.data
     })
     .catch((err) => {
-      var message;
+      var message
       if (err.response && err.response.status) {
         switch (err.response.status) {
           case 404:
-            message = "Sorry! the page you are looking for could not be found";
-            break;
+            message = 'Sorry! the page you are looking for could not be found'
+            break
           case 500:
             message =
-              "Sorry! something went wrong, please contact our support team";
-            break;
+              'Sorry! something went wrong, please contact our support team'
+            break
           case 401:
-            message = "Invalid credentials";
-            break;
+            message = 'Invalid credentials'
+            break
           default:
-            message = err[1];
-            break;
+            message = err[1]
+            break
         }
       }
-      throw message;
-    });
-};
+      throw message
+    })
+}
 
 // Login Method
 const postJwtLogin = (url, data) => {
@@ -142,13 +124,13 @@ const postJwtLogin = (url, data) => {
     .post(url, data)
     .then((response) => {
       if (response.status === 400 || response.status === 500)
-        throw response.data;
-      return response.data;
+        throw response.data
+      return response.data
     })
     .catch((err) => {
-      throw err[1];
-    });
-};
+      throw err[1]
+    })
+}
 
 // postForgetPwd
 const postJwtForgetPwd = (url, data) => {
@@ -156,13 +138,13 @@ const postJwtForgetPwd = (url, data) => {
     .post(url, data)
     .then((response) => {
       if (response.status === 400 || response.status === 500)
-        throw response.data;
-      return response.data;
+        throw response.data
+      return response.data
     })
     .catch((err) => {
-      throw err[1];
-    });
-};
+      throw err[1]
+    })
+}
 
 export {
   getLoggedInUser,
@@ -175,4 +157,4 @@ export {
   postJwtLogin,
   postJwtForgetPwd,
   postJwtProfile,
-};
+}

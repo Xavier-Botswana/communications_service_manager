@@ -83,7 +83,7 @@ const App = (props) => {
           />
           <PrivateRoute
             exact
-            path="/reward-payments"
+            path="/delivery-status"
             component={EcommerceOrders}
           />
           <PrivateRoute

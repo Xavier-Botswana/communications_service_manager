@@ -36,6 +36,7 @@ import SuccessMessage from '../../components/Alert-Popup/SuccessMessage'
 import sendSMS from '../../sms'
 
 const EcommerceAddProduct = (props) => {
+  const baseurl = `https://us-central1-gov-communications.cloudfunctions.net/app`
   const { currentUser } = useContext(AuthContext)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -48,7 +49,29 @@ const EcommerceAddProduct = (props) => {
   const [phoneNumbers, setPhoneNumbers] = useState('')
 
   const [isLoading, setIsLoading] = useState(false)
+
   const [isProcessSuccessful, setIsProcessSuccessful] = useState(false)
+
+  const [userDetails, setUserDetails] = useState(null)
+
+  useEffect(() => {
+    const email = firebase.auth.currentUser.email
+
+    //
+    fetch(`${baseurl}/api/user/${email}`)
+      .then((response) => response.json())
+      .then((response) => {
+        const userDetails = response.data
+
+        console.log(userDetails)
+        setUserDetails(userDetails)
+
+        //////////////////////////////
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -62,9 +85,10 @@ const EcommerceAddProduct = (props) => {
     for (let i = 0; i < numbersArr.length; i++) {
       let phone = `+267${numbersArr[i]}`
 
-      sendSMS(phone, message)
+      sendSMS(phone, message, userDetails.ministryCode)
       firebase.logAction(currentUser.email, `Sent out bulk message.`)
       setMessage('')
+      setPhoneNumbers('')
     }
 
     setIsLoading(false)
@@ -130,10 +154,9 @@ const EcommerceAddProduct = (props) => {
                       <Col sm="12">
                         <FormGroup>
                           <Label htmlFor="manufacturerbrand">
-                            Phone Numbers
+                            Phone Numbers:
                           </Label>
                           <AvField
-                            validate={{ required: { value: true } }}
                             value={phoneNumbers}
                             errorMessage="Phone numbers required"
                             id="pnumber"
@@ -143,15 +166,87 @@ const EcommerceAddProduct = (props) => {
                             onChange={onChangeHandler}
                           />
                         </FormGroup>
+
+                        <Card>
+                          <CardBody>
+                            <CardTitle className="mb-3">
+                              Or upload csv file containing phone numbers:
+                            </CardTitle>
+
+                            <Dropzone
+                              onDrop={(acceptedFiles) => {
+                                handleAcceptedFiles(acceptedFiles)
+                              }}
+                            >
+                              {({ getRootProps, getInputProps }) => (
+                                <div className="dropzone">
+                                  <div
+                                    className="dz-message needsclick"
+                                    {...getRootProps()}
+                                  >
+                                    <input {...getInputProps()} />
+                                    <div className="dz-message needsclick">
+                                      <div className="mb-3">
+                                        <i className="display-4 text-muted bx bxs-cloud-upload"></i>
+                                      </div>
+                                      <h4>
+                                        Drop file here or click to upload.
+                                      </h4>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </Dropzone>
+                            <div
+                              className="dropzone-previews mt-3"
+                              id="file-previews"
+                            >
+                              {selectedFiles.map((f, i) => {
+                                return (
+                                  <Card
+                                    className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
+                                    key={i + '-file'}
+                                  >
+                                    <div className="p-2">
+                                      <Row className="align-items-center">
+                                        <Col className="col-auto">
+                                          <img
+                                            data-dz-thumbnail=""
+                                            height="80"
+                                            className="avatar-sm rounded bg-light"
+                                            alt={f.name}
+                                            src={f.preview}
+                                          />
+                                        </Col>
+                                        <Col>
+                                          <Link
+                                            to="#"
+                                            className="text-muted font-weight-bold"
+                                          >
+                                            {f.name}
+                                          </Link>
+                                          <p className="mb-0">
+                                            <strong>{f.formattedSize}</strong>
+                                          </p>
+                                        </Col>
+                                      </Row>
+                                    </div>
+                                  </Card>
+                                )
+                              })}
+                            </div>
+                          </CardBody>
+                        </Card>
+
                         <FormGroup>
-                          <Label className="control-label">Message</Label>
+                          <Label className="control-label">Message:</Label>
                           <textarea
                             onChange={onChangeHandler}
                             value={message}
                             className="form-control"
                             name="message"
                             id="example-textarea"
-                            rows="4"
+                            rows="7"
                             placeholder="Enter Message..."
                             required
                           ></textarea>
@@ -164,75 +259,6 @@ const EcommerceAddProduct = (props) => {
                     {isProcessSuccessful ? (
                       <SuccessMessage message="User successfully added" />
                     ) : null}
-
-                    <Card>
-                      <CardBody>
-                        <CardTitle className="mb-3">
-                          Upload csv file containing phone numbers
-                        </CardTitle>
-
-                        <Dropzone
-                          onDrop={(acceptedFiles) => {
-                            handleAcceptedFiles(acceptedFiles)
-                          }}
-                        >
-                          {({ getRootProps, getInputProps }) => (
-                            <div className="dropzone">
-                              <div
-                                className="dz-message needsclick"
-                                {...getRootProps()}
-                              >
-                                <input {...getInputProps()} />
-                                <div className="dz-message needsclick">
-                                  <div className="mb-3">
-                                    <i className="display-4 text-muted bx bxs-cloud-upload"></i>
-                                  </div>
-                                  <h4>Drop file here or click to upload.</h4>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </Dropzone>
-                        <div
-                          className="dropzone-previews mt-3"
-                          id="file-previews"
-                        >
-                          {selectedFiles.map((f, i) => {
-                            return (
-                              <Card
-                                className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
-                                key={i + '-file'}
-                              >
-                                <div className="p-2">
-                                  <Row className="align-items-center">
-                                    <Col className="col-auto">
-                                      <img
-                                        data-dz-thumbnail=""
-                                        height="80"
-                                        className="avatar-sm rounded bg-light"
-                                        alt={f.name}
-                                        src={f.preview}
-                                      />
-                                    </Col>
-                                    <Col>
-                                      <Link
-                                        to="#"
-                                        className="text-muted font-weight-bold"
-                                      >
-                                        {f.name}
-                                      </Link>
-                                      <p className="mb-0">
-                                        <strong>{f.formattedSize}</strong>
-                                      </p>
-                                    </Col>
-                                  </Row>
-                                </div>
-                              </Card>
-                            )
-                          })}
-                        </div>
-                      </CardBody>
-                    </Card>
 
                     <FormGroup className="mb-0">
                       <div>
