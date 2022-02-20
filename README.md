@@ -53,7 +53,7 @@ Henceforth, the need for a solution that provides a seamless process that enable
 <!-- Solution -->
 <h2 id="our-solution"> :computer: Our Solution </h2>
 
-_Web link. Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_  and follow the instructions below 
+_Web link. Please refer to the [Link] ('')_  and follow the instructions below 
 
 
 <h4>Getting Started  with the Whatsapp Bot</h4>
@@ -91,21 +91,15 @@ Getting Started As Administration
 
 
 <!-- analytics-->
-<h2 id="research"> 📋: Research Findings</h2>
+<h2 id="research"> 📋: Solution</h2>
 
-<p> 
-<h4>Findings</h4>
-  
-<p align="justify"> 
-How Others Have Solved the Problem
-In relation to South Africa, accessibility of Verification of Marriage Status forms has been made available online for filling and submission. In addition, the SMS platform is also being used to check the verification of marriage status along with phone-call enquiry. This reduces the public having to go to government offices to complete the different processes. 
+
 
 <h4>Our Solution</h4>
-The API built within our solution, this will allow for online marriage registration through the availability of online forms, the upload of support documents, execution of online payment processing, remote management of objections and applications in real-time which will consequently ensure a faster and seamless experience for both the client and administrative officer. The solution features a modular architecture and thus can provide services on mobile applications, web applications, Facebook and WhatsApp chatbot and lastly IOT devices, making it more accessible and allowing for ease of use with both a web and mobile usage.
+Our solution Automates the process of communication between government departments and clients.Conversational Agents respond to  clients on different channels and sends feedback to the central hub.The web app allows government agents to differently interact with clients from different channels all in one place.The solution Handle large volume of automated responses allowing immediate responses to frequent customer queries.Send important and timely notifications to customers. 
+Handle two-way communication between government and recipients. The capability to channel messages to the right recipients.Ability to create logs for respective ministries and departments of sent and received messages for future tracking.Automated Report Generation,responses to email and conversational agents on Twitter and whatsapp.
 
 
-<h4>Lessons Learnt</h4>
-During information and data collection processes, the researchers found that the interviewees seek more convenience and time are a top priority for them as they have daily tasks to be completed, such as going to work. In addition, with Covid, more now would like to limit their movement. This has led to the need for services to be accessed online and reduce the need for physical attendance. With the increase in digitization of other services such as banking and retail, the preference for accessing and completing tasks and services online has increased the appetite for online services by the public.
 
 </p>
  
