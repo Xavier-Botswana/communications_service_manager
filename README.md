@@ -67,6 +67,21 @@ _Web link. Please refer to the [Link] (​https://marriage-registration-1e7e8.we
 1. go to  https://twitter.com/bwComs123
 2. Type Hello to get started with the Twitter bot
 
+<h4>Getting Started  with the Email Bot</h4>
+
+1. Send an email techteam@xavierafrica.com
+2. The bot will automatically respond to the message and the enquiry will be sent to the agent dashboard.
+
+Getting Started As Administration
+<h4>Getting Started As Administration(Web App)</h4>
+1.Login to the platform using the following credentials
+-email:
+-password: 
+2.Navigate to the preferred Tab (Dashboard, Equiries,Feed)
+-Dashboard - This page shows the platform's aggregated performance metrics
+
+
+
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
