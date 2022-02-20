@@ -32,7 +32,7 @@ Henceforth, the need for a solution that provides a seamless process that enable
 
 </br>
 <p align="center"> 
-  <img src="https://scontent.fgbe1-1.fna.fbcdn.net/v/t39.30808-6/273541994_4898643826841685_4625349843647634202_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeH35lFP3TW-H9m6oLStUdiZ-NY-TtKiJMn41j5O0qIkyfaxwOYbyVXs6Qo9A3KOTx0AyXaZgdYY4gmr45D8Ksnn&_nc_ohc=yUG_jZj3q0kAX8-bZR9&_nc_ht=scontent.fgbe1-1.fna&oh=00_AT-9f2tDgQLIwVNgBx1EqlS404qLGkHyK31s-UzTc6fu8g&oe=62180A88" alt="smbots" width="70%" height="70%">
+  <img src="https://scontent.fgbe1-1.fna.fbcdn.net/v/t39.30808-6/273048717_4898644220174979_4465243525693172555_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeGx7Rq3D1qq7n3l8mBp50kXFhVb6M5JL3wWFVvozkkvfHrOdopTAANq0OBfjv6zFpCCjOWlb8GFPS6Vliceji5f&_nc_ohc=H2Hhy6QYapMAX8iNkL_&_nc_oc=AQn1vEJNECPuKxAOyhsWYZSEzAPbNIzay7U9hi_MK6sAr-uceHhrPYIiDwC7Sww7a38&tn=tczBgtQKpm3JnT4Q&_nc_ht=scontent.fgbe1-1.fna&oh=00_AT9QGo8KryxVDAkWD-wmolIgQoQCWER6ZCfGOEUM4gGtEA&oe=6217B5A9" alt="smbots" width="70%" height="70%">
 </p>
 
 
