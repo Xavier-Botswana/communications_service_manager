@@ -144,10 +144,10 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/communications_se
 
 
 <p> 
-  Portal Screens [Admin]
-  
-<p align="center"> 
-  <img src="https://firebasestorage.googleapis.com/v0/b/gov-communications.appspot.com/o/login.png?alt=media&token=5809ad3f-9d28-441a-ac92-bb522eccfe0f" alt="smbots" width="70%" height="70%">
+  Email Bot Demo
+  _Please refer to the [Link] ('https://youtu.be/npNTuMyKZKQ')
+
+
 </p>
 <p align="center"> 
   <img src="https://firebasestorage.googleapis.com/v0/b/gov-communications.appspot.com/o/dash.png?alt=media&token=36439239-f8f3-4ef3-94b5-06d11da6900e" alt="smbots" width="70%" height="70%">
@@ -157,7 +157,6 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/communications_se
   <img src="https://firebasestorage.googleapis.com/v0/b/gov-communications.appspot.com/o/bulk.png?alt=media&token=2b3c329d-d606-42e1-b2ec-88939561ff8a" alt="smbots" width="70%" height="70%">
 </p>
 
-_Please refer to the [Link] ('')_ to access the web portal. The credentials are in the <a href="#our-solution">Our Solution</a> section above.
 
 
 
