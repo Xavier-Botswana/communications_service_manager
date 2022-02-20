@@ -154,9 +154,7 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/MarriageRegistrat
 </p>
 
 _Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_ to access the web portal. The credentials are in the <a href="#our-solution">Our Solution</a> section above.
- 
- 
- <!-- <a href="https://docs.google.com/presentation/d/1q1V6qgiDrBObpEXmhjADp2QHiK-3EmuLFjKhTeyLwk0/edit?usp=sharing"> ➤ Design Thinking</a> -->
+
 
 
  
@@ -167,20 +165,12 @@ _Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_ to
 
 <!-- analytics-->
 <h2 id="doc"> 📋: Link to the code-base </h2>
-
-<!-- _Developer Documentation. Please refer to the [Link](https://documenter.getpostman.com/view/12221940/UVC3jStF)_ -->
-
 <p> 
   Code-Base
 
-<p align="center"> 
-  <a href="https://github.com/Xavier-Botswana/communications_service_manager"><img src="images/dd.png" alt="smbots" width="70%" height="70%"></a>
-</p>
 
 _Please refer to the [Link](https://github.com/Xavier-Botswana/communications_service_manager)_ to access the code-base
  
-<!--  
- <a href="https://docs.google.com/presentation/d/1q1V6qgiDrBObpEXmhjADp2QHiK-3EmuLFjKhTeyLwk0/edit?usp=sharing"> ➤ Design Thinking</a> -->
 
 
  
