@@ -32,7 +32,7 @@ Henceforth, the need for a solution that provides a seamless process that enable
 
 </br>
 <p align="center"> 
-  <img src="images/mr.png" alt="smbots" width="70%" height="70%">
+  <img src="https://scontent.fgbe1-1.fna.fbcdn.net/v/t39.30808-6/273541994_4898643826841685_4625349843647634202_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeH35lFP3TW-H9m6oLStUdiZ-NY-TtKiJMn41j5O0qIkyfaxwOYbyVXs6Qo9A3KOTx0AyXaZgdYY4gmr45D8Ksnn&_nc_ohc=yUG_jZj3q0kAX8-bZR9&_nc_ht=scontent.fgbe1-1.fna&oh=00_AT-9f2tDgQLIwVNgBx1EqlS404qLGkHyK31s-UzTc6fu8g&oe=62180A88" alt="smbots" width="70%" height="70%">
 </p>
 
 
